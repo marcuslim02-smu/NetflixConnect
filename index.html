@@ -4,375 +4,305 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Netflix Connect · Project Command Centre</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Epilogue:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:        #0a0a0a;
-  --bg2:       #111111;
-  --bg3:       #181818;
-  --bg4:       #202020;
-  --border:    #2a2a2a;
-  --border2:   #333;
-  --text:      #e8e8e8;
-  --muted:     #666;
-  --muted2:    #888;
-  --red:       #E50914;
-  --red-dim:   rgba(229,9,20,.12);
-  --green:     #22c55e;
-  --green-dim: rgba(34,197,94,.12);
-  --amber:     #f59e0b;
-  --amber-dim: rgba(245,158,11,.12);
-  --blue:      #3b82f6;
-  --blue-dim:  rgba(59,130,246,.12);
-  --font-head: 'Epilogue', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+:root{
+  --bg:#0a0a0a;--bg2:#111;--bg3:#181818;--bg4:#202020;--bg5:#252525;
+  --border:#2a2a2a;--border2:#333;
+  --text:#e8e8e8;--muted:#666;--muted2:#888;
+  --red:#E50914;--red-dim:rgba(229,9,20,.12);
+  --green:#22c55e;--green-dim:rgba(34,197,94,.12);
+  --amber:#f59e0b;--amber-dim:rgba(245,158,11,.12);
+  --blue:#3b82f6;--blue-dim:rgba(59,130,246,.12);
+  --purple:#a855f7;--purple-dim:rgba(168,85,247,.12);
+  --font-h:'Bebas Neue',sans-serif;
+  --font-b:'Barlow',sans-serif;
+  --font-m:'Courier Prime',monospace;
+  --font-cond:'Barlow Condensed',sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{font-size:13px;scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden;}
-button{font-family:var(--font-body);cursor:pointer;}
-input,textarea,select{font-family:var(--font-body);}
-
-/* ── SCROLLBAR ── */
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-height:100vh;overflow-x:hidden;}
+button{font-family:var(--font-b);cursor:pointer;}
+input,textarea,select{font-family:var(--font-b);}
 ::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px;}
 
-/* ══════════════════════════════════════════════
-   TOP HEADER
-══════════════════════════════════════════════ */
-#app-header{
-  height:52px;
-  background:rgba(10,10,10,.95);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;
-  padding:0 20px;
-  gap:16px;
-  position:sticky;top:0;z-index:999;
-  backdrop-filter:blur(10px);
-}
-.n-logo{
-  width:28px;height:28px;border-radius:5px;
-  background:var(--red);display:grid;place-items:center;
-  font-family:var(--font-head);font-size:16px;font-weight:900;color:#fff;
-  flex-shrink:0;
-}
-.proj-name{
-  font-family:var(--font-head);font-weight:700;font-size:14px;
-  letter-spacing:-.01em;
-}
-.proj-name span{color:var(--red);}
-.header-sep{width:1px;height:20px;background:var(--border);flex-shrink:0;}
-.role-selector-wrap{display:flex;align-items:center;gap:8px;}
-.role-label{font-size:11px;color:var(--muted);font-family:var(--font-mono);}
-#role-select{
-  background:var(--bg3);border:1px solid var(--border2);
-  color:var(--text);padding:4px 10px;border-radius:5px;
-  font-size:11px;font-family:var(--font-mono);
-  cursor:pointer;outline:none;
-}
-.header-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
-.user-pill{
-  display:flex;align-items:center;gap:7px;
-  background:var(--bg3);border:1px solid var(--border);
-  padding:4px 10px 4px 5px;border-radius:20px;cursor:pointer;
-}
-.user-avatar{
-  width:22px;height:22px;border-radius:50%;
-  display:grid;place-items:center;
-  font-size:9px;font-weight:700;color:#fff;
-  flex-shrink:0;
-}
-.user-name{font-size:11px;color:var(--text);font-family:var(--font-mono);}
-.notif-dot{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--red);flex-shrink:0;
-}
-#live-clock{font-size:10px;color:var(--muted);font-family:var(--font-mono);}
+/* ── HEADER ── */
+#hdr{height:52px;background:rgba(10,10,10,.96);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 20px;gap:14px;
+  position:sticky;top:0;z-index:999;backdrop-filter:blur(10px);}
+.n-logo{width:28px;height:28px;border-radius:5px;background:var(--red);
+  display:grid;place-items:center;font-family:var(--font-h);font-size:18px;font-weight:400;color:#fff;flex-shrink:0;letter-spacing:.02em;}
+.proj-nm{font-family:var(--font-h);font-weight:400;font-size:18px;letter-spacing:.08em;}
+.proj-nm span{color:var(--red);}
+.h-sep{width:1px;height:20px;background:var(--border);flex-shrink:0;}
+.role-wrap{display:flex;align-items:center;gap:8px;}
+.role-lbl{font-size:11px;color:var(--muted);font-family:var(--font-m);}
+#role-sel{background:var(--bg3);border:1px solid var(--border2);color:var(--text);
+  padding:4px 10px;border-radius:5px;font-size:11px;font-family:var(--font-m);cursor:pointer;outline:none;}
+.h-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.u-pill{display:flex;align-items:center;gap:7px;background:var(--bg3);border:1px solid var(--border);
+  padding:4px 10px 4px 5px;border-radius:20px;cursor:pointer;}
+.u-av{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
+  font-size:9px;font-weight:700;color:#fff;flex-shrink:0;}
+.u-nm{font-size:11px;color:var(--text);font-family:var(--font-m);}
+#clock{font-size:10px;color:var(--muted);font-family:var(--font-m);}
 
-/* ══════════════════════════════════════════════
-   LAYOUT: SIDEBAR + CONTENT
-══════════════════════════════════════════════ */
+/* ── LAYOUT ── */
 #layout{display:flex;height:calc(100vh - 52px);}
 
-/* SIDEBAR */
-#sidebar{
-  width:200px;flex-shrink:0;
-  border-right:1px solid var(--border);
-  background:var(--bg2);
-  overflow-y:auto;
-  display:flex;flex-direction:column;
-  padding:12px 0;
-}
-.sidebar-section{
-  padding:4px 12px 2px;
-  font-size:9px;font-family:var(--font-mono);
-  color:var(--muted);text-transform:uppercase;letter-spacing:.1em;
-  margin-top:8px;
-}
-.sidebar-item{
-  display:flex;align-items:center;gap:8px;
-  padding:8px 14px;
-  font-size:12px;color:var(--muted2);
-  cursor:pointer;transition:all .15s;
-  border-left:2px solid transparent;
-  margin:1px 0;
-}
-.sidebar-item:hover{background:var(--bg3);color:var(--text);}
-.sidebar-item.active{
-  background:var(--red-dim);color:var(--red);
-  border-left-color:var(--red);
-}
-.sidebar-icon{font-size:13px;width:16px;text-align:center;flex-shrink:0;}
-.sidebar-badge{
-  margin-left:auto;
-  background:var(--red);color:#fff;
-  font-size:9px;font-family:var(--font-mono);
-  padding:1px 5px;border-radius:99px;
-  min-width:16px;text-align:center;
-}
+/* ── SIDEBAR ── */
+#sb{width:196px;flex-shrink:0;border-right:1px solid var(--border);background:var(--bg2);
+  overflow-y:auto;display:flex;flex-direction:column;padding:10px 0;}
+.sb-sec{padding:4px 12px 2px;font-size:9px;font-family:var(--font-m);color:var(--muted);
+  text-transform:uppercase;letter-spacing:.1em;margin-top:8px;}
+.sb-it{display:flex;align-items:center;gap:8px;padding:8px 14px;font-size:12px;color:var(--muted2);
+  cursor:pointer;transition:all .15s;border-left:2px solid transparent;margin:1px 0;}
+.sb-it:hover{background:var(--bg3);color:var(--text);}
+.sb-it.active{background:var(--red-dim);color:var(--red);border-left-color:var(--red);}
+.sb-ic{font-size:13px;width:16px;text-align:center;flex-shrink:0;}
+.sb-badge{margin-left:auto;background:var(--red);color:#fff;font-size:9px;font-family:var(--font-m);
+  padding:1px 5px;border-radius:99px;min-width:16px;text-align:center;}
+.sb-badge.blue{background:var(--blue);}
 
-/* CONTENT */
-#content{flex:1;overflow-y:auto;padding:0;}
-.content-pane{display:none;padding:20px 24px;}
-.content-pane.active{display:block;animation:fadeIn .2s ease;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+/* ── CONTENT ── */
+#content{flex:1;overflow-y:auto;}
+.pane{display:none;padding:22px 26px;}
+.pane.active{display:block;animation:fi .2s ease;}
+@keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
 
-/* ══════════════════════════════════════════════
-   SHARED COMPONENTS
-══════════════════════════════════════════════ */
-.page-header{
-  display:flex;align-items:flex-start;justify-content:space-between;
-  margin-bottom:20px;gap:12px;
-}
-.page-title{
-  font-family:var(--font-head);font-size:20px;font-weight:900;
-  letter-spacing:-.02em;line-height:1;
-}
-.page-sub{font-size:11px;color:var(--muted);margin-top:5px;font-family:var(--font-mono);}
-.btn{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:7px 14px;border-radius:6px;font-size:12px;font-weight:500;
-  border:1px solid var(--border2);background:var(--bg3);color:var(--text);
-  transition:all .15s;cursor:pointer;white-space:nowrap;
-}
+/* ── SHARED ── */
+.pg-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;gap:12px;}
+.pg-title{font-family:var(--font-h);font-size:28px;font-weight:400;letter-spacing:.06em;line-height:1;}
+.pg-sub{font-size:11px;color:var(--muted);margin-top:4px;font-family:var(--font-m);}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:6px;
+  font-size:12px;font-weight:500;border:1px solid var(--border2);background:var(--bg3);
+  color:var(--text);transition:all .15s;cursor:pointer;white-space:nowrap;}
 .btn:hover{background:var(--bg4);border-color:var(--muted);}
 .btn.primary{background:var(--red);border-color:var(--red);color:#fff;}
-.btn.primary:hover{background:#c70812;border-color:#c70812;}
+.btn.primary:hover{background:#c70812;}
 .btn.sm{padding:4px 10px;font-size:11px;}
 .btn.ghost{background:transparent;border-color:transparent;}
 .btn.ghost:hover{background:var(--bg3);border-color:var(--border);}
-
-.card{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:9px;padding:16px;margin-bottom:14px;
-}
-.card-title{
-  font-family:var(--font-head);font-size:13px;font-weight:700;
-  margin-bottom:12px;display:flex;align-items:center;gap:8px;
-  color:var(--text);
-}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:16px;margin-bottom:14px;}
+.card-title{font-family:var(--font-cond);font-size:14px;font-weight:600;letter-spacing:.04em;margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;color:var(--text);text-transform:uppercase;}
 .card-actions{margin-left:auto;display:flex;gap:6px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
+@media(max-width:900px){.g3,.g4{grid-template-columns:1fr 1fr;}.g2{grid-template-columns:1fr;}}
 
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
-.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
-.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
-@media(max-width:900px){.grid-3,.grid-4{grid-template-columns:1fr 1fr;}.grid-2{grid-template-columns:1fr;}}
+/* ── KPI ── */
+.kpi{background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:14px 16px;
+  position:relative;overflow:hidden;}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent,var(--red));}
+.kpi-lbl{font-size:9px;font-family:var(--font-m);color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.kpi-val{font-family:var(--font-h);font-size:26px;font-weight:400;line-height:1;letter-spacing:.05em;}
+.kpi-sub{font-size:10px;color:var(--muted);margin-top:4px;font-family:var(--font-m);}
+.kpi-delta{font-size:10px;font-family:var(--font-m);margin-top:5px;}
+.delta-g{color:var(--green);}
+.delta-a{color:var(--amber);}
+.delta-r{color:var(--red);}
 
-/* RAGB STATUS */
-.ragb{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:5px;font-size:10px;font-family:var(--font-mono);font-weight:500;cursor:pointer;border:1px solid;}
+/* ── RAGB ── */
+.ragb{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:5px;
+  font-size:10px;font-family:var(--font-m);font-weight:500;cursor:pointer;border:1px solid;}
 .ragb.G{background:var(--green-dim);color:var(--green);border-color:rgba(34,197,94,.3);}
 .ragb.A{background:var(--amber-dim);color:var(--amber);border-color:rgba(245,158,11,.3);}
 .ragb.R{background:var(--red-dim);color:var(--red);border-color:rgba(229,9,20,.3);}
 .ragb.B{background:var(--blue-dim);color:var(--blue);border-color:rgba(59,130,246,.3);}
 .ragb.U{background:rgba(100,100,100,.1);color:var(--muted2);border-color:var(--border);}
+.rdot{width:7px;height:7px;border-radius:50%;}
+.ragb.G .rdot{background:var(--green);}.ragb.A .rdot{background:var(--amber);}
+.ragb.R .rdot{background:var(--red);}.ragb.B .rdot{background:var(--blue);}
+.ragb.U .rdot{background:var(--muted);}
 
-.ragb-dot{width:7px;height:7px;border-radius:50%;}
-.ragb.G .ragb-dot{background:var(--green);}
-.ragb.A .ragb-dot{background:var(--amber);}
-.ragb.R .ragb-dot{background:var(--red);}
-.ragb.B .ragb-dot{background:var(--blue);}
-.ragb.U .ragb-dot{background:var(--muted);}
-
-/* KPI STAT CARDS */
-.kpi{background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:14px 16px;position:relative;overflow:hidden;}
-.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent,var(--red));}
-.kpi-label{font-size:9px;font-family:var(--font-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
-.kpi-value{font-family:var(--font-head);font-size:22px;font-weight:900;line-height:1;}
-.kpi-sub{font-size:10px;color:var(--muted);margin-top:4px;font-family:var(--font-mono);}
-
-/* PROGRESS BAR */
+/* ── PROG BAR ── */
 .prog{margin-bottom:10px;}
 .prog-row{display:flex;justify-content:space-between;margin-bottom:3px;font-size:11px;}
 .prog-track{height:5px;background:var(--bg4);border-radius:99px;overflow:hidden;}
 .prog-fill{height:100%;border-radius:99px;transition:width .6s ease;}
 
-/* TAG */
-.tag{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-family:var(--font-mono);background:var(--bg4);color:var(--muted2);border:1px solid var(--border);}
+/* ── ROLE BANNER ── */
+.rbanner{padding:8px 14px;border-radius:7px;margin-bottom:14px;font-size:11px;
+  display:flex;align-items:center;gap:8px;border:1px solid;}
+.rbanner.pm{background:rgba(229,9,20,.08);border-color:rgba(229,9,20,.25);color:#ff8080;}
+.rbanner.eng{background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.25);color:#7ab3ff;}
+.rbanner.exec{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.25);color:#fcd070;}
+.rbanner.fin{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.25);color:#6ee8a0;}
+.rbanner.risk{background:rgba(168,85,247,.08);border-color:rgba(168,85,247,.25);color:#c084fc;}
 
-/* DIVIDER */
-.div{height:1px;background:var(--border);margin:14px 0;}
+/* ── HOME: OVERVIEW TILES ── */
+.home-grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;}
+.home-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;}
+@media(max-width:1000px){.home-grid{grid-template-columns:1fr;}.home-grid-3{grid-template-columns:1fr 1fr;}}
 
-/* ══════════════════════════════════════════════
-   TASK / MILESTONE ROWS
-══════════════════════════════════════════════ */
-.task-group{margin-bottom:16px;}
-.task-group-header{
-  display:flex;align-items:center;gap:8px;
-  padding:8px 12px;
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:7px 7px 0 0;cursor:pointer;
-  font-size:12px;font-weight:600;
-  user-select:none;
-}
-.task-group-header .chevron{transition:transform .2s;font-size:10px;color:var(--muted);}
-.task-group-header.collapsed .chevron{transform:rotate(-90deg);}
-.task-group-body{border:1px solid var(--border);border-top:none;border-radius:0 0 7px 7px;overflow:hidden;}
+.rag-trend-bar{display:flex;gap:6px;margin-bottom:8px;}
+.rag-trend-item{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.rag-trend-month{font-size:9px;color:var(--muted);font-family:var(--font-m);}
+.rag-trend-dot{width:26px;height:26px;border-radius:5px;display:grid;place-items:center;
+  font-size:10px;font-weight:700;color:#fff;}
+.rag-trend-dot.G{background:var(--green);}.rag-trend-dot.A{background:var(--amber);}
+.rag-trend-dot.R{background:var(--red);}.rag-trend-dot.B{background:var(--blue);}
+.rag-trend-dot.U{background:var(--bg4);color:var(--muted);}
 
-.task-row{
-  display:flex;align-items:center;gap:10px;
-  padding:9px 12px;
-  border-bottom:1px solid var(--border);
-  background:var(--bg2);
-  transition:background .1s;
-}
+.spend-bar-chart{display:flex;align-items:flex-end;gap:8px;height:80px;margin-top:10px;}
+.sbc-col{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;}
+.sbc-bar{width:100%;border-radius:3px 3px 0 0;transition:height .6s ease;min-height:3px;}
+.sbc-lbl{font-size:9px;color:var(--muted);font-family:var(--font-m);}
+.sbc-val{font-size:9px;color:var(--muted2);font-family:var(--font-m);}
+
+.benefit-bar{width:100%;height:60px;display:flex;align-items:flex-end;gap:3px;margin-top:8px;}
+.bb-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;}
+.bb-bar{width:100%;border-radius:2px 2px 0 0;transition:height .6s ease;}
+.bb-lbl{font-size:8px;color:var(--muted);font-family:var(--font-m);white-space:nowrap;}
+
+/* ── FINANCIAL PROFILE SECTION (Sample 2 style) ── */
+.fin-top-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:10px;margin-bottom:14px;}
+@media(max-width:900px){.fin-top-row{grid-template-columns:1fr 1fr;}}
+
+.fin-stat{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;}
+.fin-stat-lbl{font-size:9px;font-family:var(--font-m);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
+.fin-stat-main{font-family:var(--font-h);font-size:22px;font-weight:400;line-height:1;letter-spacing:.05em;}
+.fin-stat-sub{font-size:10px;font-family:var(--font-m);color:var(--muted);margin-top:3px;}
+.fin-stat-pct{font-size:11px;font-family:var(--font-m);margin-top:4px;}
+
+.nav-link-card{background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:14px;
+  cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:4px;}
+.nav-link-card:hover{border-color:var(--red);background:rgba(229,9,20,.04);}
+.nlc-icon{font-size:18px;margin-bottom:4px;}
+.nlc-title{font-family:var(--font-cond);font-size:15px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;}
+.nlc-desc{font-size:11px;color:var(--muted);line-height:1.4;}
+.nlc-arrow{margin-top:auto;font-size:10px;color:var(--red);font-family:var(--font-m);}
+
+/* ── TASK ── */
+.task-group{margin-bottom:14px;}
+.tg-hdr{display:flex;align-items:center;gap:8px;padding:8px 12px;
+  background:var(--bg3);border:1px solid var(--border);border-radius:7px 7px 0 0;
+  cursor:pointer;font-size:12px;font-weight:600;user-select:none;}
+.tg-hdr .chev{transition:transform .2s;font-size:10px;color:var(--muted);}
+.tg-hdr.collapsed .chev{transform:rotate(-90deg);}
+.tg-body{border:1px solid var(--border);border-top:none;border-radius:0 0 7px 7px;overflow:hidden;}
+.task-row{display:flex;align-items:center;gap:10px;padding:9px 12px;
+  border-bottom:1px solid var(--border);background:var(--bg2);transition:background .1s;}
 .task-row:hover{background:var(--bg3);}
 .task-row:last-child{border-bottom:none;}
-.task-row.subtask{padding-left:32px;background:rgba(0,0,0,.2);}
-.task-row.subtask:hover{background:var(--bg3);}
-
-.task-check{
-  width:16px;height:16px;border-radius:4px;
-  border:1.5px solid var(--border2);background:transparent;
-  display:grid;place-items:center;flex-shrink:0;cursor:pointer;
-  transition:all .15s;
-}
-.task-check.checked{background:var(--green);border-color:var(--green);color:#fff;font-size:9px;}
-.task-check.partial{background:var(--amber-dim);border-color:var(--amber);color:var(--amber);font-size:9px;}
-
-.task-name{flex:1;font-size:12px;color:var(--text);}
-.task-name.done{text-decoration:line-through;color:var(--muted);}
+.task-row.sub{padding-left:32px;background:rgba(0,0,0,.2);}
+.task-row.sub:hover{background:var(--bg3);}
+.chk{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border2);
+  background:transparent;display:grid;place-items:center;flex-shrink:0;cursor:pointer;transition:all .15s;}
+.chk.checked{background:var(--green);border-color:var(--green);color:#fff;font-size:9px;}
+.task-nm{flex:1;font-size:12px;color:var(--text);}
+.task-nm.done{text-decoration:line-through;color:var(--muted);}
 .task-meta{display:flex;align-items:center;gap:8px;flex-shrink:0;}
-.task-assignee{font-size:10px;color:var(--muted);font-family:var(--font-mono);}
-.task-date{font-size:10px;color:var(--muted);font-family:var(--font-mono);}
-.task-actions{display:none;}
-.task-row:hover .task-actions{display:flex;gap:4px;}
+.t-assignee,.t-date{font-size:10px;color:var(--muted);font-family:var(--font-m);}
+.task-acts{display:none;}
+.task-row:hover .task-acts{display:flex;gap:4px;}
 
-/* CHECKPOINT */
-.checkpoint-row{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 14px;
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:7px;margin-bottom:8px;
-}
-.cp-icon{font-size:16px;flex-shrink:0;}
-.cp-info{flex:1;}
-.cp-name{font-size:12px;font-weight:600;color:var(--text);}
-.cp-date{font-size:10px;color:var(--muted);font-family:var(--font-mono);margin-top:2px;}
-.cp-sigs{display:flex;gap:4px;flex-shrink:0;}
-.sig-avatar{
-  width:24px;height:24px;border-radius:50%;
-  display:grid;place-items:center;font-size:9px;font-weight:700;color:#fff;
-  cursor:pointer;transition:transform .15s;border:1.5px solid var(--bg);
-  position:relative;
-}
-.sig-avatar:hover{transform:scale(1.1);}
-.sig-avatar.signed{opacity:1;}
-.sig-avatar.unsigned{opacity:.35;filter:grayscale(1);}
-.sig-tooltip{
-  position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);
-  background:var(--bg4);border:1px solid var(--border2);border-radius:5px;
-  padding:4px 8px;font-size:10px;white-space:nowrap;font-family:var(--font-mono);
-  pointer-events:none;opacity:0;transition:opacity .15s;z-index:100;
-}
-.sig-avatar:hover .sig-tooltip{opacity:1;}
+/* ── MILESTONE ── */
+.ms-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.ms-item:last-child{border-bottom:none;}
+.ms-nm{font-size:12px;font-weight:600;flex:1;}
 
-/* ══════════════════════════════════════════════
-   SIGNOFF PANEL
-══════════════════════════════════════════════ */
-.signoff-card{
-  background:var(--bg2);border:1px solid var(--border);border-radius:9px;
-  padding:14px;margin-bottom:10px;
-}
-.signoff-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.signoff-title{flex:1;font-size:13px;font-weight:600;}
-.signoff-stage{font-size:10px;color:var(--muted);font-family:var(--font-mono);}
-.signer-grid{display:flex;flex-wrap:wrap;gap:8px;}
-.signer-chip{
-  display:flex;align-items:center;gap:7px;
-  padding:6px 10px;border-radius:6px;
-  border:1px solid var(--border);background:var(--bg3);
-  cursor:pointer;transition:all .15s;min-width:150px;
-}
+/* ── CHECKPOINT ── */
+.cp-card{background:var(--bg2);border:1px solid var(--border);border-radius:9px;
+  padding:14px;margin-bottom:12px;}
+.cp-sigs{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;}
+.signer-chip{display:flex;align-items:center;gap:7px;padding:6px 10px;border-radius:6px;
+  border:1px solid var(--border);background:var(--bg3);cursor:pointer;transition:all .15s;min-width:148px;}
 .signer-chip:hover{border-color:var(--border2);}
 .signer-chip.signed{border-color:rgba(34,197,94,.4);background:var(--green-dim);}
-.signer-chip.signed .sc-status{color:var(--green);}
-.signer-chip .sc-name{font-size:11px;font-weight:500;flex:1;}
-.signer-chip .sc-role{font-size:9px;color:var(--muted);font-family:var(--font-mono);}
-.signer-chip .sc-status{font-size:10px;font-family:var(--font-mono);color:var(--muted);}
-.signer-chip .sc-time{font-size:9px;color:var(--muted);font-family:var(--font-mono);}
+.signer-chip .sc-nm{font-size:11px;font-weight:500;flex:1;}
+.signer-chip .sc-role{font-size:9px;color:var(--muted);font-family:var(--font-m);}
+.signer-chip .sc-st{font-size:10px;font-family:var(--font-m);color:var(--muted);}
+.signer-chip.signed .sc-st{color:var(--green);}
 
-/* ══════════════════════════════════════════════
-   ACTIVITY LOG
-══════════════════════════════════════════════ */
-.log-container{display:flex;flex-direction:column;gap:6px;}
-.log-entry{
-  display:flex;align-items:flex-start;gap:10px;
-  padding:8px 10px;border-radius:6px;
-  background:var(--bg2);border:1px solid var(--border);
-  font-size:11px;
-}
+/* ── LOG ── */
+.log-entry{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:6px;
+  background:var(--bg2);border:1px solid var(--border);font-size:11px;margin-bottom:5px;}
 .log-entry.new{border-color:rgba(229,9,20,.2);background:rgba(229,9,20,.04);}
-.log-time{font-family:var(--font-mono);color:var(--muted);white-space:nowrap;flex-shrink:0;font-size:10px;margin-top:1px;}
-.log-actor{font-weight:600;color:var(--text);white-space:nowrap;}
+.log-time{font-family:var(--font-m);color:var(--muted);white-space:nowrap;flex-shrink:0;font-size:10px;margin-top:1px;}
+.log-actor{font-weight:600;color:var(--text);}
 .log-action{color:var(--muted2);}
-.log-subject{color:var(--text);}
-.log-old{color:var(--muted);text-decoration:line-through;font-family:var(--font-mono);font-size:10px;}
-.log-new{font-family:var(--font-mono);font-size:10px;}
-.log-new.G{color:var(--green);}
-.log-new.A{color:var(--amber);}
-.log-new.R{color:var(--red);}
-.log-new.B{color:var(--blue);}
-.log-icon{font-size:13px;flex-shrink:0;margin-top:0px;}
+.log-icon{font-size:13px;flex-shrink:0;}
+.log-new.G{color:var(--green);font-family:var(--font-m);font-size:10px;}
+.log-new.A{color:var(--amber);font-family:var(--font-m);font-size:10px;}
+.log-new.R{color:var(--red);font-family:var(--font-m);font-size:10px;}
+.log-new.B{color:var(--blue);font-family:var(--font-m);font-size:10px;}
+.log-old{color:var(--muted);text-decoration:line-through;font-family:var(--font-m);font-size:10px;}
 
-/* ══════════════════════════════════════════════
-   MODAL
-══════════════════════════════════════════════ */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.7);
-  z-index:9000;display:none;place-items:center;
-  backdrop-filter:blur(4px);
-}
-.modal-overlay.open{display:grid;}
-.modal{
-  background:var(--bg2);border:1px solid var(--border2);
-  border-radius:12px;padding:22px;width:90%;max-width:480px;
-  max-height:85vh;overflow-y:auto;
-  animation:modalIn .2s ease;
-}
-@keyframes modalIn{from{opacity:0;transform:scale(.96);}to{opacity:1;transform:scale(1);}}
-.modal-title{font-family:var(--font-head);font-size:16px;font-weight:900;margin-bottom:16px;}
-.modal-close{
-  position:absolute;top:16px;right:16px;
-  background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;
-}
-.form-label{font-size:11px;color:var(--muted);font-family:var(--font-mono);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;}
-.form-input{
-  width:100%;background:var(--bg3);border:1px solid var(--border2);
-  color:var(--text);padding:8px 10px;border-radius:6px;
-  font-size:12px;outline:none;transition:border-color .15s;margin-bottom:12px;
-}
-.form-input:focus{border-color:var(--red);}
-.form-textarea{resize:vertical;min-height:70px;}
-.form-select{background:var(--bg3);appearance:auto;}
+/* ── SUCCESS METRICS ── */
+.sm-section{margin-bottom:18px;}
+.sm-section-hdr{font-family:var(--font-h);font-size:12px;font-weight:700;color:var(--red);
+  text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;padding-bottom:6px;
+  border-bottom:1px solid var(--border);}
+.sm-metric{display:flex;align-items:center;gap:10px;padding:10px 12px;
+  background:var(--bg2);border:1px solid var(--border);border-radius:7px;margin-bottom:6px;
+  cursor:pointer;transition:background .15s;}
+.sm-metric:hover{background:var(--bg3);}
+.sm-metric-nm{flex:1;font-size:12px;color:var(--text);}
+.sm-targets{display:flex;gap:6px;flex-shrink:0;}
+.sm-tgt{padding:3px 8px;border-radius:4px;font-size:10px;font-family:var(--font-m);}
+.sm-tgt.good{background:rgba(100,100,100,.1);color:var(--muted2);}
+.sm-tgt.better{background:var(--amber-dim);color:var(--amber);}
+.sm-tgt.best{background:var(--green-dim);color:var(--green);}
+.sm-current{font-family:var(--font-m);font-size:11px;min-width:60px;text-align:right;}
+.sm-prog-wrap{width:80px;flex-shrink:0;}
+.star-metric{background:rgba(229,9,20,.06);border-color:rgba(229,9,20,.2);}
+.star-metric .sm-metric-nm{color:var(--red);font-weight:600;}
+
+/* ── FINANCIAL DRIVERS ── */
+.fd-table{width:100%;border-collapse:collapse;font-size:12px;}
+.fd-table th{text-align:left;padding:8px 10px;font-family:var(--font-m);font-size:10px;
+  color:var(--muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border);}
+.fd-table th.num{text-align:right;}
+.fd-table td{padding:9px 10px;border-bottom:1px solid var(--bg4);color:var(--text);vertical-align:middle;}
+.fd-table td.num{font-family:var(--font-m);text-align:right;}
+.fd-table tr:last-child td{border-bottom:none;}
+.fd-table tr:hover td{background:var(--bg3);}
+.ed-cell{cursor:pointer;border-bottom:1px dashed var(--border2);transition:color .15s;}
+.ed-cell:hover{color:var(--amber);}
+.fd-section-row td{background:rgba(229,9,20,.06);font-size:10px;font-family:var(--font-m);
+  color:var(--red);text-transform:uppercase;letter-spacing:.08em;padding:6px 10px;}
+
+/* ── RISK TABLE ── */
+.risk-table{width:100%;border-collapse:collapse;font-size:12px;}
+.risk-table th{text-align:left;padding:8px 10px;font-family:var(--font-m);font-size:10px;
+  color:var(--muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border);}
+.risk-table td{padding:10px;border-bottom:1px solid var(--bg4);color:var(--text);}
+.risk-table tr:last-child td{border-bottom:none;}
+.risk-table tr:hover td{background:var(--bg3);}
+.pill{display:inline-block;padding:3px 9px;border-radius:99px;font-size:10px;
+  font-family:var(--font-m);font-weight:500;}
+.pill-r{background:rgba(229,9,20,.15);color:#ff6b6b;}
+.pill-a{background:var(--amber-dim);color:var(--amber);}
+.pill-g{background:var(--green-dim);color:var(--green);}
+
+/* ── MODAL ── */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9000;
+  display:none;place-items:center;backdrop-filter:blur(4px);}
+.modal-ov.open{display:grid;}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:12px;
+  padding:22px;width:90%;max-width:480px;max-height:85vh;overflow-y:auto;
+  animation:mIn .2s ease;position:relative;}
+@keyframes mIn{from{opacity:0;transform:scale(.96);}to{opacity:1;transform:scale(1);}}
+.modal-title{font-family:var(--font-h);font-size:22px;font-weight:400;letter-spacing:.06em;margin-bottom:16px;}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;
+  color:var(--muted);font-size:18px;cursor:pointer;}
+.fl{font-size:11px;color:var(--muted);font-family:var(--font-m);margin-bottom:5px;
+  text-transform:uppercase;letter-spacing:.06em;}
+.fi{width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);
+  padding:8px 10px;border-radius:6px;font-size:12px;outline:none;transition:border-color .15s;margin-bottom:12px;}
+.fi:focus{border-color:var(--red);}
+.fta{resize:vertical;min-height:70px;}
+.fsel{background:var(--bg3);appearance:auto;}
 .ragb-picker{display:flex;gap:8px;margin-bottom:12px;}
-.rp-opt{
-  flex:1;padding:8px;border-radius:6px;text-align:center;
-  font-size:11px;font-family:var(--font-mono);font-weight:700;
-  cursor:pointer;border:2px solid transparent;transition:all .15s;
-  opacity:.5;
-}
+.rp-opt{flex:1;padding:8px;border-radius:6px;text-align:center;font-size:11px;
+  font-family:var(--font-m);font-weight:700;cursor:pointer;border:2px solid transparent;
+  transition:all .15s;opacity:.5;}
 .rp-opt:hover{opacity:.8;}
 .rp-opt.sel{opacity:1;border-color:currentColor;}
 .rp-opt.G{background:var(--green-dim);color:var(--green);}
@@ -380,116 +310,34 @@ input,textarea,select{font-family:var(--font-body);}
 .rp-opt.R{background:var(--red-dim);color:var(--red);}
 .rp-opt.B{background:var(--blue-dim);color:var(--blue);}
 
-/* ══════════════════════════════════════════════
-   ROLE-SPECIFIC BANNERS
-══════════════════════════════════════════════ */
-.role-banner{
-  padding:8px 14px;border-radius:7px;margin-bottom:16px;
-  font-size:11px;display:flex;align-items:center;gap:8px;
-  border:1px solid;
-}
-.role-banner.pm{background:rgba(229,9,20,.08);border-color:rgba(229,9,20,.25);color:#ff8080;}
-.role-banner.eng{background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.25);color:#7ab3ff;}
-.role-banner.exec{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.25);color:#fcd070;}
-.role-banner.fin{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.25);color:#6ee8a0;}
-.role-banner.risk{background:rgba(168,85,247,.08);border-color:rgba(168,85,247,.25);color:#c084fc;}
-
-/* ══════════════════════════════════════════════
-   OVERVIEW / DASHBOARD PANE
-══════════════════════════════════════════════ */
-.overall-status-bar{
-  display:flex;align-items:center;gap:12px;
-  background:var(--bg2);border:1px solid var(--border);border-radius:9px;
-  padding:12px 16px;margin-bottom:14px;
-}
-.osb-label{font-size:11px;color:var(--muted);font-family:var(--font-mono);flex-shrink:0;}
-.osb-dims{display:flex;gap:8px;flex-wrap:wrap;}
-.osb-sep{width:1px;height:20px;background:var(--border);flex-shrink:0;}
-.osb-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
-
-/* MINI HEAT MAP */
-.heat-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;margin-top:6px;}
-.heat-cell{height:12px;border-radius:2px;cursor:pointer;transition:transform .1s;}
-.heat-cell:hover{transform:scale(1.3);}
-.heat-cell.G{background:var(--green);}
-.heat-cell.A{background:var(--amber);}
-.heat-cell.R{background:var(--red);}
-.heat-cell.B{background:var(--blue);}
-.heat-cell.U{background:var(--bg4);}
-
-/* SPEND SPARKLINE */
-.sparkline{height:40px;display:flex;align-items:flex-end;gap:3px;}
-.spark-bar{border-radius:2px 2px 0 0;background:var(--red);opacity:.7;min-width:8px;transition:opacity .15s;}
-.spark-bar:hover{opacity:1;}
-
-/* ══════════════════════════════════════════════
-   FINANCIALS PANE
-══════════════════════════════════════════════ */
-.fin-table{width:100%;border-collapse:collapse;font-size:12px;}
-.fin-table th{
-  padding:8px 10px;text-align:left;
-  font-family:var(--font-mono);font-size:10px;color:var(--muted);
-  text-transform:uppercase;letter-spacing:.08em;
-  border-bottom:1px solid var(--border);
-}
-.fin-table td{padding:9px 10px;border-bottom:1px solid var(--bg4);color:var(--text);vertical-align:middle;}
-.fin-table tr:last-child td{border-bottom:none;}
-.fin-table tr:hover td{background:var(--bg3);}
-.fin-table .num{font-family:var(--font-mono);text-align:right;}
-.editable-cell{cursor:pointer;border-bottom:1px dashed var(--border2);transition:color .15s;}
-.editable-cell:hover{color:var(--amber);}
-
-/* ══════════════════════════════════════════════
-   TOAST NOTIFICATIONS
-══════════════════════════════════════════════ */
-#toast-stack{
-  position:fixed;bottom:20px;right:20px;
-  z-index:99999;display:flex;flex-direction:column;gap:8px;
-}
-.toast{
-  background:var(--bg3);border:1px solid var(--border2);border-radius:8px;
+/* ── TOAST ── */
+#toasts{position:fixed;bottom:20px;right:20px;z-index:99999;display:flex;flex-direction:column;gap:8px;}
+.toast{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;
   padding:10px 14px;font-size:12px;min-width:220px;max-width:320px;
-  display:flex;align-items:center;gap:8px;
-  animation:toastIn .25s ease;
-  box-shadow:0 8px 24px rgba(0,0,0,.4);
-}
+  display:flex;align-items:center;gap:8px;animation:tIn .25s ease;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);}
 .toast.success{border-left:3px solid var(--green);}
 .toast.warn{border-left:3px solid var(--amber);}
 .toast.error{border-left:3px solid var(--red);}
 .toast.info{border-left:3px solid var(--blue);}
-@keyframes toastIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
-@keyframes toastOut{from{opacity:1;}to{opacity:0;transform:translateX(20px);}}
+@keyframes tIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
+@keyframes tOut{from{opacity:1;}to{opacity:0;transform:translateX(20px);}}
 
-/* ══════════════════════════════════════════════
-   RISK HEATMAP GRID
-══════════════════════════════════════════════ */
-.risk-matrix{display:grid;grid-template-columns:30px repeat(4,1fr);grid-template-rows:repeat(4,1fr) 30px;gap:3px;max-width:320px;margin:0 auto;}
-.rm-cell{border-radius:4px;height:50px;display:grid;place-items:center;font-size:9px;font-family:var(--font-mono);transition:transform .1s;cursor:default;}
-.rm-cell:hover{transform:scale(1.05);}
-.rm-label{display:grid;place-items:center;font-size:9px;font-family:var(--font-mono);color:var(--muted);}
-.rm-label.rotated{writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);}
-
-/* ══════════════════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════════════════ */
-@media(max-width:720px){
-  #sidebar{display:none;}
-  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}
-}
+.div{height:1px;background:var(--border);margin:12px 0;}
+.tag{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;
+  font-family:var(--font-m);background:var(--bg4);color:var(--muted2);border:1px solid var(--border);}
 </style>
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════
-     HEADER
-════════════════════════════════════════════ -->
-<div id="app-header">
+<!-- HEADER -->
+<div id="hdr">
   <div class="n-logo">N</div>
-  <div class="proj-name"><span>Netflix</span> Connect</div>
-  <div class="header-sep"></div>
-  <div class="role-selector-wrap">
-    <span class="role-label">View as:</span>
-    <select id="role-select" onchange="switchRole(this.value)">
+  <div class="proj-nm"><span>Netflix</span> Connect</div>
+  <div class="h-sep"></div>
+  <div class="role-wrap">
+    <span class="role-lbl">View as:</span>
+    <select id="role-sel" onchange="switchRole(this.value)">
       <option value="pm">Project Manager</option>
       <option value="eng">Engineering Lead</option>
       <option value="exec">Executive / Sponsor</option>
@@ -497,350 +345,504 @@ input,textarea,select{font-family:var(--font-body);}
       <option value="risk">Risk &amp; Compliance</option>
     </select>
   </div>
-  <div class="header-right">
-    <span id="live-clock"></span>
-    <div class="header-sep"></div>
-    <div class="user-pill" onclick="cycleUser()">
-      <div class="user-avatar" id="user-avatar" style="background:#c70812">PM</div>
-      <span class="user-name" id="user-name-display">Ryan (PM)</span>
-      <div class="notif-dot" id="notif-dot" style="display:none"></div>
+  <div class="h-right">
+    <div style="display:flex;align-items:center;gap:4px;">
+      <select id="tz-sel" onchange="setTz(this.value)" style="background:var(--bg3);border:1px solid var(--border);color:var(--muted2);padding:3px 6px;border-radius:4px;font-size:10px;font-family:var(--font-m);cursor:pointer;outline:none;">
+        <option value="local">Local</option>
+        <option value="America/New_York">EST (New York)</option>
+        <option value="America/Los_Angeles">PST (Los Angeles)</option>
+        <option value="Europe/London">GMT (London)</option>
+        <option value="Europe/Paris">CET (Paris)</option>
+        <option value="Asia/Singapore">SGT (Singapore)</option>
+        <option value="Asia/Tokyo">JST (Tokyo)</option>
+        <option value="Australia/Sydney">AEDT (Sydney)</option>
+      </select>
+      <span id="clock" style="font-size:10px;color:var(--muted);font-family:var(--font-m);min-width:88px;"></span>
+    </div>
+    <div class="h-sep"></div>
+    <div class="u-pill" onclick="cycleUser()">
+      <div class="u-av" id="u-av" style="background:#c70812">RW</div>
+      <span class="u-nm" id="u-nm">Ryan Wong (PM)</span>
     </div>
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════
-     LAYOUT
-════════════════════════════════════════════ -->
+<!-- LAYOUT -->
 <div id="layout">
 
 <!-- SIDEBAR -->
-<div id="sidebar">
-  <div class="sidebar-section">Overview</div>
-  <div class="sidebar-item active" data-pane="overview" onclick="openPane('overview',this)">
-    <span class="sidebar-icon">⬛</span> Command Centre
+<div id="sb">
+  <div class="sb-sec">Home</div>
+  <div class="sb-it active" data-pane="home" onclick="openPane('home',this)">
+    <span class="sb-ic">🏠</span> Home
   </div>
 
-  <div class="sidebar-section">Execution</div>
-  <div class="sidebar-item" data-pane="tasks" onclick="openPane('tasks',this)">
-    <span class="sidebar-icon">☑</span> Tasks &amp; Subtasks
-    <span class="sidebar-badge" id="badge-tasks">3</span>
+  <div class="sb-sec">Execution</div>
+  <div class="sb-it" data-pane="command" onclick="openPane('command',this)">
+    <span class="sb-ic">⬛</span> Command Centre
   </div>
-  <div class="sidebar-item" data-pane="milestones" onclick="openPane('milestones',this)">
-    <span class="sidebar-icon">⬟</span> Milestones
+  <div class="sb-it" data-pane="tasks" onclick="openPane('tasks',this)">
+    <span class="sb-ic">☑</span> Tasks &amp; Subtasks
+    <span class="sb-badge" id="badge-tasks">3</span>
   </div>
-  <div class="sidebar-item" data-pane="checkpoints" onclick="openPane('checkpoints',this)">
-    <span class="sidebar-icon">⬡</span> Checkpoints
+  <div class="sb-it" data-pane="milestones" onclick="openPane('milestones',this)">
+    <span class="sb-ic">⬟</span> Milestones
   </div>
-
-  <div class="sidebar-section">Governance</div>
-  <div class="sidebar-item" data-pane="signoffs" onclick="openPane('signoffs',this)">
-    <span class="sidebar-icon">✍</span> Sign-offs
-    <span class="sidebar-badge" id="badge-signoffs">2</span>
-  </div>
-  <div class="sidebar-item" data-pane="risks" onclick="openPane('risks',this)">
-    <span class="sidebar-icon">⚠</span> Risks
+  <div class="sb-it" data-pane="checkpoints" onclick="openPane('checkpoints',this)">
+    <span class="sb-ic">⬡</span> Checkpoints
   </div>
 
-  <div class="sidebar-section">Finance</div>
-  <div class="sidebar-item" data-pane="financials" onclick="openPane('financials',this)">
-    <span class="sidebar-icon">$</span> Financials
+  <div class="sb-sec">Performance</div>
+  <div class="sb-it" data-pane="success" onclick="openPane('success',this)">
+    <span class="sb-ic">🎯</span> Success Metrics
+  </div>
+  <div class="sb-it" data-pane="financial" onclick="openPane('financial',this)">
+    <span class="sb-ic">📊</span> Financial Drivers
   </div>
 
-  <div class="sidebar-section">Audit</div>
-  <div class="sidebar-item" data-pane="log" onclick="openPane('log',this)">
-    <span class="sidebar-icon">📋</span> Activity Log
-    <span class="sidebar-badge" id="badge-log" style="background:var(--blue)">12</span>
+  <div class="sb-sec">Governance</div>
+  <div class="sb-it" data-pane="signoffs" onclick="openPane('signoffs',this)">
+    <span class="sb-ic">✍</span> Sign-offs
+    <span class="sb-badge" id="badge-signoffs">2</span>
+  </div>
+  <div class="sb-it" data-pane="risks" onclick="openPane('risks',this)">
+    <span class="sb-ic">⚠</span> Risks
+  </div>
+  <div class="sb-it" data-pane="financials" onclick="openPane('financials',this)">
+    <span class="sb-ic">$</span> Budget
+  </div>
+
+  <div class="sb-sec">Audit</div>
+  <div class="sb-it" data-pane="log" onclick="openPane('log',this)">
+    <span class="sb-ic">📋</span> Activity Log
+    <span class="sb-badge blue" id="badge-log">12</span>
   </div>
 </div>
 
 <!-- CONTENT -->
 <div id="content">
 
-<!-- ══════════════════════════════════════════════
-     PANE: COMMAND CENTRE
-══════════════════════════════════════════════ -->
-<div class="content-pane active" id="pane-overview">
-  <div id="role-banner-overview"></div>
-
-  <div class="page-header">
+<!-- ══════════════════════ HOME PAGE ══════════════════════ -->
+<div class="pane active" id="pane-home">
+  <div class="pg-hdr">
     <div>
-      <div class="page-title">Command Centre</div>
-      <div class="page-sub" id="overview-sub">Netflix Connect · Q1 2026 · Last updated just now</div>
+      <div class="pg-title">Netflix Connect · Project Overview</div>
+      <div class="pg-sub" id="home-sub">Q1 2026 · Reporting Period · Mar 2026</div>
     </div>
     <div style="display:flex;gap:8px;">
-      <button class="btn" onclick="openPane('log', document.querySelector('[data-pane=log]'))">📋 View Log</button>
-      <button class="btn primary" id="pm-quick-update" onclick="openStatusModal()" style="display:none">⚡ Quick Update</button>
+      <div style="text-align:right;">
+        <div style="font-size:10px;color:var(--muted);font-family:var(--font-m);">Executive Sponsor</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:3px;">
+          <div class="u-av" style="background:#7c3aed;width:24px;height:24px;font-size:9px;">ST</div>
+          <span style="font-size:12px;font-weight:600;">Steffi Tedjo</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- OVERALL STATUS BAR -->
-  <div class="overall-status-bar" id="overall-status-bar">
-    <span class="osb-label">Overall RAG/B:</span>
-    <div class="osb-dims" id="osb-dims-render"></div>
-    <div class="osb-sep"></div>
-    <span style="font-size:10px;color:var(--muted);font-family:var(--font-mono);" id="last-update-label">Updated: just now</span>
-    <div class="osb-right">
-      <button class="btn sm" id="btn-edit-status" onclick="openStatusModal()" style="display:none">Edit Status</button>
+  <!-- TOP STATUS ROW: Overall RAG + Cost + Benefit + Schedule -->
+  <div style="display:flex;align-items:center;gap:10px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:12px 16px;margin-bottom:16px;flex-wrap:wrap;">
+    <span style="font-size:10px;color:var(--muted);font-family:var(--font-m);flex-shrink:0;">Overall RAG/B:</span>
+    <div id="home-rag-dims" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:10px;color:var(--muted);font-family:var(--font-m);" id="home-last-upd">Updated: just now</span>
+      <button class="btn sm primary" id="btn-home-upd" onclick="openStatusModal()" style="display:none;">⚡ Update Status</button>
     </div>
   </div>
 
-  <!-- KPI ROW -->
-  <div class="grid-4" style="margin-bottom:14px;" id="kpi-row"></div>
+  <!-- SAMPLE 2 STYLE: 5 headline stats -->
+  <div class="fin-top-row" style="margin-bottom:16px;">
+    <div class="fin-stat">
+      <div class="fin-stat-lbl">Overall RAG</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+        <div class="rag-trend-bar" id="rag-trend-bar" style="margin:0;"></div>
+      </div>
+    </div>
+    <div class="fin-stat">
+      <div class="fin-stat-lbl">Total Cost</div>
+      <div class="fin-stat-main">$94.1M</div>
+      <div style="display:flex;gap:8px;margin-top:4px;">
+        <span style="font-size:11px;color:var(--muted);">$94.1M <span style="color:var(--muted2);">Budget</span></span>
+        <span style="font-size:11px;color:var(--amber);">$1.2M <span style="color:var(--muted2);">Actual</span></span>
+      </div>
+      <div class="fin-stat-pct" style="color:var(--green);">1.3% spent</div>
+    </div>
+    <div class="fin-stat">
+      <div class="fin-stat-lbl">YTD Spend</div>
+      <div class="fin-stat-main">$1.2M</div>
+      <div style="display:flex;gap:8px;margin-top:4px;">
+        <span style="font-size:11px;color:var(--muted);">$3.3M <span style="color:var(--muted2);">Budget YTD</span></span>
+      </div>
+      <div class="fin-stat-pct" style="color:var(--green);">63.6% Under</div>
+    </div>
+    <div class="fin-stat">
+      <div class="fin-stat-lbl">Total Benefit (NPV)</div>
+      <div class="fin-stat-main">$251M</div>
+      <div style="display:flex;gap:8px;margin-top:4px;">
+        <span style="font-size:11px;color:var(--muted);">$431M <span style="color:var(--muted2);">Target 5Y</span></span>
+      </div>
+      <div class="fin-stat-pct" style="color:var(--amber);">21.0% captured</div>
+    </div>
+    <div class="fin-stat">
+      <div class="fin-stat-lbl">Milestones</div>
+      <div class="fin-stat-main" id="ms-completed-count">2 / 11</div>
+      <div style="margin-top:4px;font-size:11px;color:var(--muted);">Completed <span style="color:var(--muted2);">(On Time / Late)</span></div>
+      <div class="fin-stat-pct" style="color:var(--green);">2 on time · 0 late</div>
+    </div>
+  </div>
 
-  <!-- HEAT MAP + PROGRESS -->
-  <div class="grid-2">
+  <!-- MAIN BODY: 2-col layout -->
+  <div class="home-grid">
+    <!-- LEFT: Project Status Update + Financial Profile -->
+    <div>
+      <!-- Project Status Update narrative - inline editable -->
+      <div class="card" id="psu-card">
+        <div class="card-title">📋 Project Status Update
+          <div class="card-actions">
+            <button class="btn sm ghost" id="psu-edit-btn" onclick="togglePsuEdit()" style="display:none;">✏ Edit</button>
+            <button class="btn sm primary" id="psu-save-btn" onclick="savePsuEdit()" style="display:none;">✓ Save</button>
+            <button class="btn sm ghost" id="psu-cancel-btn" onclick="cancelPsuEdit()" style="display:none;">✕</button>
+            <button class="btn sm ghost" onclick="openPane('command',document.querySelector('[data-pane=command]'))">→ Command Centre</button>
+          </div>
+        </div>
+        <div id="home-psupdate" style="font-size:12px;color:var(--text);line-height:1.7;"></div>
+        <div id="psu-editor" style="display:none;">
+          <div style="font-size:10px;color:var(--muted);font-family:var(--font-m);margin-bottom:6px;">PROGRESS THIS PERIOD</div>
+          <div id="psu-bullets-progress" class="psu-bullet-group" data-group="progress"></div>
+          <button class="btn sm ghost" onclick="addPsuBullet('progress')" style="margin-bottom:10px;font-size:10px;">+ Add item</button>
+          <div style="font-size:10px;color:var(--muted);font-family:var(--font-m);margin-bottom:6px;">UPCOMING / NEXT STEPS</div>
+          <div id="psu-bullets-next" class="psu-bullet-group" data-group="next"></div>
+          <button class="btn sm ghost" onclick="addPsuBullet('next')" style="margin-bottom:10px;font-size:10px;">+ Add item</button>
+          <div style="font-size:10px;color:var(--muted);font-family:var(--font-m);margin-bottom:6px;">WHY CURRENT STATUS</div>
+          <textarea id="psu-reason" class="fi fta" style="min-height:50px;" placeholder="Explain amber/red status..."></textarea>
+        </div>
+      </div>
+
+      <!-- Financial Profile (past actuals + future outlook bar chart) -->
+      <div class="card">
+        <div class="card-title">💰 Financial Profile (Past Actuals &amp; Future Outlook)
+          <div class="card-actions"><button class="btn sm ghost" onclick="openPane('financial',document.querySelector('[data-pane=financial]'))">→ Financial Drivers</button></div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">Of the $94.1M forecasted spend, $1.2M (1.3%) spent to date. Comparing to past periods:</div>
+        <div style="display:flex;align-items:flex-end;gap:8px;height:100px;">
+          <div id="fin-profile-chart" style="display:flex;align-items:flex-end;gap:10px;flex:1;height:100%;"></div>
+        </div>
+        <div style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;">
+          <span style="font-size:9px;display:flex;align-items:center;gap:4px;color:var(--muted);"><span style="width:8px;height:8px;border-radius:2px;background:var(--red);display:inline-block;"></span>Infrastructure &amp; Employment</span>
+          <span style="font-size:9px;display:flex;align-items:center;gap:4px;color:var(--muted);"><span style="width:8px;height:8px;border-radius:2px;background:var(--amber);display:inline-block;"></span>Operational</span>
+          <span style="font-size:9px;display:flex;align-items:center;gap:4px;color:var(--muted);"><span style="width:8px;height:8px;border-radius:2px;background:var(--blue);display:inline-block;"></span>Recurring</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Trackable Benefits Profile + Navigation Links -->
+    <div>
+      <!-- Trackable Benefits -->
+      <div class="card">
+        <div class="card-title">🎯 Trackable Benefits Profile
+          <div class="card-actions"><button class="btn sm ghost" onclick="openPane('success',document.querySelector('[data-pane=success]'))">→ KPIs</button></div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">Revenue loss recovered — cumulative by stage (USD $M)</div>
+        <div id="benefits-chart" style="display:flex;align-items:flex-end;gap:6px;height:90px;"></div>
+        <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;">
+          <span style="font-size:9px;display:flex;align-items:center;gap:4px;color:var(--muted);"><span style="width:8px;height:8px;border-radius:2px;background:#1d4ed8;display:inline-block;"></span>Churn retention</span>
+          <span style="font-size:9px;display:flex;align-items:center;gap:4px;color:var(--muted);"><span style="width:8px;height:8px;border-radius:2px;background:var(--blue);display:inline-block;"></span>Referral uplift</span>
+          <span style="font-size:9px;display:flex;align-items:center;gap:4px;color:var(--muted);"><span style="width:8px;height:8px;border-radius:2px;background:#93c5fd;display:inline-block;"></span>Engagement</span>
+        </div>
+      </div>
+
+      <!-- Quick Nav Links -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div class="nav-link-card" onclick="openPane('tasks',document.querySelector('[data-pane=tasks]'))">
+          <div class="nlc-icon">☑</div>
+          <div class="nlc-title">Tasks</div>
+          <div class="nlc-desc">34 tasks · 10 done</div>
+          <div class="nlc-arrow">→ Go</div>
+        </div>
+        <div class="nav-link-card" onclick="openPane('success',document.querySelector('[data-pane=success]'))">
+          <div class="nlc-icon">🎯</div>
+          <div class="nlc-title">Success KPIs</div>
+          <div class="nlc-desc">5 metrics tracked</div>
+          <div class="nlc-arrow">→ Go</div>
+        </div>
+        <div class="nav-link-card" onclick="openPane('signoffs',document.querySelector('[data-pane=signoffs]'))">
+          <div class="nlc-icon">✍</div>
+          <div class="nlc-title">Sign-offs</div>
+          <div class="nlc-desc" id="home-signoff-count">2 pending</div>
+          <div class="nlc-arrow">→ Go</div>
+        </div>
+        <div class="nav-link-card" onclick="openPane('risks',document.querySelector('[data-pane=risks]'))">
+          <div class="nlc-icon">⚠</div>
+          <div class="nlc-title">Risks</div>
+          <div class="nlc-desc">1 red · 4 amber</div>
+          <div class="nlc-arrow">→ Go</div>
+        </div>
+        <div class="nav-link-card" onclick="openPane('financial',document.querySelector('[data-pane=financial]'))">
+          <div class="nlc-icon">📊</div>
+          <div class="nlc-title">Financial Drivers</div>
+          <div class="nlc-desc">NPV $251M</div>
+          <div class="nlc-arrow">→ Go</div>
+        </div>
+        <div class="nav-link-card" onclick="openPane('log',document.querySelector('[data-pane=log]'))">
+          <div class="nlc-icon">📋</div>
+          <div class="nlc-title">Activity Log</div>
+          <div class="nlc-desc" id="home-log-count">12 entries</div>
+          <div class="nlc-arrow">→ Go</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ COMMAND CENTRE ══════════════════════ -->
+<div class="pane" id="pane-command">
+  <div id="rb-command"></div>
+  <div class="pg-hdr">
+    <div><div class="pg-title">Command Centre</div>
+    <div class="pg-sub">Live project health · All dimensions</div></div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn" onclick="openPane('log',document.querySelector('[data-pane=log]'))">📋 Log</button>
+      <button class="btn primary" id="btn-cmd-upd" onclick="openStatusModal()" style="display:none;">⚡ Quick Update</button>
+    </div>
+  </div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <span style="font-size:10px;color:var(--muted);font-family:var(--font-m);">Project RAG/B:</span>
+    <div id="cmd-rag-dims" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+    <div style="margin-left:auto;"><button class="btn sm" id="btn-cmd-edit" onclick="openStatusModal()" style="display:none;">Edit</button></div>
+  </div>
+  <div class="g4" id="cmd-kpis"></div>
+  <div class="g2">
     <div class="card">
-      <div class="card-title">📊 Task Health Heatmap <span style="font-size:9px;color:var(--muted);font-family:var(--font-mono);">last 32 updates</span></div>
-      <div class="heat-grid" id="heat-grid"></div>
-      <div style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;">
-        <span style="font-size:9px;color:var(--green);font-family:var(--font-mono);">● Green</span>
-        <span style="font-size:9px;color:var(--amber);font-family:var(--font-mono);">● Amber</span>
-        <span style="font-size:9px;color:var(--red);font-family:var(--font-mono);">● Red</span>
-        <span style="font-size:9px;color:var(--blue);font-family:var(--font-mono);">● Blue (blocked)</span>
-        <span style="font-size:9px;color:var(--muted);font-family:var(--font-mono);">● Not started</span>
+      <div class="card-title">📊 Task Health Heatmap</div>
+      <div id="heat-grid" style="display:grid;grid-template-columns:repeat(8,1fr);gap:3px;margin-top:4px;"></div>
+      <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;">
+        <span style="font-size:9px;color:var(--green);font-family:var(--font-m);">● Green</span>
+        <span style="font-size:9px;color:var(--amber);font-family:var(--font-m);">● Amber</span>
+        <span style="font-size:9px;color:var(--red);font-family:var(--font-m);">● Red</span>
+        <span style="font-size:9px;color:var(--blue);font-family:var(--font-m);">● Blue</span>
+        <span style="font-size:9px;color:var(--muted);font-family:var(--font-m);">● Not started</span>
       </div>
     </div>
     <div class="card">
       <div class="card-title">📈 Stage Progress</div>
-      <div id="stage-progress-bars"></div>
+      <div id="stage-progs"></div>
     </div>
   </div>
-
-  <!-- QUICK SIGNOFF SUMMARY + RECENT LOG -->
-  <div class="grid-2">
+  <div class="g2">
     <div class="card">
       <div class="card-title">✍ Pending Sign-offs</div>
-      <div id="overview-signoffs"></div>
+      <div id="cmd-signoffs"></div>
     </div>
     <div class="card">
-      <div class="card-title">📋 Recent Activity <div class="card-actions"><button class="btn sm ghost" onclick="openPane('log',document.querySelector('[data-pane=log]'))">View all →</button></div></div>
-      <div id="overview-log"></div>
+      <div class="card-title">📋 Recent Activity
+        <div class="card-actions"><button class="btn sm ghost" onclick="openPane('log',document.querySelector('[data-pane=log]'))">All →</button></div>
+      </div>
+      <div id="cmd-log"></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     PANE: TASKS & SUBTASKS
-══════════════════════════════════════════════ -->
-<div class="content-pane" id="pane-tasks">
-  <div id="role-banner-tasks"></div>
-  <div class="page-header">
-    <div>
-      <div class="page-title">Tasks &amp; Subtasks</div>
-      <div class="page-sub">Full work breakdown structure — expand phases to see subtasks</div>
-    </div>
+<!-- ══════════════════════ TASKS ══════════════════════ -->
+<div class="pane" id="pane-tasks">
+  <div id="rb-tasks"></div>
+  <div class="pg-hdr">
+    <div><div class="pg-title">Tasks &amp; Subtasks</div>
+    <div class="pg-sub">Full WBS · click chevron to expand</div></div>
     <div style="display:flex;gap:8px;">
-      <button class="btn sm" onclick="expandAllGroups()">Expand All</button>
-      <button class="btn sm primary" id="btn-add-task" onclick="openAddTaskModal()" style="display:none">+ Add Task</button>
+      <button class="btn sm" onclick="expandAll()">Expand All</button>
+      <button class="btn sm primary" id="btn-add-task" onclick="openAddTask()" style="display:none;">+ Add Task</button>
     </div>
   </div>
-  <div id="task-list-container"></div>
+  <div id="task-list"></div>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     PANE: MILESTONES
-══════════════════════════════════════════════ -->
-<div class="content-pane" id="pane-milestones">
-  <div id="role-banner-milestones"></div>
-  <div class="page-header">
-    <div>
-      <div class="page-title">Project Milestones</div>
-      <div class="page-sub">2026–2030 · Click a milestone status to update (PM only)</div>
+<!-- ══════════════════════ MILESTONES ══════════════════════ -->
+<div class="pane" id="pane-milestones">
+  <div id="rb-milestones"></div>
+  <div class="pg-hdr">
+    <div><div class="pg-title">Project Milestones</div>
+    <div class="pg-sub">2026–2030 · click status to update (PM)</div></div>
+  </div>
+  <div id="ms-list"></div>
+</div>
+
+<!-- ══════════════════════ CHECKPOINTS ══════════════════════ -->
+<div class="pane" id="pane-checkpoints">
+  <div id="rb-checkpoints"></div>
+  <div class="pg-hdr">
+    <div><div class="pg-title">Stage Checkpoints</div>
+    <div class="pg-sub">Gate reviews requiring multi-stakeholder sign-off</div></div>
+  </div>
+  <div id="cp-list"></div>
+</div>
+
+<!-- ══════════════════════ SUCCESS METRICS ══════════════════════ -->
+<div class="pane" id="pane-success">
+  <div id="rb-success"></div>
+  <div class="pg-hdr">
+    <div><div class="pg-title">Success Metrics Tracker</div>
+    <div class="pg-sub">Good · Better · Best · Current performance vs targets</div></div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn sm primary" id="btn-update-metric" onclick="openUpdateMetric()" style="display:none;">✏ Update Metric</button>
     </div>
   </div>
-  <div id="milestone-timeline-render"></div>
+  <div id="success-content"></div>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     PANE: CHECKPOINTS
-══════════════════════════════════════════════ -->
-<div class="content-pane" id="pane-checkpoints">
-  <div id="role-banner-checkpoints"></div>
-  <div class="page-header">
-    <div>
-      <div class="page-title">Stage Checkpoints</div>
-      <div class="page-sub">Gate reviews requiring multi-stakeholder sign-off before proceeding</div>
-    </div>
+<!-- ══════════════════════ FINANCIAL DRIVERS ══════════════════════ -->
+<div class="pane" id="pane-financial">
+  <div id="rb-financial"></div>
+  <div class="pg-hdr">
+    <div><div class="pg-title">Financial Drivers</div>
+    <div class="pg-sub">Key assumptions, quarterly projections &amp; NPV model from Excel model</div></div>
   </div>
-  <div id="checkpoints-render"></div>
+  <div id="fin-drivers-content"></div>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     PANE: SIGN-OFFS
-══════════════════════════════════════════════ -->
-<div class="content-pane" id="pane-signoffs">
-  <div id="role-banner-signoffs"></div>
-  <div class="page-header">
-    <div>
-      <div class="page-title">Sign-offs &amp; Approvals</div>
-      <div class="page-sub">Click your name to acknowledge — all actions are logged</div>
-    </div>
+<!-- ══════════════════════ SIGN-OFFS ══════════════════════ -->
+<div class="pane" id="pane-signoffs">
+  <div id="rb-signoffs"></div>
+  <div class="pg-hdr">
+    <div><div class="pg-title">Sign-offs &amp; Approvals</div>
+    <div class="pg-sub">Click your name to sign · all actions logged</div></div>
   </div>
-  <div id="signoffs-render"></div>
+  <div id="so-list"></div>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     PANE: RISKS
-══════════════════════════════════════════════ -->
-<div class="content-pane" id="pane-risks">
-  <div id="role-banner-risks"></div>
-  <div class="page-header">
-    <div>
-      <div class="page-title">Risk Register</div>
-      <div class="page-sub">Live risk ratings · Click status to update (Risk/PM roles)</div>
-    </div>
+<!-- ══════════════════════ RISKS ══════════════════════ -->
+<div class="pane" id="pane-risks">
+  <div id="rb-risks"></div>
+  <div class="pg-hdr">
+    <div><div class="pg-title">Risk Register</div>
+    <div class="pg-sub">Click status pill to update (Risk/PM roles)</div></div>
   </div>
-  <div id="risks-render"></div>
+  <div id="risks-content"></div>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     PANE: FINANCIALS
-══════════════════════════════════════════════ -->
-<div class="content-pane" id="pane-financials">
-  <div id="role-banner-financials"></div>
-  <div class="page-header">
-    <div>
-      <div class="page-title">Financial Profile</div>
-      <div class="page-sub">5-year cost model · Finance role can edit actuals</div>
-    </div>
+<!-- ══════════════════════ BUDGET ══════════════════════ -->
+<div class="pane" id="pane-financials">
+  <div id="rb-financials"></div>
+  <div class="pg-hdr">
+    <div><div class="pg-title">Budget &amp; Actuals</div>
+    <div class="pg-sub">5-year cost model · Finance role can edit actuals</div></div>
   </div>
-  <div id="financials-render"></div>
+  <div id="budget-content"></div>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     PANE: ACTIVITY LOG
-══════════════════════════════════════════════ -->
-<div class="content-pane" id="pane-log">
-  <div class="page-header">
-    <div>
-      <div class="page-title">Activity Log</div>
-      <div class="page-sub">Full audit trail — all changes, sign-offs, and status updates</div>
-    </div>
+<!-- ══════════════════════ LOG ══════════════════════ -->
+<div class="pane" id="pane-log">
+  <div class="pg-hdr">
+    <div><div class="pg-title">Activity Log</div>
+    <div class="pg-sub">Full audit trail — every change, sign-off, and update</div></div>
     <button class="btn sm" onclick="clearNewFlags()">Mark all read</button>
   </div>
-  <div id="log-filter-bar" style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
-    <button class="btn sm active-filter" onclick="filterLog('all',this)">All</button>
-    <button class="btn sm" onclick="filterLog('status',this)">Status Changes</button>
+  <div id="log-filters" style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+    <button class="btn sm" style="border-color:var(--red);" onclick="filterLog('all',this)">All</button>
+    <button class="btn sm" onclick="filterLog('status',this)">Status</button>
     <button class="btn sm" onclick="filterLog('signoff',this)">Sign-offs</button>
     <button class="btn sm" onclick="filterLog('task',this)">Tasks</button>
     <button class="btn sm" onclick="filterLog('finance',this)">Finance</button>
   </div>
-  <div id="log-container" class="log-container"></div>
+  <div id="log-container"></div>
 </div>
 
-</div><!-- end content -->
-</div><!-- end layout -->
+</div><!-- /content -->
+</div><!-- /layout -->
 
-<!-- ════════════════════════════════════════════
-     MODALS
-════════════════════════════════════════════ -->
-
-<!-- STATUS UPDATE MODAL -->
-<div class="modal-overlay" id="modal-status">
-  <div class="modal" style="position:relative;">
+<!-- MODALS -->
+<div class="modal-ov" id="modal-status">
+  <div class="modal">
     <div class="modal-title">⚡ Update Project Status</div>
     <button class="modal-close" onclick="closeModal('modal-status')">✕</button>
-    <div class="form-label">Dimension</div>
-    <select class="form-input form-select" id="status-dim">
-      <option value="progress">Progress</option>
-      <option value="cost">Cost</option>
-      <option value="risk">Risk</option>
-      <option value="schedule">Schedule</option>
+    <div class="fl">Dimension</div>
+    <select class="fi fsel" id="st-dim">
+      <option value="progress">Progress</option><option value="cost">Cost</option>
+      <option value="risk">Risk</option><option value="schedule">Schedule</option>
       <option value="quality">Quality</option>
     </select>
-    <div class="form-label">New Status</div>
+    <div class="fl">New Status</div>
     <div class="ragb-picker">
-      <div class="rp-opt G" onclick="selectRagb('G',this)">G<br><span style="font-size:8px;">On Track</span></div>
-      <div class="rp-opt A" onclick="selectRagb('A',this)">A<br><span style="font-size:8px;">At Risk</span></div>
-      <div class="rp-opt R" onclick="selectRagb('R',this)">R<br><span style="font-size:8px;">Off Track</span></div>
-      <div class="rp-opt B" onclick="selectRagb('B',this)">B<br><span style="font-size:8px;">Blocked</span></div>
+      <div class="rp-opt G" onclick="selRagb('G',this)">G<br><span style="font-size:8px;">On Track</span></div>
+      <div class="rp-opt A" onclick="selRagb('A',this)">A<br><span style="font-size:8px;">At Risk</span></div>
+      <div class="rp-opt R" onclick="selRagb('R',this)">R<br><span style="font-size:8px;">Off Track</span></div>
+      <div class="rp-opt B" onclick="selRagb('B',this)">B<br><span style="font-size:8px;">Blocked</span></div>
     </div>
-    <div class="form-label">Reason / Commentary</div>
-    <textarea class="form-input form-textarea" id="status-comment" placeholder="Briefly explain why..."></textarea>
+    <div class="fl">Commentary</div>
+    <textarea class="fi fta" id="st-comment" placeholder="Briefly explain…"></textarea>
     <div style="display:flex;gap:8px;justify-content:flex-end;">
       <button class="btn" onclick="closeModal('modal-status')">Cancel</button>
-      <button class="btn primary" onclick="submitStatusUpdate()">Update Status</button>
+      <button class="btn primary" onclick="submitStatus()">Update</button>
     </div>
   </div>
 </div>
 
-<!-- TASK EDIT MODAL -->
-<div class="modal-overlay" id="modal-task">
-  <div class="modal" style="position:relative;">
+<div class="modal-ov" id="modal-task">
+  <div class="modal">
     <div class="modal-title" id="task-modal-title">Edit Task</div>
     <button class="modal-close" onclick="closeModal('modal-task')">✕</button>
-    <div class="form-label">Task Name</div>
-    <input class="form-input" id="task-edit-name" type="text">
-    <div class="form-label">Status</div>
+    <div class="fl">Task Name</div>
+    <input class="fi" id="te-name" type="text">
+    <div class="fl">Status</div>
     <div class="ragb-picker" id="task-ragb-picker">
-      <div class="rp-opt G" onclick="selectTaskRagb('G',this)">G</div>
-      <div class="rp-opt A" onclick="selectTaskRagb('A',this)">A</div>
-      <div class="rp-opt R" onclick="selectTaskRagb('R',this)">R</div>
-      <div class="rp-opt B" onclick="selectTaskRagb('B',this)">B</div>
+      <div class="rp-opt G" onclick="selTaskRagb('G',this)">G</div>
+      <div class="rp-opt A" onclick="selTaskRagb('A',this)">A</div>
+      <div class="rp-opt R" onclick="selTaskRagb('R',this)">R</div>
+      <div class="rp-opt B" onclick="selTaskRagb('B',this)">B</div>
     </div>
-    <div class="form-label">Assignee</div>
-    <select class="form-input form-select" id="task-edit-assignee">
-      <option>Ryan (PM)</option>
-      <option>Marcus (Eng Lead)</option>
-      <option>Lucas (Finance)</option>
-      <option>Jean (Compliance)</option>
-      <option>Caleb (Design)</option>
+    <div class="fl">Assignee</div>
+    <select class="fi fsel" id="te-assignee">
+      <option>Ryan Wong (PM)</option><option>Marcus Lim (Eng Lead)</option>
+      <option>Lucas Tan (Finance)</option><option>Jean Zang (Compliance)</option>
+      <option>Caleb Soh (Design)</option><option>Steffi Tedjo (Exec Sponsor)</option>
     </select>
-    <div class="form-label">Due Date</div>
-    <input class="form-input" id="task-edit-date" type="text" placeholder="e.g. Q2 2026">
-    <div class="form-label">Notes</div>
-    <textarea class="form-input form-textarea" id="task-edit-notes" placeholder="Optional notes..."></textarea>
+    <div class="fl">Due Date</div>
+    <input class="fi" id="te-date" type="text" placeholder="e.g. Q2 2026">
+    <div class="fl">Notes</div>
+    <textarea class="fi fta" id="te-notes" placeholder="Optional notes…"></textarea>
     <div style="display:flex;gap:8px;justify-content:flex-end;">
       <button class="btn" onclick="closeModal('modal-task')">Cancel</button>
-      <button class="btn primary" onclick="saveTaskEdit()">Save Changes</button>
+      <button class="btn primary" onclick="saveTask()">Save</button>
     </div>
   </div>
 </div>
 
-<!-- ADD TASK MODAL -->
-<div class="modal-overlay" id="modal-add-task">
-  <div class="modal" style="position:relative;">
+<div class="modal-ov" id="modal-add-task">
+  <div class="modal">
     <div class="modal-title">+ Add Task</div>
     <button class="modal-close" onclick="closeModal('modal-add-task')">✕</button>
-    <div class="form-label">Phase</div>
-    <select class="form-input form-select" id="new-task-phase">
-      <option value="0">Stage 0 – Discovery</option>
-      <option value="1">Stage 1 – Must Have</option>
-      <option value="2">Stage 2 – Should Have</option>
-      <option value="3">Stage 3 – Could Have</option>
+    <div class="fl">Phase</div>
+    <select class="fi fsel" id="nt-phase">
+      <option value="0">Stage 0 – Discovery</option><option value="1">Stage 1 – Must Have</option>
+      <option value="2">Stage 2 – Should Have</option><option value="3">Stage 3 – Could Have</option>
     </select>
-    <div class="form-label">Task Name</div>
-    <input class="form-input" id="new-task-name" type="text" placeholder="Task description...">
-    <div class="form-label">Is this a subtask?</div>
-    <select class="form-input form-select" id="new-task-type">
-      <option value="task">Main Task</option>
-      <option value="subtask">Subtask</option>
+    <div class="fl">Task Name</div>
+    <input class="fi" id="nt-name" type="text" placeholder="Describe the task…">
+    <div class="fl">Type</div>
+    <select class="fi fsel" id="nt-type">
+      <option value="task">Main Task</option><option value="subtask">Subtask</option>
     </select>
-    <div class="form-label">Assignee</div>
-    <select class="form-input form-select" id="new-task-assignee">
-      <option>Ryan (PM)</option>
-      <option>Marcus (Eng Lead)</option>
-      <option>Lucas (Finance)</option>
-      <option>Jean (Compliance)</option>
-      <option>Caleb (Design)</option>
+    <div class="fl">Assignee</div>
+    <select class="fi fsel" id="nt-assignee">
+      <option>Ryan Wong (PM)</option><option>Marcus Lim (Eng Lead)</option>
+      <option>Lucas Tan (Finance)</option><option>Jean Zang (Compliance)</option>
+      <option>Caleb Soh (Design)</option><option>Steffi Tedjo (Exec Sponsor)</option>
     </select>
-    <div class="form-label">Due</div>
-    <input class="form-input" id="new-task-date" type="text" placeholder="e.g. Q2 2026">
+    <div class="fl">Due</div>
+    <input class="fi" id="nt-date" type="text" placeholder="e.g. Q2 2026">
     <div style="display:flex;gap:8px;justify-content:flex-end;">
       <button class="btn" onclick="closeModal('modal-add-task')">Cancel</button>
-      <button class="btn primary" onclick="addNewTask()">Add Task</button>
+      <button class="btn primary" onclick="addTask()">Add Task</button>
     </div>
   </div>
 </div>
 
-<!-- SIGNOFF CONFIRMATION MODAL -->
-<div class="modal-overlay" id="modal-signoff">
-  <div class="modal" style="position:relative;">
-    <div class="modal-title" id="signoff-modal-title">Confirm Sign-off</div>
+<div class="modal-ov" id="modal-signoff">
+  <div class="modal">
+    <div class="modal-title" id="so-modal-title">Confirm Sign-off</div>
     <button class="modal-close" onclick="closeModal('modal-signoff')">✕</button>
-    <p style="font-size:12px;color:var(--muted2);margin-bottom:16px;line-height:1.6;" id="signoff-modal-desc"></p>
-    <div class="form-label">Comment (optional)</div>
-    <textarea class="form-input form-textarea" id="signoff-comment" placeholder="Add any notes before signing..."></textarea>
+    <p style="font-size:12px;color:var(--muted2);margin-bottom:16px;line-height:1.6;" id="so-modal-desc"></p>
+    <div class="fl">Comment (optional)</div>
+    <textarea class="fi fta" id="so-comment" placeholder="Add notes before signing…"></textarea>
     <div style="display:flex;gap:8px;justify-content:flex-end;">
       <button class="btn" onclick="closeModal('modal-signoff')">Cancel</button>
       <button class="btn primary" onclick="confirmSignoff()">✓ Sign Off</button>
@@ -848,275 +850,225 @@ input,textarea,select{font-family:var(--font-body);}
   </div>
 </div>
 
-<!-- TOAST STACK -->
-<div id="toast-stack"></div>
+<div class="modal-ov" id="modal-metric">
+  <div class="modal">
+    <div class="modal-title">✏ Update Metric</div>
+    <button class="modal-close" onclick="closeModal('modal-metric')">✕</button>
+    <div class="fl">Metric</div>
+    <select class="fi fsel" id="metric-sel" onchange="prefillMetric(this.value)"></select>
+    <div class="fl">Current Value</div>
+    <input class="fi" id="metric-val" type="text" placeholder="e.g. 2.18% or 25%">
+    <div class="fl">Commentary</div>
+    <textarea class="fi fta" id="metric-comment" placeholder="Explain current performance…"></textarea>
+    <div style="display:flex;gap:8px;justify-content:flex-end;">
+      <button class="btn" onclick="closeModal('modal-metric')">Cancel</button>
+      <button class="btn primary" onclick="saveMetric()">Save</button>
+    </div>
+  </div>
+</div>
 
-<!-- ════════════════════════════════════════════
-     APPLICATION JAVASCRIPT
-════════════════════════════════════════════ -->
+<div id="toasts"></div>
+
 <script>
-/* ══════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    STATE
-══════════════════════════════════════════════ */
-const STATE = {
-  currentRole: 'pm',
-  currentUser: 'Ryan (PM)',
-  selectedRagb: 'G',
-  selectedTaskRagb: 'G',
-  editingTaskId: null,
-  pendingSignoffId: null,
-  logFilter: 'all',
-
-  overallStatus: {
-    progress: 'A',
-    cost: 'G',
-    risk: 'A',
-    schedule: 'G',
-    quality: 'A'
+═══════════════════════════════════════════════ */
+const S = {
+  role:'pm', user:'Ryan Wong (PM)', selRagb:'G', selTaskRagb:'G',
+  editingId:null, pendingSoId:null, logFilter:'all',
+  tz:'local',
+  overallStatus:{progress:'A',cost:'G',risk:'A',schedule:'G',quality:'A'},
+  psuData:{
+    progress:[
+      'Stage 0 Discovery fully complete — board approval secured, team onboarded.',
+      'Stage 1 underway: Privacy compliance framework in legal review (amber).',
+      'Social UI wireframes in progress by Caleb Soh.',
+      '5 engineers onboarded; infrastructure cost at $1.2M vs $3.3M budget YTD.'
+    ],
+    next:[
+      'Begin social graph API development (Marcus Lim).',
+      'Finalise privacy architecture and GDPR consent flow design.',
+      'Target compliance sign-off from Jean Zang by Q2 2026.'
+    ],
+    reason:'Progress is Amber: GDPR consent flow design not yet started, pending legal sign-off from Jean Zang. All other Stage 1 workstreams on track.'
   },
-
-  users: [
-    { name: 'Ryan (PM)',         role: 'pm',   initials: 'RM', color: '#c70812' },
-    { name: 'Marcus (Eng Lead)', role: 'eng',  initials: 'ML', color: '#2563eb' },
-    { name: 'Lucas (Finance)',   role: 'fin',  initials: 'LF', color: '#059669' },
-    { name: 'Jean (Compliance)', role: 'risk', initials: 'JC', color: '#7c3aed' },
-    { name: 'Caleb (Design)',    role: 'eng',  initials: 'CD', color: '#0891b2' },
-    { name: 'Board Sponsor',     role: 'exec', initials: 'BS', color: '#b45309' },
+  users:[
+    {name:'Ryan Wong (PM)',role:'pm',initials:'RW',color:'#c70812'},
+    {name:'Marcus Lim (Eng Lead)',role:'eng',initials:'ML',color:'#2563eb'},
+    {name:'Lucas Tan (Finance)',role:'fin',initials:'LT',color:'#059669'},
+    {name:'Jean Zang (Compliance)',role:'risk',initials:'JZ',color:'#7c3aed'},
+    {name:'Caleb Soh (Design)',role:'eng',initials:'CS',color:'#0891b2'},
+    {name:'Steffi Tedjo (Exec Sponsor)',role:'exec',initials:'ST',color:'#b45309'},
   ],
-  userIndex: 0,
-
-  tasks: [
-    // Stage 0
-    { id:'t1', phase:0, type:'task',    name:'Project Scoping & Charter',           status:'G', assignee:'Ryan (PM)',         date:'Jan 2026', done:true,  notes:'' },
-    { id:'t2', phase:0, type:'subtask', name:'Define project boundaries & MoSCoW',  status:'G', assignee:'Ryan (PM)',         date:'Jan 2026', done:true,  notes:'' },
-    { id:'t3', phase:0, type:'subtask', name:'Stakeholder mapping',                 status:'G', assignee:'Ryan (PM)',         date:'Jan 2026', done:true,  notes:'' },
-    { id:'t4', phase:0, type:'task',    name:'Technical Feasibility Study',          status:'G', assignee:'Marcus (Eng Lead)', date:'Feb 2026', done:true,  notes:'' },
-    { id:'t5', phase:0, type:'subtask', name:'API architecture assessment',          status:'G', assignee:'Marcus (Eng Lead)', date:'Feb 2026', done:true,  notes:'' },
-    { id:'t6', phase:0, type:'subtask', name:'Infrastructure cost estimation',       status:'G', assignee:'Marcus (Eng Lead)', date:'Feb 2026', done:true,  notes:'' },
-    { id:'t7', phase:0, type:'task',    name:'Team Structure & Hiring Plan',         status:'G', assignee:'Ryan (PM)',         date:'Feb 2026', done:true,  notes:'' },
-    { id:'t8', phase:0, type:'task',    name:'Board Approval Presentation',          status:'G', assignee:'Ryan (PM)',         date:'Mar 2026', done:true,  notes:'' },
-
-    // Stage 1
-    { id:'t9',  phase:1, type:'task',    name:'Privacy & Compliance Infrastructure',  status:'A', assignee:'Jean (Compliance)', date:'Q2 2026', done:false, notes:'GDPR framework in scoping' },
-    { id:'t10', phase:1, type:'subtask', name:'Legal review of data handling',         status:'A', assignee:'Jean (Compliance)', date:'Q2 2026', done:false, notes:'' },
-    { id:'t11', phase:1, type:'subtask', name:'GDPR consent flow design',              status:'U', assignee:'Caleb (Design)',    date:'Q3 2026', done:false, notes:'' },
-    { id:'t12', phase:1, type:'subtask', name:'Compliance staff onboarding (4 FTE)',   status:'U', assignee:'Ryan (PM)',         date:'Q2 2026', done:false, notes:'' },
-    { id:'t13', phase:1, type:'task',    name:'Social UI Design System',               status:'A', assignee:'Caleb (Design)',    date:'Q3 2026', done:false, notes:'Wireframes in progress' },
-    { id:'t14', phase:1, type:'subtask', name:'User profile component library',        status:'A', assignee:'Caleb (Design)',    date:'Q3 2026', done:false, notes:'' },
-    { id:'t15', phase:1, type:'subtask', name:'Friend discovery flow UX',              status:'U', assignee:'Caleb (Design)',    date:'Q3 2026', done:false, notes:'' },
-    { id:'t16', phase:1, type:'task',    name:'Backend Social Graph API',               status:'U', assignee:'Marcus (Eng Lead)', date:'Q4 2026', done:false, notes:'' },
-    { id:'t17', phase:1, type:'subtask', name:'Graph DB schema design (Neo4j)',         status:'U', assignee:'Marcus (Eng Lead)', date:'Q4 2026', done:false, notes:'' },
-    { id:'t18', phase:1, type:'subtask', name:'Friend-of-friend recommendation algo',  status:'U', assignee:'Marcus (Eng Lead)', date:'Q1 2027', done:false, notes:'' },
-    { id:'t19', phase:1, type:'task',    name:'Stage 1 QA & Beta Testing',              status:'U', assignee:'Marcus (Eng Lead)', date:'Q3 2027', done:false, notes:'' },
-    { id:'t20', phase:1, type:'subtask', name:'Internal beta (500 users)',               status:'U', assignee:'Marcus (Eng Lead)', date:'Q3 2027', done:false, notes:'' },
-    { id:'t21', phase:1, type:'subtask', name:'Load testing at 1M concurrent users',    status:'U', assignee:'Marcus (Eng Lead)', date:'Q4 2027', done:false, notes:'' },
-
-    // Stage 2
-    { id:'t22', phase:2, type:'task',    name:'Discussion Forums Development',           status:'U', assignee:'Marcus (Eng Lead)', date:'Q1 2027', done:false, notes:'' },
-    { id:'t23', phase:2, type:'subtask', name:'Moderation AI pipeline (Vertex AI)',      status:'U', assignee:'Marcus (Eng Lead)', date:'Q1 2027', done:false, notes:'' },
-    { id:'t24', phase:2, type:'subtask', name:'Human review team workflow integration', status:'U', assignee:'Jean (Compliance)', date:'Q2 2027', done:false, notes:'' },
-    { id:'t25', phase:2, type:'task',    name:'Watch Party Feature',                    status:'U', assignee:'Marcus (Eng Lead)', date:'Q2 2027', done:false, notes:'' },
-    { id:'t26', phase:2, type:'subtask', name:'Real-time sync engine (WebSocket)',      status:'U', assignee:'Marcus (Eng Lead)', date:'Q2 2027', done:false, notes:'' },
-    { id:'t27', phase:2, type:'subtask', name:'Mobile SDK integration',                 status:'U', assignee:'Marcus (Eng Lead)', date:'Q3 2027', done:false, notes:'' },
-    { id:'t28', phase:2, type:'task',    name:'Netflix Wrapped',                        status:'U', assignee:'Caleb (Design)',    date:'Q4 2027', done:false, notes:'' },
-    { id:'t29', phase:2, type:'subtask', name:'Data pipeline for viewing stats',        status:'U', assignee:'Marcus (Eng Lead)', date:'Q3 2027', done:false, notes:'' },
-    { id:'t30', phase:2, type:'subtask', name:'Annual report UI & share mechanism',     status:'U', assignee:'Caleb (Design)',    date:'Q4 2027', done:false, notes:'' },
-
-    // Stage 3
-    { id:'t31', phase:3, type:'task',    name:'Referral Programme Infrastructure',      status:'U', assignee:'Marcus (Eng Lead)', date:'Q1 2028', done:false, notes:'' },
-    { id:'t32', phase:3, type:'subtask', name:'Referral tracking & attribution system', status:'U', assignee:'Marcus (Eng Lead)', date:'Q1 2028', done:false, notes:'' },
-    { id:'t33', phase:3, type:'subtask', name:'Reward fulfilment pipeline',              status:'U', assignee:'Lucas (Finance)',   date:'Q2 2028', done:false, notes:'' },
-    { id:'t34', phase:3, type:'task',    name:'Project Closure & BAU Handover',         status:'U', assignee:'Ryan (PM)',         date:'2029',     done:false, notes:'' },
+  uIdx:0,
+  tasks:[
+    {id:'t1',phase:0,type:'task',name:'Project Scoping & Charter',status:'G',assignee:'Ryan Wong (PM)',date:'Jan 2026',done:true,notes:''},
+    {id:'t2',phase:0,type:'subtask',name:'Define project boundaries & MoSCoW',status:'G',assignee:'Ryan Wong (PM)',date:'Jan 2026',done:true,notes:''},
+    {id:'t3',phase:0,type:'subtask',name:'Stakeholder mapping',status:'G',assignee:'Ryan Wong (PM)',date:'Jan 2026',done:true,notes:''},
+    {id:'t4',phase:0,type:'task',name:'Technical Feasibility Study',status:'G',assignee:'Marcus Lim (Eng Lead)',date:'Feb 2026',done:true,notes:''},
+    {id:'t5',phase:0,type:'subtask',name:'API architecture assessment',status:'G',assignee:'Marcus Lim (Eng Lead)',date:'Feb 2026',done:true,notes:''},
+    {id:'t6',phase:0,type:'subtask',name:'Infrastructure cost estimation',status:'G',assignee:'Marcus Lim (Eng Lead)',date:'Feb 2026',done:true,notes:''},
+    {id:'t7',phase:0,type:'task',name:'Team Structure & Hiring Plan',status:'G',assignee:'Ryan Wong (PM)',date:'Feb 2026',done:true,notes:''},
+    {id:'t8',phase:0,type:'task',name:'Board Approval Presentation',status:'G',assignee:'Ryan Wong (PM)',date:'Mar 2026',done:true,notes:''},
+    {id:'t9',phase:1,type:'task',name:'Privacy & Compliance Infrastructure',status:'A',assignee:'Jean Zang (Compliance)',date:'Q2 2026',done:false,notes:'GDPR framework in scoping'},
+    {id:'t10',phase:1,type:'subtask',name:'Legal review of data handling',status:'A',assignee:'Jean Zang (Compliance)',date:'Q2 2026',done:false,notes:''},
+    {id:'t11',phase:1,type:'subtask',name:'GDPR consent flow design',status:'U',assignee:'Caleb Soh (Design)',date:'Q3 2026',done:false,notes:''},
+    {id:'t12',phase:1,type:'subtask',name:'Compliance staff onboarding (4 FTE)',status:'U',assignee:'Ryan Wong (PM)',date:'Q2 2026',done:false,notes:''},
+    {id:'t13',phase:1,type:'task',name:'Social UI Design System',status:'A',assignee:'Caleb Soh (Design)',date:'Q3 2026',done:false,notes:'Wireframes in progress'},
+    {id:'t14',phase:1,type:'subtask',name:'User profile component library',status:'A',assignee:'Caleb Soh (Design)',date:'Q3 2026',done:false,notes:''},
+    {id:'t15',phase:1,type:'subtask',name:'Friend discovery flow UX',status:'U',assignee:'Caleb Soh (Design)',date:'Q3 2026',done:false,notes:''},
+    {id:'t16',phase:1,type:'task',name:'Backend Social Graph API',status:'U',assignee:'Marcus Lim (Eng Lead)',date:'Q4 2026',done:false,notes:''},
+    {id:'t17',phase:1,type:'subtask',name:'Graph DB schema design (Neo4j)',status:'U',assignee:'Marcus Lim (Eng Lead)',date:'Q4 2026',done:false,notes:''},
+    {id:'t18',phase:1,type:'subtask',name:'Friend-of-friend recommendation algo',status:'U',assignee:'Marcus Lim (Eng Lead)',date:'Q1 2027',done:false,notes:''},
+    {id:'t19',phase:1,type:'task',name:'Stage 1 QA & Beta Testing',status:'U',assignee:'Marcus Lim (Eng Lead)',date:'Q3 2027',done:false,notes:''},
+    {id:'t20',phase:1,type:'subtask',name:'Internal beta (500 users)',status:'U',assignee:'Marcus Lim (Eng Lead)',date:'Q3 2027',done:false,notes:''},
+    {id:'t21',phase:1,type:'subtask',name:'Load testing at 1M concurrent users',status:'U',assignee:'Marcus Lim (Eng Lead)',date:'Q4 2027',done:false,notes:''},
+    {id:'t22',phase:2,type:'task',name:'Discussion Forums Development',status:'U',assignee:'Marcus Lim (Eng Lead)',date:'Q1 2027',done:false,notes:''},
+    {id:'t23',phase:2,type:'subtask',name:'Moderation AI pipeline (Vertex AI)',status:'U',assignee:'Marcus Lim (Eng Lead)',date:'Q1 2027',done:false,notes:''},
+    {id:'t24',phase:2,type:'subtask',name:'Human review team workflow',status:'U',assignee:'Jean Zang (Compliance)',date:'Q2 2027',done:false,notes:''},
+    {id:'t25',phase:2,type:'task',name:'Watch Party Feature',status:'U',assignee:'Marcus Lim (Eng Lead)',date:'Q2 2027',done:false,notes:''},
+    {id:'t26',phase:2,type:'subtask',name:'Real-time sync engine (WebSocket)',status:'U',assignee:'Marcus Lim (Eng Lead)',date:'Q2 2027',done:false,notes:''},
+    {id:'t27',phase:2,type:'subtask',name:'Mobile SDK integration',status:'U',assignee:'Marcus Lim (Eng Lead)',date:'Q3 2027',done:false,notes:''},
+    {id:'t28',phase:2,type:'task',name:'Netflix Wrapped',status:'U',assignee:'Caleb Soh (Design)',date:'Q4 2027',done:false,notes:''},
+    {id:'t29',phase:2,type:'subtask',name:'Data pipeline for viewing stats',status:'U',assignee:'Marcus Lim (Eng Lead)',date:'Q3 2027',done:false,notes:''},
+    {id:'t30',phase:2,type:'subtask',name:'Annual report UI & share mechanism',status:'U',assignee:'Caleb Soh (Design)',date:'Q4 2027',done:false,notes:''},
+    {id:'t31',phase:3,type:'task',name:'Referral Programme Infrastructure',status:'U',assignee:'Marcus Lim (Eng Lead)',date:'Q1 2028',done:false,notes:''},
+    {id:'t32',phase:3,type:'subtask',name:'Referral tracking & attribution',status:'U',assignee:'Marcus Lim (Eng Lead)',date:'Q1 2028',done:false,notes:''},
+    {id:'t33',phase:3,type:'subtask',name:'Reward fulfilment pipeline',status:'U',assignee:'Lucas Tan (Finance)',date:'Q2 2028',done:false,notes:'Cost per referral: $15.25'},
+    {id:'t34',phase:3,type:'task',name:'Project Closure & BAU Handover',status:'U',assignee:'Ryan Wong (PM)',date:'2029',done:false,notes:''},
   ],
-
-  milestones: [
-    { id:'m1', name:'Board Approval & Project Kickoff',   date:'Jan 2026', status:'G', phase:'Stage 0' },
-    { id:'m2', name:'Technical Feasibility Complete',      date:'Feb 2026', status:'G', phase:'Stage 0' },
-    { id:'m3', name:'Privacy Compliance Design Locked',    date:'Q2 2026',  status:'A', phase:'Stage 1' },
-    { id:'m4', name:'Stage 1 Development Start',           date:'Q2 2026',  status:'A', phase:'Stage 1' },
-    { id:'m5', name:'Stage 1 Internal Beta Launch',        date:'Q3 2027',  status:'U', phase:'Stage 1' },
-    { id:'m6', name:'Stage 1 Public Launch',               date:'Q4 2027',  status:'U', phase:'Stage 1' },
-    { id:'m7', name:'Stage 2 Discussion Forums Live',      date:'Q2 2027',  status:'U', phase:'Stage 2' },
-    { id:'m8', name:'Watch Party Feature Live',            date:'Q4 2027',  status:'U', phase:'Stage 2' },
-    { id:'m9', name:'Netflix Wrapped 2027 (first run)',    date:'Dec 2027', status:'U', phase:'Stage 2' },
-    { id:'m10',name:'Referral Model Live',                 date:'Q2 2028',  status:'U', phase:'Stage 3' },
-    { id:'m11',name:'Project Closure',                     date:'2029',     status:'U', phase:'Closure' },
+  milestones:[
+    {id:'m1',name:'Board Approval & Project Kickoff',date:'Jan 2026',status:'G',phase:'Stage 0'},
+    {id:'m2',name:'Technical Feasibility Complete',date:'Feb 2026',status:'G',phase:'Stage 0'},
+    {id:'m3',name:'Privacy Compliance Design Locked',date:'Q2 2026',status:'A',phase:'Stage 1'},
+    {id:'m4',name:'Stage 1 Development Start',date:'Q2 2026',status:'A',phase:'Stage 1'},
+    {id:'m5',name:'Stage 1 Internal Beta Launch',date:'Q3 2027',status:'U',phase:'Stage 1'},
+    {id:'m6',name:'Stage 1 Public Launch',date:'Q4 2027',status:'U',phase:'Stage 1'},
+    {id:'m7',name:'Discussion Forums Live',date:'Q2 2027',status:'U',phase:'Stage 2'},
+    {id:'m8',name:'Watch Party Feature Live',date:'Q4 2027',status:'U',phase:'Stage 2'},
+    {id:'m9',name:'Netflix Wrapped 2027 (first run)',date:'Dec 2027',status:'U',phase:'Stage 2'},
+    {id:'m10',name:'Referral Model Live',date:'Q2 2028',status:'U',phase:'Stage 3'},
+    {id:'m11',name:'Project Closure',date:'2029',status:'U',phase:'Closure'},
   ],
-
-  checkpoints: [
-    {
-      id:'cp1', name:'Stage 0 → Stage 1 Gate Review',
-      date:'Mar 2026', status:'G',
-      description:'Board sign-off confirming feasibility, budget, and team structure before Stage 1 development begins.',
-      signers:[
-        { userId:0, signed:true,  time:'Mar 5 2026 14:32' },
-        { userId:2, signed:true,  time:'Mar 5 2026 16:10' },
-        { userId:5, signed:true,  time:'Mar 6 2026 09:45' },
-        { userId:3, signed:false, time:null },
-        { userId:1, signed:false, time:null },
-      ]
-    },
-    {
-      id:'cp2', name:'Privacy Framework Checkpoint',
-      date:'Q2 2026', status:'A',
-      description:'Compliance team must confirm GDPR architecture before any user data collection features are deployed.',
-      signers:[
-        { userId:3, signed:false, time:null },
-        { userId:0, signed:false, time:null },
-        { userId:5, signed:false, time:null },
-      ]
-    },
-    {
-      id:'cp3', name:'Stage 1 → Stage 2 Gate Review',
-      date:'Q4 2027', status:'U',
-      description:'All Stage 1 must-have features live & stable. KPI targets reviewed before Stage 2 investment unlocked.',
-      signers:[
-        { userId:0, signed:false, time:null },
-        { userId:1, signed:false, time:null },
-        { userId:2, signed:false, time:null },
-        { userId:5, signed:false, time:null },
-      ]
-    },
-    {
-      id:'cp4', name:'Stage 2 → Stage 3 Gate Review',
-      date:'Q4 2028', status:'U',
-      description:'Stage 2 features stable, engagement KPIs on track. Finance confirms referral budget allocation.',
-      signers:[
-        { userId:0, signed:false, time:null },
-        { userId:2, signed:false, time:null },
-        { userId:5, signed:false, time:null },
-      ]
-    },
-    {
-      id:'cp5', name:'Project Closure Sign-off',
-      date:'2029', status:'U',
-      description:'Full project retrospective, BAU handover, and final financial reconciliation.',
-      signers:[
-        { userId:0, signed:false, time:null },
-        { userId:1, signed:false, time:null },
-        { userId:2, signed:false, time:null },
-        { userId:3, signed:false, time:null },
-        { userId:5, signed:false, time:null },
-      ]
-    },
+  checkpoints:[
+    {id:'cp1',name:'Stage 0 → Stage 1 Gate Review',date:'Mar 2026',status:'G',
+      description:'Board sign-off confirming feasibility, budget, and team before Stage 1 begins.',
+      signers:[{uid:0,signed:true,time:'Mar 5 2026 14:32'},{uid:2,signed:true,time:'Mar 5 2026 16:10'},{uid:5,signed:true,time:'Mar 6 2026 09:45'},{uid:3,signed:false,time:null},{uid:1,signed:false,time:null}]},
+    {id:'cp2',name:'Privacy Framework Checkpoint',date:'Q2 2026',status:'A',
+      description:'Compliance must confirm GDPR architecture before any user data features go live.',
+      signers:[{uid:3,signed:false,time:null},{uid:0,signed:false,time:null},{uid:5,signed:false,time:null}]},
+    {id:'cp3',name:'Stage 1 → Stage 2 Gate Review',date:'Q4 2027',status:'U',
+      description:'All Stage 1 must-have features live & stable. KPIs reviewed before Stage 2 investment.',
+      signers:[{uid:0,signed:false,time:null},{uid:1,signed:false,time:null},{uid:2,signed:false,time:null},{uid:5,signed:false,time:null}]},
+    {id:'cp4',name:'Stage 2 → Stage 3 Gate Review',date:'Q4 2028',status:'U',
+      description:'Stage 2 stable, engagement KPIs on track. Finance confirms referral budget.',
+      signers:[{uid:0,signed:false,time:null},{uid:2,signed:false,time:null},{uid:5,signed:false,time:null}]},
+    {id:'cp5',name:'Project Closure Sign-off',date:'2029',status:'U',
+      description:'Full retrospective, BAU handover, final financial reconciliation.',
+      signers:[{uid:0,signed:false,time:null},{uid:1,signed:false,time:null},{uid:2,signed:false,time:null},{uid:3,signed:false,time:null},{uid:5,signed:false,time:null}]},
   ],
-
-  risks: [
-    { id:'r1', name:'Data Privacy Breaches',       likelihood:'Medium', impact:'Very High', status:'A', owner:'Jean (Compliance)', mitigation:'GDPR compliance + ongoing compliance team', trend:'stable' },
-    { id:'r2', name:'Content Moderation Issues',   likelihood:'High',   impact:'High',      status:'R', owner:'Marcus (Eng Lead)', mitigation:'AI moderation + human review team',       trend:'worsening' },
-    { id:'r3', name:'Cultural Differences',        likelihood:'High',   impact:'Medium',    status:'A', owner:'Ryan (PM)',          mitigation:'Localisation teams + phased rollout',     trend:'stable' },
-    { id:'r4', name:'Feature Overcomplication',    likelihood:'Medium', impact:'Medium',    status:'A', owner:'Caleb (Design)',     mitigation:'Phased rollout + extensive beta testing', trend:'improving' },
-    { id:'r5', name:'Low Social Feature Adoption', likelihood:'Medium', impact:'High',      status:'A', owner:'Ryan (PM)',          mitigation:'Referral programme to drive adoption',    trend:'stable' },
-    { id:'r6', name:'Engineering Talent Shortage', likelihood:'Low',    impact:'High',      status:'G', owner:'Ryan (PM)',          mitigation:'Competitive comp packages, remote-first', trend:'improving' },
+  risks:[
+    {id:'r1',name:'Data Privacy Breaches',likelihood:'Medium',impact:'Very High',status:'A',owner:'Jean Zang (Compliance)',mitigation:'GDPR compliance + ongoing team',trend:'stable'},
+    {id:'r2',name:'Content Moderation Issues',likelihood:'High',impact:'High',status:'R',owner:'Marcus Lim (Eng Lead)',mitigation:'AI moderation + human review',trend:'worsening'},
+    {id:'r3',name:'Cultural Differences',likelihood:'High',impact:'Medium',status:'A',owner:'Ryan Wong (PM)',mitigation:'Localisation + phased rollout',trend:'stable'},
+    {id:'r4',name:'Feature Overcomplication',likelihood:'Medium',impact:'Medium',status:'A',owner:'Caleb Soh (Design)',mitigation:'Phased rollout + beta testing',trend:'improving'},
+    {id:'r5',name:'Low Social Feature Adoption',likelihood:'Medium',impact:'High',status:'A',owner:'Ryan Wong (PM)',mitigation:'Referral programme for adoption',trend:'stable'},
+    {id:'r6',name:'Engineering Talent Shortage',likelihood:'Low',impact:'High',status:'G',owner:'Ryan Wong (PM)',mitigation:'Competitive comp, remote-first',trend:'improving'},
   ],
-
-  financials: [
-    { year:'2026', budget:13.29, actual:1.20,  forecast:13.29, status:'G' },
-    { year:'2027', budget:18.99, actual:null,  forecast:18.99, status:'G' },
-    { year:'2028', budget:21.42, actual:null,  forecast:21.42, status:'G' },
-    { year:'2029', budget:17.99, actual:null,  forecast:17.99, status:'G' },
-    { year:'2030', budget:22.54, actual:null,  forecast:22.54, status:'G' },
+  financials:[
+    {year:'2026',budget:13.29,actual:1.20,forecast:13.29,status:'G'},
+    {year:'2027',budget:18.99,actual:null,forecast:18.99,status:'G'},
+    {year:'2028',budget:21.42,actual:null,forecast:21.42,status:'G'},
+    {year:'2029',budget:17.99,actual:null,forecast:17.99,status:'G'},
+    {year:'2030',budget:22.54,actual:null,forecast:22.54,status:'G'},
   ],
-
-  activityLog: [
-    { id:'l1',  ts:'Mar 20 2026 09:15', actor:'Ryan (PM)',         type:'status',  action:'changed status',        subject:'Progress',               old:'G', new_val:'A', icon:'🔄', new_flag:true  },
-    { id:'l2',  ts:'Mar 20 2026 08:50', actor:'Jean (Compliance)', type:'signoff', action:'signed off on',         subject:'Stage 0 → Stage 1 Gate', old:null,new_val:null,icon:'✍', new_flag:true  },
-    { id:'l3',  ts:'Mar 19 2026 17:30', actor:'Board Sponsor',     type:'signoff', action:'signed off on',         subject:'Stage 0 → Stage 1 Gate', old:null,new_val:null,icon:'✍', new_flag:false },
-    { id:'l4',  ts:'Mar 19 2026 16:00', actor:'Marcus (Eng Lead)', type:'task',    action:'updated task status',   subject:'Technical Feasibility Study', old:'A', new_val:'G', icon:'☑', new_flag:false },
-    { id:'l5',  ts:'Mar 18 2026 14:22', actor:'Ryan (PM)',         type:'task',    action:'marked done',           subject:'Board Approval Presentation', old:null,new_val:null,icon:'☑', new_flag:false },
-    { id:'l6',  ts:'Mar 17 2026 11:00', actor:'Lucas (Finance)',   type:'finance', action:'updated actual spend',  subject:'2026 Actuals → $1.20M',       old:null,new_val:null,icon:'💰', new_flag:false },
-    { id:'l7',  ts:'Mar 15 2026 09:30', actor:'Ryan (PM)',         type:'status',  action:'changed status',        subject:'Risk',                        old:'G', new_val:'A', icon:'🔄', new_flag:false },
-    { id:'l8',  ts:'Mar 14 2026 15:45', actor:'Jean (Compliance)', type:'task',    action:'added note to',         subject:'Privacy & Compliance Infrastructure', old:null,new_val:null,icon:'📝', new_flag:false },
-    { id:'l9',  ts:'Mar 12 2026 10:00', actor:'Marcus (Eng Lead)', type:'status',  action:'raised risk to',        subject:'Content Moderation Issues', old:'A', new_val:'R', icon:'⚠', new_flag:false },
-    { id:'l10', ts:'Mar 10 2026 16:30', actor:'Ryan (PM)',         type:'task',    action:'updated task status',   subject:'Privacy Compliance Infrastructure', old:'G', new_val:'A', icon:'🔄', new_flag:false },
-    { id:'l11', ts:'Mar 06 2026 09:45', actor:'Board Sponsor',     type:'signoff', action:'approved checkpoint',   subject:'Stage 0 → Stage 1 Gate', old:null,new_val:null,icon:'✍', new_flag:false },
-    { id:'l12', ts:'Mar 05 2026 14:32', actor:'Ryan (PM)',         type:'signoff', action:'signed off on',         subject:'Stage 0 → Stage 1 Gate', old:null,new_val:null,icon:'✍', new_flag:false },
+  // SUCCESS METRICS from pitch + Excel model
+  successMetrics:[
+    {id:'sm1',category:'North Star',name:'Effective Churn Rate',good:'> 2.1%',better:'1.92–2.1%',best:'≤ 1.91%',current:'2.25%',currentRaw:2.25,bestRaw:1.91,unit:'%',higherBetter:false,notes:'Current: baseline. Target: 1.91% by Q4 2030'},
+    {id:'sm2',category:'Stage 1 – Must Have',name:'Users with Profile & Friend Setup',good:'20%',better:'30%',best:'40%',current:'—',currentRaw:null,bestRaw:40,unit:'%',higherBetter:true,notes:'Launches Q4 2027'},
+    {id:'sm3',category:'Stage 2 – Should Have',name:'Active Discussion Forum Users',good:'15%',better:'20%',best:'25%',current:'—',currentRaw:null,bestRaw:25,unit:'%',higherBetter:true,notes:'Launches Q2 2027'},
+    {id:'sm4',category:'Stage 2 – Should Have',name:'Watch Party Usage Rate',good:'20%',better:'25%',best:'30%',current:'—',currentRaw:null,bestRaw:30,unit:'%',higherBetter:true,notes:'Launches Q4 2027'},
+    {id:'sm5',category:'Stage 3 – Could Have',name:'Referrals per User vs ACT',good:'10% × ACT',better:'15% × ACT',best:'20% × ACT',current:'—',currentRaw:null,bestRaw:20,unit:'× ACT',higherBetter:true,notes:'Launches Q2 2028. ACT = Addressable Churn Target'},
+  ],
+  activityLog:[
+    {id:'l1',ts:'Mar 20 2026 09:15',actor:'Ryan Wong (PM)',type:'status',action:'changed status',subject:'Progress',old:'G',new_val:'A',icon:'🔄',nf:true},
+    {id:'l2',ts:'Mar 20 2026 08:50',actor:'Jean Zang (Compliance)',type:'signoff',action:'signed off on',subject:'Stage 0 → Stage 1 Gate',old:null,new_val:null,icon:'✍',nf:true},
+    {id:'l3',ts:'Mar 19 2026 17:30',actor:'Steffi Tedjo (Exec Sponsor)',type:'signoff',action:'signed off on',subject:'Stage 0 → Stage 1 Gate',old:null,new_val:null,icon:'✍',nf:false},
+    {id:'l4',ts:'Mar 19 2026 16:00',actor:'Marcus Lim (Eng Lead)',type:'task',action:'updated status',subject:'Technical Feasibility Study',old:'A',new_val:'G',icon:'☑',nf:false},
+    {id:'l5',ts:'Mar 18 2026 14:22',actor:'Ryan Wong (PM)',type:'task',action:'marked done',subject:'Board Approval Presentation',old:null,new_val:null,icon:'☑',nf:false},
+    {id:'l6',ts:'Mar 17 2026 11:00',actor:'Lucas Tan (Finance)',type:'finance',action:'updated actual spend',subject:'2026 Actuals → $1.20M',old:null,new_val:null,icon:'💰',nf:false},
+    {id:'l7',ts:'Mar 15 2026 09:30',actor:'Ryan Wong (PM)',type:'status',action:'changed status',subject:'Risk',old:'G',new_val:'A',icon:'🔄',nf:false},
+    {id:'l8',ts:'Mar 14 2026 15:45',actor:'Jean Zang (Compliance)',type:'task',action:'added note to',subject:'Privacy & Compliance Infrastructure',old:null,new_val:null,icon:'📝',nf:false},
+    {id:'l9',ts:'Mar 12 2026 10:00',actor:'Marcus Lim (Eng Lead)',type:'status',action:'raised risk',subject:'Content Moderation Issues',old:'A',new_val:'R',icon:'⚠',nf:false},
+    {id:'l10',ts:'Mar 10 2026 16:30',actor:'Ryan Wong (PM)',type:'task',action:'changed status',subject:'Privacy Compliance Infrastructure',old:'G',new_val:'A',icon:'🔄',nf:false},
+    {id:'l11',ts:'Mar 06 2026 09:45',actor:'Steffi Tedjo (Exec Sponsor)',type:'signoff',action:'approved checkpoint',subject:'Stage 0 → Stage 1 Gate',old:null,new_val:null,icon:'✍',nf:false},
+    {id:'l12',ts:'Mar 05 2026 14:32',actor:'Ryan Wong (PM)',type:'signoff',action:'signed off on',subject:'Stage 0 → Stage 1 Gate',old:null,new_val:null,icon:'✍',nf:false},
   ],
 };
+let logCtr=13;
 
-let logIdCounter = 13;
-
-/* ══════════════════════════════════════════════
-   ROLES CONFIG
-══════════════════════════════════════════════ */
-const ROLES = {
-  pm:   { label:'Project Manager',     color:'#ff8080', bannerClass:'pm',   canEditStatus:true,  canEditTasks:true,  canEditFinance:false, canEditRisk:true,  desc:'Full dashboard access — you can update all statuses, tasks, and trigger sign-offs.' },
-  eng:  { label:'Engineering Lead',    color:'#7ab3ff', bannerClass:'eng',  canEditStatus:false, canEditTasks:true,  canEditFinance:false, canEditRisk:true,  desc:'Edit engineering tasks and update risk ratings for technical risks.' },
-  exec: { label:'Executive Sponsor',   color:'#fcd070', bannerClass:'exec', canEditStatus:false, canEditTasks:false, canEditFinance:false, canEditRisk:false, desc:'Read-only view with executive summary highlights and sign-off capability.' },
-  fin:  { label:'Finance Controller',  color:'#6ee8a0', bannerClass:'fin',  canEditStatus:false, canEditTasks:false, canEditFinance:true,  canEditRisk:false, desc:'Edit financial actuals and forecast figures.' },
-  risk: { label:'Risk & Compliance',   color:'#c084fc', bannerClass:'risk', canEditStatus:false, canEditTasks:false, canEditFinance:false, canEditRisk:true,  desc:'Update risk statuses, likelihoods, and mitigation notes.' },
+/* ═══════════════════════════════════════════════
+   CONSTANTS / ROLES
+═══════════════════════════════════════════════ */
+const ROLES={
+  pm:{label:'Project Manager',cls:'pm',canStatus:true,canTasks:true,canFin:false,canRisk:true,desc:'Full dashboard access — update all statuses, tasks, and trigger sign-offs.'},
+  eng:{label:'Engineering Lead',cls:'eng',canStatus:false,canTasks:true,canFin:false,canRisk:true,desc:'Edit engineering tasks and update technical risks.'},
+  exec:{label:'Executive Sponsor',cls:'exec',canStatus:false,canTasks:false,canFin:false,canRisk:false,desc:'Read-only executive view with sign-off capability.'},
+  fin:{label:'Finance Controller',cls:'fin',canStatus:false,canTasks:false,canFin:true,canRisk:false,desc:'Edit financial actuals and forecast figures.'},
+  risk:{label:'Risk & Compliance',cls:'risk',canStatus:false,canTasks:false,canFin:false,canRisk:true,desc:'Update risk statuses and mitigation plans.'},
 };
+const PHASES=['Stage 0 – Discovery','Stage 1 – Must Have','Stage 2 – Should Have','Stage 3 – Could Have'];
+const PHASE_COLS=['var(--green)','var(--blue)','var(--amber)','var(--red)'];
 
-const PHASES = ['Stage 0 – Discovery', 'Stage 1 – Must Have', 'Stage 2 – Should Have', 'Stage 3 – Could Have'];
-const PHASE_COLORS = ['var(--green)', 'var(--blue)', 'var(--amber)', 'var(--red)'];
+/* ═══════════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════════ */
+const rl=(r)=>({G:'Green',A:'Amber',R:'Red',B:'Blue',U:'Not Set'}[r]||'—');
+const rcv=(r)=>({G:'var(--green)',A:'var(--amber)',R:'var(--red)',B:'var(--blue)',U:'var(--muted)'}[r]||'var(--muted)');
+const fmt=(n)=>n==null?'—':'$'+n.toFixed(2)+'M';
 
-/* ══════════════════════════════════════════════
-   UTILITIES
-══════════════════════════════════════════════ */
-function now() {
-  return new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
-}
-function ragLabel(r){ return {G:'Green',A:'Amber',R:'Red',B:'Blue',U:'Not Set'}[r]||'—'; }
-function ragColorVar(r){ return {G:'var(--green)',A:'var(--amber)',R:'var(--red)',B:'var(--blue)',U:'var(--muted)'}[r]||'var(--muted)'; }
-function pillClass(v){
-  v=(v||'').toLowerCase();
-  if(v==='high'||v==='very high') return 'pill-r';
-  if(v==='medium') return 'pill-a';
-  if(v==='low') return 'pill-g';
-  return '';
-}
-function getUserByName(n){ return STATE.users.find(u=>u.name===n)||STATE.users[0]; }
-
-function toast(msg, type='info'){
+function toast(msg,type='info'){
   const el=document.createElement('div');
   el.className=`toast ${type}`;
-  const icons={success:'✓',warn:'⚠',error:'✕',info:'ℹ'};
-  el.innerHTML=`<span>${icons[type]||'ℹ'}</span><span>${msg}</span>`;
-  document.getElementById('toast-stack').appendChild(el);
-  setTimeout(()=>{ el.style.animation='toastOut .3s ease forwards'; setTimeout(()=>el.remove(),300); },3000);
+  const ic={success:'✓',warn:'⚠',error:'✕',info:'ℹ'};
+  el.innerHTML=`<span>${ic[type]||'ℹ'}</span><span>${msg}</span>`;
+  document.getElementById('toasts').appendChild(el);
+  setTimeout(()=>{el.style.animation='tOut .3s ease forwards';setTimeout(()=>el.remove(),300);},3000);
 }
 
-function addLog(actor, type, action, subject, oldVal, newVal, icon){
-  const entry={
-    id:'l'+logIdCounter++,
-    ts:now(), actor, type, action, subject,
-    old:oldVal, new_val:newVal, icon, new_flag:true
-  };
-  STATE.activityLog.unshift(entry);
-  renderLog();
-  renderOverviewLog();
+function addLog(actor,type,action,subject,old,nv,icon){
+  S.activityLog.unshift({id:'l'+logCtr++,ts:now(),actor,type,action,subject,old,new_val:nv,icon,nf:true});
+  if(document.getElementById('pane-log').classList.contains('active')) renderLog();
+  if(document.getElementById('pane-command').classList.contains('active')) renderCmdLog();
   updateBadges();
 }
 
 function updateBadges(){
-  const newLogs=STATE.activityLog.filter(l=>l.new_flag).length;
-  document.getElementById('badge-log').textContent=newLogs||STATE.activityLog.length;
-  const pendingSigs=STATE.checkpoints.reduce((acc,cp)=>{
-    return acc + cp.signers.filter(s=>{
-      return !s.signed && STATE.users[s.userId]?.role===STATE.currentRole;
-    }).length;
-  },0);
-  const sigBadge=document.getElementById('badge-signoffs');
-  if(pendingSigs>0){ sigBadge.textContent=pendingSigs; sigBadge.style.display=''; }
-  else sigBadge.style.display='none';
-  const openTasks=STATE.tasks.filter(t=>!t.done && (t.status==='A'||t.status==='R')).length;
-  document.getElementById('badge-tasks').textContent=openTasks||'';
-  if(!openTasks) document.getElementById('badge-tasks').style.display='none';
+  const newLogs=S.activityLog.filter(l=>l.nf).length;
+  document.getElementById('badge-log').textContent=newLogs||S.activityLog.length;
+  const pendingSigs=S.checkpoints.reduce((a,cp)=>a+cp.signers.filter(s=>!s.signed&&S.users[s.uid]?.role===S.role).length,0);
+  const sb=document.getElementById('badge-signoffs');
+  sb.textContent=pendingSigs;sb.style.display=pendingSigs?'':'none';
+  const at=S.tasks.filter(t=>!t.done&&(t.status==='A'||t.status==='R')).length;
+  const btg=document.getElementById('badge-tasks');
+  btg.textContent=at;btg.style.display=at?'':'none';
+  document.getElementById('home-signoff-count').textContent=pendingSigs+' pending';
+  document.getElementById('home-log-count').textContent=S.activityLog.length+' entries';
 }
 
 function clearNewFlags(){
-  STATE.activityLog.forEach(l=>l.new_flag=false);
+  S.activityLog.forEach(l=>l.nf=false);
   renderLog();
-  document.getElementById('badge-log').textContent=STATE.activityLog.length;
+  document.getElementById('badge-log').textContent=S.activityLog.length;
   toast('All logs marked as read','success');
 }
 
-/* ══════════════════════════════════════════════
-   NAVIGATION
-══════════════════════════════════════════════ */
-function openPane(id, el){
-  document.querySelectorAll('.content-pane').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.sidebar-item').forEach(s=>s.classList.remove('active'));
+/* ═══════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════ */
+function openPane(id,el){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sb-it').forEach(s=>s.classList.remove('active'));
   document.getElementById('pane-'+id).classList.add('active');
   if(el) el.classList.add('active');
   renderPane(id);
@@ -1124,650 +1076,794 @@ function openPane(id, el){
 
 function renderPane(id){
   switch(id){
-    case 'overview':    renderOverview(); break;
-    case 'tasks':       renderTasks(); break;
-    case 'milestones':  renderMilestones(); break;
-    case 'checkpoints': renderCheckpoints(); break;
-    case 'signoffs':    renderSignoffs(); break;
-    case 'risks':       renderRisks(); break;
-    case 'financials':  renderFinancials(); break;
-    case 'log':         renderLog(); break;
+    case 'home':renderHome();break;
+    case 'command':renderCommand();break;
+    case 'tasks':renderTasks();break;
+    case 'milestones':renderMilestones();break;
+    case 'checkpoints':renderCheckpoints();break;
+    case 'success':renderSuccess();break;
+    case 'financial':renderFinancialDrivers();break;
+    case 'signoffs':renderSignoffs();break;
+    case 'risks':renderRisks();break;
+    case 'financials':renderBudget();break;
+    case 'log':renderLog();break;
   }
 }
 
 function switchRole(role){
-  STATE.currentRole=role;
-  const u=STATE.users.find(u=>u.role===role)||STATE.users[0];
-  STATE.currentUser=u.name;
-  STATE.userIndex=STATE.users.indexOf(u);
-  renderUserPill();
-  updateBadges();
-  const activePane=document.querySelector('.content-pane.active');
-  if(activePane) renderPane(activePane.id.replace('pane-',''));
-  toast(`Switched to ${ROLES[role].label} view`,'info');
+  S.role=role;
+  const u=S.users.find(u=>u.role===role)||S.users[0];
+  S.user=u.name;S.uIdx=S.users.indexOf(u);
+  renderUserPill();updateBadges();
+  const ap=document.querySelector('.pane.active');
+  if(ap) renderPane(ap.id.replace('pane-',''));
+  toast(`Switched to ${ROLES[role].label}`,'info');
 }
 
 function cycleUser(){
-  STATE.userIndex=(STATE.userIndex+1)%STATE.users.length;
-  const u=STATE.users[STATE.userIndex];
-  STATE.currentUser=u.name;
-  STATE.currentRole=u.role;
-  document.getElementById('role-select').value=u.role;
-  renderUserPill();
-  updateBadges();
-  const activePane=document.querySelector('.content-pane.active');
-  if(activePane) renderPane(activePane.id.replace('pane-',''));
-  toast(`Now viewing as ${u.name}`,'info');
+  S.uIdx=(S.uIdx+1)%S.users.length;
+  const u=S.users[S.uIdx];
+  S.user=u.name;S.role=u.role;
+  document.getElementById('role-sel').value=u.role;
+  renderUserPill();updateBadges();
+  const ap=document.querySelector('.pane.active');
+  if(ap) renderPane(ap.id.replace('pane-',''));
+  toast(`Now: ${u.name}`,'info');
 }
 
 function renderUserPill(){
-  const u=STATE.users[STATE.userIndex];
-  document.getElementById('user-avatar').textContent=u.initials;
-  document.getElementById('user-avatar').style.background=u.color;
-  document.getElementById('user-name-display').textContent=u.name;
+  const u=S.users[S.uIdx];
+  document.getElementById('u-av').textContent=u.initials;
+  document.getElementById('u-av').style.background=u.color;
+  document.getElementById('u-nm').textContent=u.name;
 }
 
-/* ══════════════════════════════════════════════
-   ROLE BANNERS
-══════════════════════════════════════════════ */
-function setRoleBanner(containerId){
-  const r=ROLES[STATE.currentRole];
-  const el=document.getElementById(containerId);
-  if(!el) return;
-  el.innerHTML=`<div class="role-banner ${r.bannerClass}"><span>👤</span><strong>${r.label}</strong> — ${r.desc}</div>`;
+function setBanner(cid){
+  const r=ROLES[S.role];
+  const el=document.getElementById(cid);
+  if(el) el.innerHTML=`<div class="rbanner ${r.cls}"><span>👤</span><strong>${r.label}</strong> — ${r.desc}</div>`;
 }
 
-/* ══════════════════════════════════════════════
-   RENDER: OVERVIEW
-══════════════════════════════════════════════ */
-function renderOverview(){
-  setRoleBanner('role-banner-overview');
-
-  // Role-specific UI
-  const canEdit=STATE.currentRole==='pm';
-  document.getElementById('pm-quick-update').style.display=canEdit?'':'none';
-  document.getElementById('btn-edit-status').style.display=canEdit?'':'none';
-
-  // Overall status dims
+/* ═══════════════════════════════════════════════
+   RENDER: HOME
+═══════════════════════════════════════════════ */
+function renderHome(){
+  document.getElementById('btn-home-upd').style.display=S.role==='pm'?'':'none';
+  const psuEditBtn=document.getElementById('psu-edit-btn');
+  if(psuEditBtn) psuEditBtn.style.display=S.role==='pm'?'':'none';
+  if(!psuEditing){
+    const psuEl=document.getElementById('home-psupdate');
+    if(psuEl) psuEl.style.display='';
+    const psuEd=document.getElementById('psu-editor');
+    if(psuEd) psuEd.style.display='none';
+    renderPsuView();
+  }
+  document.getElementById('btn-home-upd').style.display=S.role==='pm'?'':'none';
+  // RAG dims
   const dims=['progress','cost','risk','schedule','quality'];
-  document.getElementById('osb-dims-render').innerHTML=dims.map(d=>`
-    <div class="ragb-wrap" style="display:flex;flex-direction:column;align-items:center;gap:3px;">
-      <span class="ragb ${STATE.overallStatus[d]}" onclick="${canEdit?`openStatusModalFor('${d}')`:''}">
-        <span class="ragb-dot"></span>${d.charAt(0).toUpperCase()+d.slice(1)}
-      </span>
+  document.getElementById('home-rag-dims').innerHTML=dims.map(d=>`
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+      <span class="ragb ${S.overallStatus[d]}" onclick="${S.role==='pm'?`openStatusModalFor('${d}')`:''}">
+        <span class="rdot"></span>${d.charAt(0).toUpperCase()+d.slice(1)}</span>
     </div>`).join('');
-
-  // KPIs
-  const kpis=[
-    { label:'NPV',             value:'$251M',  sub:'USD, projected',    accent:'var(--green)' },
-    { label:'Total Budget',    value:'$94.1M', sub:'5-year approved',   accent:'var(--blue)'  },
-    { label:'Spend to Date',   value:'$1.2M',  sub:'Stage 0 only',      accent:'var(--amber)' },
-    { label:'Target Churn',    value:'1.91%',  sub:'From 2.25% current',accent:'var(--red)'   },
-  ];
-  document.getElementById('kpi-row').innerHTML=kpis.map(k=>`
-    <div class="kpi" style="--accent:${k.accent}">
-      <div class="kpi-label">${k.label}</div>
-      <div class="kpi-value">${k.value}</div>
-      <div class="kpi-sub">${k.sub}</div>
+  // RAG trend bar (last 3 months)
+  const trend=[{m:'Dec',s:'G'},{m:'Jan',s:'G'},{m:'Feb',s:'A'},{m:'Mar',s:S.overallStatus.progress}];
+  document.getElementById('rag-trend-bar').innerHTML=trend.map(t=>`
+    <div class="rag-trend-item">
+      <div class="rag-trend-dot ${t.s}">${t.s}</div>
+      <div class="rag-trend-month">${t.m}</div>
     </div>`).join('');
-
-  // Heat grid
-  const pattern=['G','G','G','G','G','G','G','G','G','G','G','G','A','A','A','A','A','A','A','A','U','U','U','U','U','U','U','U','R','B','U','U'];
-  document.getElementById('heat-grid').innerHTML=pattern.map(s=>`<div class="heat-cell ${s}" title="${ragLabel(s)}"></div>`).join('');
-
-  // Stage progress
-  const stageStats=[
-    { name:'Stage 0 – Discovery',    done:8, total:8,  color:'var(--green)' },
-    { name:'Stage 1 – Must Have',    done:2, total:13, color:'var(--blue)'  },
-    { name:'Stage 2 – Should Have',  done:0, total:9,  color:'var(--amber)' },
-    { name:'Stage 3 – Could Have',   done:0, total:4,  color:'var(--red)'   },
+  // Financial profile chart
+  const fp=[
+    {y:'2026',inf:10.59,op:1.20,rec:1.50,tot:13.29},
+    {y:'2027',inf:15.40,op:1.20,rec:2.39,tot:18.99},
+    {y:'2028',inf:14.33,op:1.20,rec:5.89,tot:21.42},
+    {y:'2029',inf:10.79,op:1.20,rec:6.00,tot:17.99},
+    {y:'2030',inf:6.00,op:1.20,rec:15.25,tot:22.54},
   ];
-  document.getElementById('stage-progress-bars').innerHTML=stageStats.map(s=>{
-    const pct=Math.round(s.done/s.total*100);
-    return `<div class="prog">
-      <div class="prog-row"><span style="color:var(--text)">${s.name}</span><span style="color:var(--muted);font-family:var(--font-mono)">${s.done}/${s.total} · ${pct}%</span></div>
-      <div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:${s.color}"></div></div>
-    </div>`;
-  }).join('');
-
-  // Overview signoffs
-  const pending=STATE.checkpoints.filter(cp=>cp.signers.some(s=>!s.signed));
-  document.getElementById('overview-signoffs').innerHTML=pending.length?pending.slice(0,3).map(cp=>{
-    const total=cp.signers.length;
-    const done=cp.signers.filter(s=>s.signed).length;
-    return `<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);">
-      <span class="ragb ${cp.status}"><span class="ragb-dot"></span></span>
-      <div style="flex:1"><div style="font-size:12px;">${cp.name}</div><div style="font-size:10px;color:var(--muted);font-family:var(--font-mono);">${done}/${total} signed · ${cp.date}</div></div>
-      <button class="btn sm" onclick="openPane('checkpoints',document.querySelector('[data-pane=checkpoints]'))">→</button>
-    </div>`;
-  }).join(''):`<div style="font-size:12px;color:var(--muted);padding:10px 0;">No pending sign-offs 🎉</div>`;
-
-  renderOverviewLog();
-}
-
-function renderOverviewLog(){
-  document.getElementById('overview-log').innerHTML=STATE.activityLog.slice(0,5).map(e=>renderLogEntry(e,true)).join('');
-}
-
-/* ══════════════════════════════════════════════
-   RENDER: TASKS
-══════════════════════════════════════════════ */
-function renderTasks(){
-  setRoleBanner('role-banner-tasks');
-  const canEdit=ROLES[STATE.currentRole].canEditTasks;
-  document.getElementById('btn-add-task').style.display=canEdit&&STATE.currentRole==='pm'?'':'none';
-
-  const container=document.getElementById('task-list-container');
-  container.innerHTML='';
-
-  [0,1,2,3].forEach(phaseIdx=>{
-    const phaseTasks=STATE.tasks.filter(t=>t.phase===phaseIdx);
-    const mainTasks=phaseTasks.filter(t=>t.type==='task');
-    const donePhaseTasks=phaseTasks.filter(t=>t.done).length;
-    const totalPhaseTasks=phaseTasks.length;
-    const phaseStatus=mainTasks.reduce((acc,t)=>{
-      if(acc==='R'||t.status==='R') return 'R';
-      if(acc==='B'||t.status==='B') return 'B';
-      if(acc==='A'||t.status==='A') return 'A';
-      return acc;
-    }, 'G');
-
-    const group=document.createElement('div');
-    group.className='task-group';
-    group.innerHTML=`
-      <div class="task-group-header" onclick="toggleGroup(this)">
-        <span class="chevron">▼</span>
-        <span class="ragb ${phaseStatus}"><span class="ragb-dot"></span>${ragLabel(phaseStatus)}</span>
-        <strong style="flex:1">${PHASES[phaseIdx]}</strong>
-        <span style="font-size:10px;color:var(--muted);font-family:var(--font-mono);">${donePhaseTasks}/${totalPhaseTasks} complete</span>
+  const maxTot=Math.max(...fp.map(f=>f.tot));
+  document.getElementById('fin-profile-chart').innerHTML=fp.map(f=>{
+    const ih=Math.round((f.inf/maxTot)*90);
+    const oh=Math.round((f.op/maxTot)*90);
+    const rh=Math.round((f.rec/maxTot)*90);
+    return `<div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;">
+      <div style="font-size:9px;color:var(--muted2);font-family:var(--font-m);">$${f.tot.toFixed(1)}M</div>
+      <div style="display:flex;align-items:flex-end;gap:2px;height:90px;">
+        <div style="width:12px;height:${ih}px;background:var(--red);border-radius:2px 2px 0 0;opacity:.8;"></div>
+        <div style="width:12px;height:${oh}px;background:var(--amber);border-radius:2px 2px 0 0;opacity:.8;"></div>
+        <div style="width:12px;height:${rh}px;background:var(--blue);border-radius:2px 2px 0 0;opacity:.8;"></div>
       </div>
-      <div class="task-group-body">
-        ${phaseTasks.map(t=>`
-        <div class="task-row ${t.type==='subtask'?'subtask':''}" data-task-id="${t.id}">
-          <div class="task-check ${t.done?'checked':''}" onclick="${canEdit?`toggleTask('${t.id}')`:'null'}" title="${t.done?'Mark incomplete':'Mark complete'}">${t.done?'✓':''}</div>
-          <div class="task-name ${t.done?'done':''}">${t.name}${t.notes?`<span style="color:var(--muted);font-size:10px;margin-left:6px;font-family:var(--font-mono);">${t.notes}</span>`:''}</div>
-          <div class="task-meta">
-            <span class="ragb ${t.status}" onclick="${canEdit?`openTaskEdit('${t.id}')`:''}" style="${canEdit?'cursor:pointer':'cursor:default'}"><span class="ragb-dot"></span>${ragLabel(t.status)}</span>
-            <span class="task-assignee">${t.assignee.split(' ')[0]}</span>
-            <span class="task-date">${t.date}</span>
-            ${canEdit?`<div class="task-actions"><button class="btn sm ghost" onclick="openTaskEdit('${t.id}')">✏</button></div>`:''}
-          </div>
-        </div>`).join('')}
-      </div>`;
-    container.appendChild(group);
-  });
-}
-
-function toggleGroup(header){
-  header.classList.toggle('collapsed');
-  const body=header.nextElementSibling;
-  body.style.display=header.classList.contains('collapsed')?'none':'block';
-}
-function expandAllGroups(){
-  document.querySelectorAll('.task-group-header.collapsed').forEach(h=>{
-    h.classList.remove('collapsed');
-    h.nextElementSibling.style.display='';
-  });
-}
-
-function toggleTask(id){
-  const t=STATE.tasks.find(t=>t.id===id);
-  if(!t) return;
-  t.done=!t.done;
-  if(t.done && t.status==='U') t.status='G';
-  addLog(STATE.currentUser,'task',t.done?'marked done':'marked incomplete',t.name,null,null,'☑');
-  renderTasks();
-  toast(`Task "${t.name.substring(0,30)}..." ${t.done?'completed':'reopened'}`,'success');
-}
-
-/* ══════════════════════════════════════════════
-   RENDER: MILESTONES
-══════════════════════════════════════════════ */
-function renderMilestones(){
-  setRoleBanner('role-banner-milestones');
-  const canEdit=STATE.currentRole==='pm';
-  const phases=[...new Set(STATE.milestones.map(m=>m.phase))];
-  document.getElementById('milestone-timeline-render').innerHTML=phases.map(ph=>{
-    const ms=STATE.milestones.filter(m=>m.phase===ph);
-    return `<div class="card" style="margin-bottom:14px;">
-      <div class="card-title"><span style="font-size:14px;">⬟</span> ${ph}</div>
-      ${ms.map(m=>`
-      <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);">
-        <span class="ragb ${m.status}" onclick="${canEdit?`openMilestoneStatusEdit('${m.id}')`:''}" style="${canEdit?'cursor:pointer':''}">
-          <span class="ragb-dot"></span>${ragLabel(m.status)}
-        </span>
-        <div style="flex:1">
-          <div style="font-size:12px;font-weight:600;">${m.name}</div>
-        </div>
-        <span style="font-size:10px;color:var(--muted);font-family:var(--font-mono);">${m.date}</span>
-        ${canEdit?`<button class="btn sm ghost" onclick="openMilestoneStatusEdit('${m.id}')">✏</button>`:''}
-      </div>`).join('')}
+      <div style="font-size:9px;color:var(--muted);font-family:var(--font-m);">${f.y}</div>
+    </div>`;
+  }).join('');
+  // Benefits chart
+  const bens=[
+    {q:'1Q27',a:0,b:0,c:0},{q:'2Q27',a:1.8,b:0,c:0.5},{q:'3Q27',a:5.0,b:0,c:1.0},
+    {q:'4Q27',a:8.2,b:0,c:1.5},{q:'1Q28',a:14.1,b:1.2,c:2.0},{q:'2Q28',a:19.3,b:2.5,c:2.5},
+    {q:'3Q28',a:26.4,b:3.8,c:3.0},{q:'4Q28',a:35.5,b:5.1,c:3.5},{q:'4Q30',a:51.4,b:8.0,c:4.5},
+  ];
+  const maxB=Math.max(...bens.map(b=>b.a+b.b+b.c));
+  document.getElementById('benefits-chart').innerHTML=bens.map(b=>{
+    const tot=b.a+b.b+b.c;
+    const ah=Math.round((b.a/maxB)*80);
+    const bh=Math.round((b.b/maxB)*80);
+    const ch=Math.round((b.c/maxB)*80);
+    return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;">
+      <div style="display:flex;align-items:flex-end;gap:1px;height:80px;">
+        <div style="width:8px;height:${ah}px;background:#1d4ed8;border-radius:2px 2px 0 0;"></div>
+        <div style="width:8px;height:${bh}px;background:var(--blue);border-radius:2px 2px 0 0;"></div>
+        <div style="width:8px;height:${ch}px;background:#93c5fd;border-radius:2px 2px 0 0;"></div>
+      </div>
+      <div style="font-size:8px;color:var(--muted);font-family:var(--font-m);">${b.q.replace('Q','')}</div>
     </div>`;
   }).join('');
 }
 
-function openMilestoneStatusEdit(id){
-  if(STATE.currentRole!=='pm'){ toast('Only PM can edit milestones','warn'); return; }
-  const m=STATE.milestones.find(m=>m.id===id);
-  STATE.editingTaskId=id;
-  document.getElementById('task-modal-title').textContent='Update Milestone: '+m.name;
-  document.getElementById('task-edit-name').value=m.name;
-  document.getElementById('task-edit-date').value=m.date;
-  document.getElementById('task-edit-notes').value='';
-  document.getElementById('task-edit-assignee').value='Ryan (PM)';
-  selectTaskRagb(m.status, null, true);
-  STATE.editingTaskId='ms_'+id;
-  openModal('modal-task');
+/* ═══════════════════════════════════════════════
+   RENDER: COMMAND CENTRE
+═══════════════════════════════════════════════ */
+function renderCommand(){
+  setBanner('rb-command');
+  const canEdit=S.role==='pm';
+  document.getElementById('btn-cmd-upd').style.display=canEdit?'':'none';
+  document.getElementById('btn-cmd-edit').style.display=canEdit?'':'none';
+  const dims=['progress','cost','risk','schedule','quality'];
+  document.getElementById('cmd-rag-dims').innerHTML=dims.map(d=>`
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+      <span class="ragb ${S.overallStatus[d]}" onclick="${canEdit?`openStatusModalFor('${d}')`:''}" style="${canEdit?'cursor:pointer':'cursor:default'}">
+        <span class="rdot"></span>${d.charAt(0).toUpperCase()+d.slice(1)}</span>
+    </div>`).join('');
+  const kpis=[
+    {l:'NPV',v:'$251M',s:'@ Netflix WACC',acc:'var(--green)'},
+    {l:'Total Budget',v:'$94.1M',s:'5-year approved',acc:'var(--blue)'},
+    {l:'Spend to Date',v:'$1.2M',s:'Stage 0 only',acc:'var(--amber)'},
+    {l:'Target Churn',v:'1.91%',s:'From 2.25% base',acc:'var(--red)'},
+  ];
+  document.getElementById('cmd-kpis').innerHTML=kpis.map(k=>`
+    <div class="kpi" style="--accent:${k.acc}">
+      <div class="kpi-lbl">${k.l}</div><div class="kpi-val">${k.v}</div>
+      <div class="kpi-sub">${k.s}</div></div>`).join('');
+  const pat=['G','G','G','G','G','G','G','G','G','G','G','G','A','A','A','A','A','A','A','A','U','U','U','U','U','U','U','U','R','B','U','U'];
+  document.getElementById('heat-grid').innerHTML=pat.map(s=>`<div style="height:12px;border-radius:2px;background:${rcv(s)};cursor:pointer;transition:transform .1s;" title="${rl(s)}" onmouseover="this.style.transform='scale(1.3)'" onmouseout="this.style.transform='scale(1)'"></div>`).join('');
+  const sp=[{n:'Stage 0 – Discovery',d:8,t:8,c:'var(--green)'},{n:'Stage 1 – Must Have',d:2,t:13,c:'var(--blue)'},{n:'Stage 2 – Should Have',d:0,t:9,c:'var(--amber)'},{n:'Stage 3 – Could Have',d:0,t:4,c:'var(--red)'}];
+  document.getElementById('stage-progs').innerHTML=sp.map(s=>{const p=Math.round(s.d/s.t*100);return`<div class="prog"><div class="prog-row"><span>${s.n}</span><span style="color:var(--muted);font-family:var(--font-m)">${s.d}/${s.t} · ${p}%</span></div><div class="prog-track"><div class="prog-fill" style="width:${p}%;background:${s.c}"></div></div></div>`;}).join('');
+  const pend=S.checkpoints.filter(cp=>cp.signers.some(s=>!s.signed));
+  document.getElementById('cmd-signoffs').innerHTML=pend.length?pend.slice(0,3).map(cp=>{const tot=cp.signers.length,done=cp.signers.filter(s=>s.signed).length;return`<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);"><span class="ragb ${cp.status}"><span class="rdot"></span></span><div style="flex:1"><div style="font-size:12px;">${cp.name}</div><div style="font-size:10px;color:var(--muted);font-family:var(--font-m);">${done}/${tot} signed · ${cp.date}</div></div><button class="btn sm ghost" onclick="openPane('checkpoints',document.querySelector('[data-pane=checkpoints]'))">→</button></div>`;}).join(''):`<div style="font-size:12px;color:var(--muted);padding:10px 0;">No pending sign-offs 🎉</div>`;
+  renderCmdLog();
 }
 
-/* ══════════════════════════════════════════════
+function renderCmdLog(){
+  document.getElementById('cmd-log').innerHTML=S.activityLog.slice(0,5).map(e=>`
+    <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);font-size:11px;">
+      <span>${e.icon}</span>
+      <div style="flex:1"><span style="font-weight:600;">${e.actor.split('(')[0].trim()}</span> <span style="color:var(--muted2);">${e.action}</span> <span>${e.subject}</span></div>
+      <span style="font-size:9px;color:var(--muted);font-family:var(--font-m);">${e.ts.split(' ').slice(0,3).join(' ')}</span>
+    </div>`).join('');
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER: TASKS
+═══════════════════════════════════════════════ */
+function renderTasks(){
+  setBanner('rb-tasks');
+  const canEdit=ROLES[S.role].canTasks;
+  document.getElementById('btn-add-task').style.display=(canEdit&&S.role==='pm')?'':'none';
+  const c=document.getElementById('task-list');c.innerHTML='';
+  [0,1,2,3].forEach(pi=>{
+    const pt=S.tasks.filter(t=>t.phase===pi);
+    const mt=pt.filter(t=>t.type==='task');
+    const dn=pt.filter(t=>t.done).length;
+    const ps=mt.reduce((a,t)=>{if(a==='R'||t.status==='R')return'R';if(a==='B'||t.status==='B')return'B';if(a==='A'||t.status==='A')return'A';return a;},'G');
+    const g=document.createElement('div');g.className='task-group';
+    g.innerHTML=`<div class="tg-hdr" onclick="toggleGrp(this)"><span class="chev">▼</span><span class="ragb ${ps}"><span class="rdot"></span>${rl(ps)}</span><strong style="flex:1">${PHASES[pi]}</strong><span style="font-size:10px;color:var(--muted);font-family:var(--font-m);">${dn}/${pt.length} done</span></div>
+    <div class="tg-body">${pt.map(t=>`<div class="task-row ${t.type==='subtask'?'sub':''}" data-id="${t.id}">
+      <div class="chk ${t.done?'checked':''}" onclick="${canEdit?`toggleTask('${t.id}')`:''}"">${t.done?'✓':''}</div>
+      <div class="task-nm ${t.done?'done':''}">${t.name}${t.notes?`<span style="color:var(--muted);font-size:10px;margin-left:6px;font-family:var(--font-m);">${t.notes}</span>`:''}</div>
+      <div class="task-meta">
+        <span class="ragb ${t.status}" onclick="${canEdit?`openTaskEdit('${t.id}')`:''}" style="${canEdit?'cursor:pointer':'cursor:default'}"><span class="rdot"></span>${rl(t.status)}</span>
+        <span class="t-assignee">${t.assignee.split(' ')[0]}</span>
+        <span class="t-date">${t.date}</span>
+        ${canEdit?`<div class="task-acts"><button class="btn sm ghost" onclick="openTaskEdit('${t.id}')">✏</button></div>`:''}
+      </div></div>`).join('')}</div>`;
+    c.appendChild(g);
+  });
+}
+
+function toggleGrp(h){h.classList.toggle('collapsed');h.nextElementSibling.style.display=h.classList.contains('collapsed')?'none':'';}
+function expandAll(){document.querySelectorAll('.tg-hdr.collapsed').forEach(h=>{h.classList.remove('collapsed');h.nextElementSibling.style.display='';});}
+function toggleTask(id){const t=S.tasks.find(t=>t.id===id);if(!t)return;t.done=!t.done;if(t.done&&t.status==='U')t.status='G';addLog(S.user,'task',t.done?'marked done':'reopened',t.name,null,null,'☑');renderTasks();toast(`"${t.name.substring(0,30)}" ${t.done?'completed':'reopened'}`,'success');}
+
+/* ═══════════════════════════════════════════════
+   RENDER: MILESTONES
+═══════════════════════════════════════════════ */
+function renderMilestones(){
+  setBanner('rb-milestones');
+  const canEdit=S.role==='pm';
+  const phases=[...new Set(S.milestones.map(m=>m.phase))];
+  document.getElementById('ms-list').innerHTML=phases.map(ph=>`<div class="card"><div class="card-title">⬟ ${ph}</div>${S.milestones.filter(m=>m.phase===ph).map(m=>`
+    <div class="ms-item">
+      <span class="ragb ${m.status}" onclick="${canEdit?`openMsEdit('${m.id}')`:''}" style="${canEdit?'cursor:pointer':'cursor:default'}"><span class="rdot"></span>${rl(m.status)}</span>
+      <div class="ms-nm">${m.name}</div>
+      <span style="font-size:10px;color:var(--muted);font-family:var(--font-m);">${m.date}</span>
+      ${canEdit?`<button class="btn sm ghost" onclick="openMsEdit('${m.id}')">✏</button>`:''}
+    </div>`).join('')}</div>`).join('');
+}
+
+/* ═══════════════════════════════════════════════
    RENDER: CHECKPOINTS
-══════════════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 function renderCheckpoints(){
-  setRoleBanner('role-banner-checkpoints');
-  document.getElementById('checkpoints-render').innerHTML=STATE.checkpoints.map(cp=>{
-    const total=cp.signers.length;
-    const done=cp.signers.filter(s=>s.signed).length;
-    const pct=Math.round(done/total*100);
-    const userCanSign=cp.signers.find(s=>STATE.users[s.userId]?.name===STATE.currentUser && !s.signed);
-    return `<div class="checkpoint-row" style="flex-direction:column;align-items:stretch;gap:10px;margin-bottom:12px;">
+  setBanner('rb-checkpoints');
+  document.getElementById('cp-list').innerHTML=S.checkpoints.map(cp=>{
+    const tot=cp.signers.length,done=cp.signers.filter(s=>s.signed).length,pct=Math.round(done/tot*100);
+    const mine=cp.signers.find(s=>S.users[s.uid]?.name===S.user&&!s.signed);
+    return `<div class="cp-card">
       <div style="display:flex;align-items:center;gap:10px;">
         <span style="font-size:18px;">⬡</span>
-        <div style="flex:1">
-          <div class="cp-name">${cp.name}</div>
-          <div class="cp-date">${cp.date} · ${done}/${total} signed (${pct}%)</div>
-        </div>
-        <span class="ragb ${cp.status}"><span class="ragb-dot"></span>${ragLabel(cp.status)}</span>
-        ${userCanSign?`<button class="btn sm primary" onclick="triggerSignoff('${cp.id}')">Sign Off</button>`:''}
+        <div style="flex:1"><div style="font-size:13px;font-weight:600;">${cp.name}</div>
+        <div style="font-size:10px;color:var(--muted);font-family:var(--font-m);margin-top:2px;">${cp.date} · ${done}/${tot} signed (${pct}%)</div></div>
+        <span class="ragb ${cp.status}"><span class="rdot"></span>${rl(cp.status)}</span>
+        ${mine?`<button class="btn sm primary" onclick="triggerSo('${cp.id}')">Sign Off</button>`:''}
       </div>
-      <div style="font-size:11px;color:var(--muted);padding:0 4px;">${cp.description}</div>
-      <div class="prog-track"><div class="prog-fill green" style="width:${pct}%"></div></div>
-      <div class="signer-grid">
-        ${cp.signers.map(s=>{
-          const u=STATE.users[s.userId];
-          return `<div class="signer-chip ${s.signed?'signed':''}" onclick="${!s.signed && u.name===STATE.currentUser ? `triggerSignoff('${cp.id}')` : ''}">
-            <div class="user-avatar" style="background:${u.color};width:22px;height:22px;font-size:8px;">${u.initials}</div>
-            <div>
-              <div class="sc-name">${u.name.split('(')[0].trim()}</div>
-              <div class="sc-role">${ROLES[u.role]?.label||u.role}</div>
-            </div>
-            <div>
-              <div class="sc-status">${s.signed?'✓ Signed':'Pending'}</div>
-              ${s.signed?`<div class="sc-time">${s.time}</div>`:''}
-            </div>
-          </div>`;
-        }).join('')}
-      </div>
-    </div>`;
+      <div style="font-size:11px;color:var(--muted);margin:8px 0;">${cp.description}</div>
+      <div class="prog-track" style="margin-bottom:10px;"><div class="prog-fill" style="width:${pct}%;background:var(--green)"></div></div>
+      <div class="cp-sigs">${cp.signers.map(s=>{const u=S.users[s.uid];return`<div class="signer-chip ${s.signed?'signed':''}" onclick="${!s.signed&&u.name===S.user?`triggerSo('${cp.id}')`:''}" >
+        <div class="u-av" style="background:${u.color};width:22px;height:22px;font-size:8px;">${u.initials}</div>
+        <div><div class="sc-nm">${u.name.split('(')[0].trim()}</div><div class="sc-role">${ROLES[u.role]?.label||u.role}</div></div>
+        <div><div class="sc-st">${s.signed?'✓ Signed':'Pending'}</div>${s.signed?`<div style="font-size:9px;color:var(--muted);font-family:var(--font-m);">${s.time}</div>`:''}</div>
+      </div>`;}).join('')}</div></div>`;
   }).join('');
 }
 
-/* ══════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    RENDER: SIGN-OFFS
-══════════════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 function renderSignoffs(){
-  setRoleBanner('role-banner-signoffs');
-  document.getElementById('signoffs-render').innerHTML=STATE.checkpoints.map(cp=>{
-    const total=cp.signers.length;
-    const done=cp.signers.filter(s=>s.signed).length;
-    const userSigner=cp.signers.find(s=>STATE.users[s.userId]?.name===STATE.currentUser);
-    return `<div class="signoff-card">
-      <div class="signoff-header">
+  setBanner('rb-signoffs');
+  document.getElementById('so-list').innerHTML=S.checkpoints.map(cp=>{
+    const tot=cp.signers.length,done=cp.signers.filter(s=>s.signed).length;
+    const mine=cp.signers.find(s=>S.users[s.uid]?.name===S.user);
+    return `<div class="card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
         <span style="font-size:16px;">✍</span>
-        <div style="flex:1">
-          <div class="signoff-title">${cp.name}</div>
-          <div class="signoff-stage">${cp.date} · ${done}/${total} signed</div>
-        </div>
-        <span class="ragb ${cp.status}"><span class="ragb-dot"></span>${ragLabel(cp.status)}</span>
-        ${userSigner && !userSigner.signed ? `<button class="btn sm primary" onclick="triggerSignoff('${cp.id}')">Sign Off →</button>`:
-          userSigner && userSigner.signed ? `<span style="font-size:11px;color:var(--green);font-family:var(--font-mono);">✓ You signed</span>` : ''}
+        <div style="flex:1"><div style="font-size:13px;font-weight:600;">${cp.name}</div>
+        <div style="font-size:10px;color:var(--muted);font-family:var(--font-m);">${cp.date} · ${done}/${tot} signed</div></div>
+        <span class="ragb ${cp.status}"><span class="rdot"></span>${rl(cp.status)}</span>
+        ${mine&&!mine.signed?`<button class="btn sm primary" onclick="triggerSo('${cp.id}')">Sign Off →</button>`:''}
+        ${mine&&mine.signed?`<span style="font-size:11px;color:var(--green);font-family:var(--font-m);">✓ You signed</span>`:''}
       </div>
-      <div class="signer-grid">
-        ${cp.signers.map(s=>{
-          const u=STATE.users[s.userId];
-          const isMe=u.name===STATE.currentUser;
-          return `<div class="signer-chip ${s.signed?'signed':''}" onclick="${!s.signed&&isMe?`triggerSignoff('${cp.id}')`:''}" style="${!s.signed&&isMe?'cursor:pointer':''}">
-            <div class="user-avatar" style="background:${u.color};width:22px;height:22px;font-size:8px;">${u.initials}</div>
-            <div>
-              <div class="sc-name">${u.name.split('(')[0].trim()} ${isMe?'(you)':''}</div>
-              <div class="sc-role">${ROLES[u.role]?.label||''}</div>
-            </div>
-            <div>
-              <div class="sc-status">${s.signed?'✓ Signed':'Pending'}</div>
-              ${s.signed?`<div class="sc-time">${s.time}</div>`:''}
-            </div>
-          </div>`;
-        }).join('')}
-      </div>
-    </div>`;
+      <div class="cp-sigs">${cp.signers.map(s=>{const u=S.users[s.uid];const isme=u.name===S.user;return`<div class="signer-chip ${s.signed?'signed':''}" onclick="${!s.signed&&isme?`triggerSo('${cp.id}')`:''}" style="${!s.signed&&isme?'cursor:pointer':''}">
+        <div class="u-av" style="background:${u.color};width:22px;height:22px;font-size:8px;">${u.initials}</div>
+        <div><div class="sc-nm">${u.name.split('(')[0].trim()}${isme?' (you)':''}</div><div class="sc-role">${ROLES[u.role]?.label||''}</div></div>
+        <div><div class="sc-st">${s.signed?'✓ Signed':'Pending'}</div>${s.signed?`<div style="font-size:9px;color:var(--muted);">${s.time}</div>`:''}</div>
+      </div>`;}).join('')}
+      </div></div>`;
   }).join('');
 }
 
-/* ══════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    RENDER: RISKS
-══════════════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 function renderRisks(){
-  setRoleBanner('role-banner-risks');
-  const canEdit=ROLES[STATE.currentRole].canEditRisk;
-  const trendIcon={stable:'→',improving:'↓',worsening:'↑'};
-  const trendColor={stable:'var(--muted)',improving:'var(--green)',worsening:'var(--red)'};
-  document.getElementById('risks-render').innerHTML=`
-    <div class="card">
-      <table style="width:100%;border-collapse:collapse;font-size:12px;">
-        <thead>
-          <tr>
-            <th style="text-align:left;padding:8px 10px;font-family:var(--font-mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border);">Risk</th>
-            <th style="padding:8px 10px;font-family:var(--font-mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border);">Likelihood</th>
-            <th style="padding:8px 10px;font-family:var(--font-mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border);">Impact</th>
-            <th style="padding:8px 10px;font-family:var(--font-mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border);">Status</th>
-            <th style="padding:8px 10px;font-family:var(--font-mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border);">Trend</th>
-            <th style="text-align:left;padding:8px 10px;font-family:var(--font-mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border);">Mitigation</th>
-            <th style="padding:8px 10px;font-family:var(--font-mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border);">Owner</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${STATE.risks.map(r=>`
-          <tr style="border-bottom:1px solid var(--bg4);">
-            <td style="padding:10px;color:var(--text);">${r.name}</td>
-            <td style="padding:10px;text-align:center;"><span class="ragb ${r.likelihood==='High'?'R':r.likelihood==='Medium'?'A':'G'}" style="cursor:default;font-size:10px;">${r.likelihood}</span></td>
-            <td style="padding:10px;text-align:center;"><span class="ragb ${r.impact==='Very High'||r.impact==='High'?'R':r.impact==='Medium'?'A':'G'}" style="cursor:default;font-size:10px;">${r.impact}</span></td>
-            <td style="padding:10px;text-align:center;">
-              <span class="ragb ${r.status}" onclick="${canEdit?`editRiskStatus('${r.id}')`:''}" style="${canEdit?'cursor:pointer':'cursor:default'}">
-                <span class="ragb-dot"></span>${ragLabel(r.status)}
-              </span>
-            </td>
-            <td style="padding:10px;text-align:center;font-size:14px;color:${trendColor[r.trend]}" title="${r.trend}">${trendIcon[r.trend]}</td>
-            <td style="padding:10px;color:var(--muted);font-size:11px;">${r.mitigation}</td>
-            <td style="padding:10px;font-size:10px;color:var(--muted);font-family:var(--font-mono);">${r.owner.split(' ')[0]}</td>
-          </tr>`).join('')}
-        </tbody>
-      </table>
-    </div>`;
+  setBanner('rb-risks');
+  const canEdit=ROLES[S.role].canRisk;
+  const tr=(v)=>({stable:'→',improving:'↓',worsening:'↑'}[v]);
+  const tc=(v)=>({stable:'var(--muted)',improving:'var(--green)',worsening:'var(--red)'}[v]);
+  document.getElementById('risks-content').innerHTML=`<div class="card"><table class="risk-table">
+    <thead><tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Status</th><th>Trend</th><th>Mitigation</th><th>Owner</th></tr></thead>
+    <tbody>${S.risks.map(r=>`<tr>
+      <td>${r.name}</td>
+      <td style="text-align:center;"><span class="pill ${r.likelihood==='High'?'pill-r':r.likelihood==='Medium'?'pill-a':'pill-g'}">${r.likelihood}</span></td>
+      <td style="text-align:center;"><span class="pill ${r.impact==='Very High'||r.impact==='High'?'pill-r':r.impact==='Medium'?'pill-a':'pill-g'}">${r.impact}</span></td>
+      <td style="text-align:center;"><span class="ragb ${r.status}" onclick="${canEdit?`editRisk('${r.id}')`:''}" style="${canEdit?'cursor:pointer':'cursor:default'}"><span class="rdot"></span>${rl(r.status)}</span></td>
+      <td style="text-align:center;font-size:14px;color:${tc(r.trend)}" title="${r.trend}">${tr(r.trend)}</td>
+      <td style="color:var(--muted);font-size:11px;">${r.mitigation}</td>
+      <td style="font-size:10px;color:var(--muted);font-family:var(--font-m);">${r.owner.split(' ')[0]}</td>
+    </tr>`).join('')}</tbody></table></div>`;
 }
 
-function editRiskStatus(id){
-  const r=STATE.risks.find(r=>r.id===id);
-  STATE.editingTaskId='risk_'+id;
-  STATE.selectedRagb=r.status;
-  document.getElementById('status-dim').value='risk';
-  document.getElementById('status-comment').value='';
-  // pre-select
+function editRisk(id){
+  const r=S.risks.find(r=>r.id===id);
+  S.editingId='risk_'+id;S.selRagb=r.status;
+  document.getElementById('st-dim').value='risk';
   document.querySelectorAll('#modal-status .rp-opt').forEach(o=>o.classList.remove('sel'));
-  const opt=document.querySelector(`#modal-status .rp-opt.${r.status}`);
-  if(opt) opt.classList.add('sel');
+  const op=document.querySelector(`#modal-status .rp-opt.${r.status}`);if(op)op.classList.add('sel');
   openModal('modal-status');
 }
 
-/* ══════════════════════════════════════════════
-   RENDER: FINANCIALS
-══════════════════════════════════════════════ */
-function renderFinancials(){
-  setRoleBanner('role-banner-financials');
-  const canEdit=ROLES[STATE.currentRole].canEditFinance;
-  const total=STATE.financials.reduce((a,f)=>a+f.budget,0);
-  const actualSpent=STATE.financials.reduce((a,f)=>a+(f.actual||0),0);
-
-  document.getElementById('financials-render').innerHTML=`
-    <div class="grid-3" style="margin-bottom:14px;">
-      <div class="kpi" style="--accent:var(--red)"><div class="kpi-label">Total Approved Budget</div><div class="kpi-value">$${total.toFixed(2)}M</div><div class="kpi-sub">5-year total</div></div>
-      <div class="kpi" style="--accent:var(--amber)"><div class="kpi-label">Actual Spend</div><div class="kpi-value">$${actualSpent.toFixed(2)}M</div><div class="kpi-sub">Confirmed actuals</div></div>
-      <div class="kpi" style="--accent:var(--green)"><div class="kpi-label">NPV</div><div class="kpi-value">$251M</div><div class="kpi-sub">@ Netflix WACC</div></div>
+/* ═══════════════════════════════════════════════
+   RENDER: BUDGET
+═══════════════════════════════════════════════ */
+function renderBudget(){
+  setBanner('rb-financials');
+  const canEdit=ROLES[S.role].canFin;
+  const tot=S.financials.reduce((a,f)=>a+f.budget,0);
+  const spent=S.financials.reduce((a,f)=>a+(f.actual||0),0);
+  document.getElementById('budget-content').innerHTML=`
+    <div class="g3" style="margin-bottom:14px;">
+      <div class="kpi" style="--accent:var(--red)"><div class="kpi-lbl">Total Budget</div><div class="kpi-val">$${tot.toFixed(2)}M</div><div class="kpi-sub">5-year approved</div></div>
+      <div class="kpi" style="--accent:var(--amber)"><div class="kpi-lbl">Actual Spend</div><div class="kpi-val">$${spent.toFixed(2)}M</div><div class="kpi-sub">Confirmed actuals</div></div>
+      <div class="kpi" style="--accent:var(--green)"><div class="kpi-lbl">NPV</div><div class="kpi-val">$251M</div><div class="kpi-sub">@ Netflix WACC 7.17%</div></div>
     </div>
     <div class="card">
-      <div class="card-title">📊 Annual Cost Breakdown ${canEdit?'<span style="font-size:10px;color:var(--amber);font-family:var(--font-mono);">· Click actuals to edit</span>':''}</div>
-      <table class="fin-table">
+      <div class="card-title">📊 Annual Cost Breakdown ${canEdit?'<span style="font-size:10px;color:var(--amber);font-family:var(--font-m);">· Click actuals to edit</span>':''}</div>
+      <table class="fd-table">
         <thead><tr><th>Year</th><th class="num">Budget ($M)</th><th class="num">Actual ($M)</th><th class="num">Forecast ($M)</th><th>Status</th>${canEdit?'<th></th>':''}</tr></thead>
-        <tbody>
-          ${STATE.financials.map(f=>`
-          <tr>
-            <td style="font-weight:600;">${f.year}</td>
-            <td class="num">$${f.budget.toFixed(2)}</td>
-            <td class="num ${canEdit&&!f.actual?'editable-cell':''}" onclick="${canEdit?`editFinancialActual('${f.year}')`:''}">${f.actual!=null?'$'+f.actual.toFixed(2):'—'}</td>
-            <td class="num">${f.forecast!=null?'$'+f.forecast.toFixed(2):'—'}</td>
-            <td><span class="ragb ${f.status}" style="cursor:default"><span class="ragb-dot"></span>${ragLabel(f.status)}</span></td>
-            ${canEdit?`<td><button class="btn sm ghost" onclick="editFinancialActual('${f.year}')">Edit</button></td>`:''}
-          </tr>`).join('')}
-          <tr style="border-top:2px solid var(--border);">
-            <td style="font-weight:700;">Total</td>
-            <td class="num" style="font-weight:700;">$${total.toFixed(2)}M</td>
-            <td class="num" style="font-weight:700;">$${actualSpent.toFixed(2)}M</td>
-            <td class="num" style="font-weight:700;">$${STATE.financials.reduce((a,f)=>a+(f.forecast||0),0).toFixed(2)}M</td>
-            <td></td>${canEdit?'<td></td>':''}
-          </tr>
-        </tbody>
-      </table>
-    </div>`;
+        <tbody>${S.financials.map(f=>`<tr>
+          <td style="font-weight:600;">${f.year}</td>
+          <td class="num">$${f.budget.toFixed(2)}</td>
+          <td class="num ${canEdit&&!f.actual?'ed-cell':''}" onclick="${canEdit?`editActual('${f.year}')`:''}">${f.actual!=null?'$'+f.actual.toFixed(2):'—'}</td>
+          <td class="num">${f.forecast!=null?'$'+f.forecast.toFixed(2):'—'}</td>
+          <td><span class="ragb ${f.status}" style="cursor:default"><span class="rdot"></span>${rl(f.status)}</span></td>
+          ${canEdit?`<td><button class="btn sm ghost" onclick="editActual('${f.year}')">Edit</button></td>`:''}
+        </tr>`).join('')}
+        <tr style="border-top:2px solid var(--border);">
+          <td style="font-weight:700;">Total</td>
+          <td class="num" style="font-weight:700;">$${tot.toFixed(2)}M</td>
+          <td class="num" style="font-weight:700;">$${spent.toFixed(2)}M</td>
+          <td class="num" style="font-weight:700;">$${S.financials.reduce((a,f)=>a+(f.forecast||0),0).toFixed(2)}M</td>
+          <td></td>${canEdit?'<td></td>':''}
+        </tr></tbody></table></div>`;
 }
 
-function editFinancialActual(year){
-  const f=STATE.financials.find(f=>f.year===year);
-  const val=prompt(`Enter actual spend for ${year} (USD millions):`, f.actual||'');
-  if(val===null) return;
-  const num=parseFloat(val);
-  if(isNaN(num)){ toast('Invalid number','error'); return; }
-  const old=f.actual;
-  f.actual=num;
-  addLog(STATE.currentUser,'finance','updated actual spend',`${year} → $${num.toFixed(2)}M`,old?`$${old.toFixed(2)}M`:null,`$${num.toFixed(2)}M`,'💰');
-  renderFinancials();
-  toast(`Updated ${year} actuals to $${num.toFixed(2)}M`,'success');
+function editActual(yr){
+  const f=S.financials.find(f=>f.year===yr);
+  const v=prompt(`Enter actual spend for ${yr} (USD millions):`,f.actual||'');
+  if(v===null)return;const n=parseFloat(v);
+  if(isNaN(n)){toast('Invalid number','error');return;}
+  const old=f.actual;f.actual=n;
+  addLog(S.user,'finance','updated actual spend',`${yr} → $${n.toFixed(2)}M`,old?`$${old.toFixed(2)}M`:null,`$${n.toFixed(2)}M`,'💰');
+  renderBudget();toast(`Updated ${yr} actuals to $${n.toFixed(2)}M`,'success');
 }
 
-/* ══════════════════════════════════════════════
-   RENDER: LOG
-══════════════════════════════════════════════ */
-function renderLogEntry(e, compact=false){
-  const ragNew=e.new_val&&'GARBU'.includes(e.new_val)?`<span class="log-new ${e.new_val}">${ragLabel(e.new_val)}</span>`:(e.new_val?`<span class="log-new">${e.new_val}</span>`:'');
-  const ragOld=e.old&&'GARBU'.includes(e.old)?`<span class="log-old">${ragLabel(e.old)}</span>`:'';
-  if(compact){
-    return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);font-size:11px;">
-      <span style="font-size:12px;">${e.icon}</span>
-      <div style="flex:1"><span style="font-weight:600;">${e.actor.split('(')[0].trim()}</span> <span style="color:var(--muted2);">${e.action}</span> <span>${e.subject}</span></div>
-      <span style="font-size:9px;color:var(--muted);font-family:var(--font-mono);white-space:nowrap;">${e.ts.split(' ').slice(0,3).join(' ')}</span>
-    </div>`;
-  }
-  return `<div class="log-entry ${e.new_flag?'new':''}">
-    <span class="log-icon">${e.icon}</span>
-    <div style="flex:1">
-      <span class="log-actor">${e.actor}</span>
-      <span class="log-action"> ${e.action} </span>
-      <span class="log-subject">${e.subject}</span>
-      ${ragOld||ragNew?`<span style="margin-left:6px;">${ragOld}${ragOld&&ragNew?' → ':''}${ragNew}</span>`:''}
+/* ═══════════════════════════════════════════════
+   RENDER: SUCCESS METRICS
+═══════════════════════════════════════════════ */
+function renderSuccess(){
+  setBanner('rb-success');
+  const canEdit=S.role==='pm';
+  document.getElementById('btn-update-metric').style.display=canEdit?'':'none';
+  const cats=[...new Set(S.successMetrics.map(m=>m.category))];
+  document.getElementById('success-content').innerHTML=`
+    <div class="card" style="margin-bottom:14px;background:rgba(229,9,20,.04);border-color:rgba(229,9,20,.2);">
+      <div class="card-title">⭐ How to read this tracker</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+        Each metric has three target bands: <span style="color:var(--muted2);">Good</span> · <span style="color:var(--amber);">Better</span> · <span style="color:var(--green);">Best</span>. 
+        The <strong>Current</strong> column shows live tracked values. Click any metric row (PM role) to update the current value. 
+        The North Star metric is the primary KPI — effective churn rate must hit ≤1.91% by Q4 2030.
+      </div>
     </div>
-    <span class="log-time">${e.ts}</span>
-  </div>`;
+    ${cats.map(cat=>`
+    <div class="sm-section">
+      <div class="sm-section-hdr">${cat}</div>
+      ${S.successMetrics.filter(m=>m.category===cat).map(m=>{
+        const isNS=cat==='North Star';
+        const hasCurrent=m.currentRaw!=null;
+        let pct=0;
+        if(hasCurrent){
+          if(m.higherBetter) pct=Math.min(100,Math.round((m.currentRaw/m.bestRaw)*100));
+          else pct=Math.min(100,Math.round(((2.25-m.currentRaw)/(2.25-m.bestRaw))*100));
+        }
+        const progColor=pct>=80?'var(--green)':pct>=50?'var(--amber)':'var(--red)';
+        return `<div class="sm-metric ${isNS?'star-metric':''}" onclick="${canEdit?`openUpdateMetric('${m.id}')`:''}" style="${canEdit?'cursor:pointer':''}">
+          <div style="width:20px;text-align:center;font-size:11px;">${isNS?'⭐':''}</div>
+          <div class="sm-metric-nm">${m.name}<div style="font-size:10px;color:var(--muted);margin-top:2px;">${m.notes}</div></div>
+          <div class="sm-targets">
+            <span class="sm-tgt good">${m.good}</span>
+            <span class="sm-tgt better">${m.better}</span>
+            <span class="sm-tgt best">${m.best}</span>
+          </div>
+          <div class="sm-prog-wrap">
+            <div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:${progColor}"></div></div>
+            <div style="font-size:9px;color:var(--muted);font-family:var(--font-m);margin-top:2px;text-align:right;">${pct}% to best</div>
+          </div>
+          <div class="sm-current" style="color:${hasCurrent?(isNS?'var(--amber)':'var(--green)'):'var(--muted)'};">${m.current}</div>
+          ${canEdit?`<button class="btn sm ghost">✏</button>`:''}
+        </div>`;
+      }).join('')}
+    </div>`).join('')}`;
 }
 
+/* ═══════════════════════════════════════════════
+   RENDER: FINANCIAL DRIVERS (from Excel model)
+═══════════════════════════════════════════════ */
+function renderFinancialDrivers(){
+  setBanner('rb-financial');
+  // Key assumptions from Excel
+  const assumptions=[
+    {cat:'User Base',item:'Total Paid Users (Base)',value:'300M',note:'As of Q4 2025'},
+    {cat:'User Base',item:'Yearly Growth Rate (5Y avg)',value:'13.14%',note:'businessofapps.com'},
+    {cat:'User Base',item:'Existing Churn Rate',value:'2.25%',note:'Quarterly'},
+    {cat:'User Base',item:'Target Addressable Churn',value:'15%',note:'By Q4 2030, ramping from 2%'},
+    {cat:'User Base',item:'Effective Churn (End of Project)',value:'1.91%',note:'2.25% × (1 − 15%)'},
+    {cat:'Revenue',item:'Standard with Ads (Basic) — share',value:'42% @ $17.99/mo',note:''},
+    {cat:'Revenue',item:'Standard — share',value:'40% @ $7.99/mo',note:''},
+    {cat:'Revenue',item:'Premium — share',value:'18% @ $24.99/mo',note:''},
+    {cat:'Revenue',item:'Avg Monthly Account Value',value:'$15.25',note:'Weighted average'},
+    {cat:'Revenue',item:'Avg Quarterly Account Value',value:'$45.75',note:'Monthly × 3'},
+    {cat:'Cost',item:'Monthly Infrastructure & Cloud',value:'$500K/mo',note:'$1.5M per quarter'},
+    {cat:'Cost',item:'Engineering Staff (Peak)',value:'20 FTE @ $427K/yr',note:'$106.8K/quarter'},
+    {cat:'Cost',item:'Marketing Budget',value:'$300K/quarter',note:'PPC marketing'},
+    {cat:'Cost',item:'Cost per Referral',value:'$15.25',note:'1 month free = avg account value'},
+    {cat:'Cost',item:'Privacy Compliance Staff',value:'4 FTE (peak) @ $427K/yr',note:''},
+    {cat:'Cost',item:'Total Project Cost (5Y)',value:'$94.14M',note:''},
+    {cat:'Financial',item:'Quarterly Discount Rate (WACC)',value:'1.7925%',note:'alphaspread.com'},
+    {cat:'Financial',item:'Net Present Value (NPV)',value:'$250.6M',note:'Sum of discounted cashflows'},
+    {cat:'Financial',item:'Breakeven Quarter',value:'3Q27',note:'After Must Have launch'},
+    {cat:'Financial',item:'Revenue Recovered (5Y)',value:'$431M',note:'Loss captured across project'},
+    {cat:'Financial',item:'Referral attribution of Churn Capture',value:'20%',note:'Of total captured churn'},
+  ];
+  const cats=[...new Set(assumptions.map(a=>a.cat))];
+  // Quarterly projections (simplified from Excel)
+  const quarters=['4Q25','1Q26','2Q26','3Q26','4Q26','1Q27','2Q27','3Q27','4Q27','1Q28','2Q28','3Q28','4Q28','1Q29','2Q29','3Q29','4Q29','1Q30','2Q30','3Q30','4Q30'];
+  const churnRates=[0.0225,0.0225,0.0225,0.0225,0.0225,0.0225,0.0225,0.02205,0.021825,0.02160,0.021375,0.02115,0.020925,0.0207,0.020475,0.02025,0.020025,0.0198,0.019575,0.01935,0.019125];
+  const netCashFlow=[0,-2761200,-2974800,-3508800,-4042800,-4576800,-4576800,1800333,4975221,8216334,11521500,15306000,18903915,24045377,27668365,31378705,35180359,39077431,43074173,47174995,51384468];
+  const maxAbs=Math.max(...netCashFlow.map(v=>Math.abs(v)));
+
+  document.getElementById('fin-drivers-content').innerHTML=`
+    <div class="g2" style="margin-bottom:14px;">
+      <div class="card">
+        <div class="card-title">📌 Key Assumptions</div>
+        ${cats.map(cat=>`
+          <div style="margin-bottom:10px;">
+            <div style="font-size:10px;font-family:var(--font-m);color:var(--red);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">${cat}</div>
+            <table class="fd-table">
+              <thead><tr><th>Item</th><th>Value</th><th>Note</th></tr></thead>
+              <tbody>${assumptions.filter(a=>a.cat===cat).map(a=>`<tr>
+                <td>${a.item}</td>
+                <td style="font-family:var(--font-m);font-size:11px;color:var(--green);">${a.value}</td>
+                <td style="color:var(--muted);font-size:10px;">${a.note}</td>
+              </tr>`).join('')}</tbody>
+            </table>
+          </div>`).join('')}
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">💰 NPV Summary</div>
+          <div class="g2" style="margin-bottom:0;">
+            <div class="kpi" style="--accent:var(--green)"><div class="kpi-lbl">NPV</div><div class="kpi-val">$250.6M</div><div class="kpi-sub">Positive — invest</div></div>
+            <div class="kpi" style="--accent:var(--amber)"><div class="kpi-lbl">Breakeven</div><div class="kpi-val">3Q27</div><div class="kpi-sub">1.5 years in</div></div>
+            <div class="kpi" style="--accent:var(--red)"><div class="kpi-lbl">Total Cost</div><div class="kpi-val">$94.1M</div><div class="kpi-sub">5-year</div></div>
+            <div class="kpi" style="--accent:var(--blue)"><div class="kpi-lbl">Revenue Recovered</div><div class="kpi-val">$431M</div><div class="kpi-sub">5-year captured</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">📈 Quarterly Net Cash Flow (USD)</div>
+          <div style="display:flex;align-items:center;gap:3px;height:80px;margin-top:8px;">
+            ${quarters.map((q,i)=>{
+              const v=netCashFlow[i];
+              const h=Math.round((Math.abs(v)/maxAbs)*75);
+              const isPos=v>=0;
+              return `<div style="display:flex;flex-direction:column;align-items:center;flex:1;gap:2px;">
+                ${isPos?`<div style="width:100%;height:${h}px;background:var(--green);border-radius:2px 2px 0 0;margin-top:${75-h}px;"></div><div style="height:1px;background:var(--border2);"></div>`:
+                `<div style="height:${75}px;display:flex;align-items:flex-end;width:100%;"><div style="width:100%;height:${h}px;background:var(--red);border-radius:0 0 2px 2px;opacity:.7;"></div></div><div style="height:1px;background:var(--border2);"></div>`}
+                <div style="font-size:7px;color:var(--muted);font-family:var(--font-m);transform:rotate(-45deg);transform-origin:left;">${q}</div>
+              </div>`;
+            }).join('')}
+          </div>
+          <div style="display:flex;gap:12px;margin-top:8px;">
+            <span style="font-size:9px;color:var(--green);font-family:var(--font-m);">▲ Positive cash flow</span>
+            <span style="font-size:9px;color:var(--red);font-family:var(--font-m);">▼ Investment phase</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">📉 Churn Rate Trajectory</div>
+          <div style="display:flex;align-items:flex-end;gap:3px;height:60px;margin-top:8px;">
+            ${churnRates.map((r,i)=>{
+              const h=Math.round(((r-0.019)/0.004)*55)+5;
+              return `<div style="flex:1;height:${h}px;background:${r>0.022?'var(--red)':r>0.021?'var(--amber)':'var(--green)'};border-radius:2px;opacity:.8;" title="${quarters[i]}: ${(r*100).toFixed(3)}%"></div>`;
+            }).join('')}
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--muted);font-family:var(--font-m);margin-top:4px;"><span>4Q25: 2.25%</span><span>→ 4Q30: 1.91%</span></div>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER: LOG
+═══════════════════════════════════════════════ */
 function renderLog(){
-  const filter=STATE.logFilter;
-  const entries=filter==='all'?STATE.activityLog:STATE.activityLog.filter(e=>e.type===filter);
-  document.getElementById('log-container').innerHTML=entries.map(e=>renderLogEntry(e)).join('');
+  const filter=S.logFilter;
+  const entries=filter==='all'?S.activityLog:S.activityLog.filter(e=>e.type===filter);
+  document.getElementById('log-container').innerHTML=entries.map(e=>{
+    const rn=e.new_val&&'GARBU'.includes(e.new_val)?`<span class="log-new ${e.new_val}">${rl(e.new_val)}</span>`:(e.new_val?`<span class="log-new">${e.new_val}</span>`:'');
+    const ro=e.old&&'GARBU'.includes(e.old)?`<span class="log-old">${rl(e.old)}</span>`:'';
+    return `<div class="log-entry ${e.nf?'new':''}">
+      <span class="log-icon">${e.icon}</span>
+      <div style="flex:1"><span class="log-actor">${e.actor}</span> <span class="log-action">${e.action}</span> <span>${e.subject}</span>${ro||rn?`<span style="margin-left:6px;">${ro}${ro&&rn?' → ':''}${rn}</span>`:''}
+      </div>
+      <span class="log-time">${e.ts}</span>
+    </div>`;
+  }).join('');
 }
 
-function filterLog(type, btn){
-  STATE.logFilter=type;
-  document.querySelectorAll('#log-filter-bar .btn').forEach(b=>b.classList.remove('active-filter'));
-  btn.classList.add('active-filter');
+function filterLog(type,btn){
+  S.logFilter=type;
+  document.querySelectorAll('#log-filters .btn').forEach(b=>b.style.borderColor='');
+  btn.style.borderColor='var(--red)';
   renderLog();
 }
 
-/* ══════════════════════════════════════════════
-   STATUS MODAL
-══════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════
+   MODALS: STATUS
+═══════════════════════════════════════════════ */
 function openStatusModal(){
-  if(!ROLES[STATE.currentRole].canEditStatus){ toast('Only PM can update overall status','warn'); return; }
-  STATE.editingTaskId=null;
-  STATE.selectedRagb='G';
+  if(!ROLES[S.role].canStatus){toast('Only PM can update overall status','warn');return;}
+  S.editingId=null;S.selRagb='G';
   document.querySelectorAll('#modal-status .rp-opt').forEach(o=>o.classList.remove('sel'));
-  document.getElementById('status-comment').value='';
+  document.getElementById('st-comment').value='';
   openModal('modal-status');
 }
-function openStatusModalFor(dim){
-  openStatusModal();
-  document.getElementById('status-dim').value=dim;
-}
-function selectRagb(v, el){
-  STATE.selectedRagb=v;
-  document.querySelectorAll('#modal-status .rp-opt').forEach(o=>o.classList.remove('sel'));
-  if(el) el.classList.add('sel');
-}
-function submitStatusUpdate(){
-  const dim=document.getElementById('status-dim').value;
-  const comment=document.getElementById('status-comment').value;
-  if(!STATE.selectedRagb){ toast('Select a status first','warn'); return; }
-
-  if(STATE.editingTaskId && STATE.editingTaskId.startsWith('risk_')){
-    const rId=STATE.editingTaskId.replace('risk_','');
-    const r=STATE.risks.find(r=>r.id===rId);
-    const old=r.status;
-    r.status=STATE.selectedRagb;
-    addLog(STATE.currentUser,'status',`changed risk status`,r.name,old,STATE.selectedRagb,'⚠');
-    renderRisks();
-    toast(`Risk status updated to ${ragLabel(STATE.selectedRagb)}`,'success');
+function openStatusModalFor(dim){openStatusModal();document.getElementById('st-dim').value=dim;}
+function selRagb(v,el){S.selRagb=v;document.querySelectorAll('#modal-status .rp-opt').forEach(o=>o.classList.remove('sel'));if(el)el.classList.add('sel');}
+function submitStatus(){
+  if(!S.selRagb){toast('Select a status','warn');return;}
+  const dim=document.getElementById('st-dim').value;
+  const comment=document.getElementById('st-comment').value;
+  if(S.editingId&&S.editingId.startsWith('risk_')){
+    const r=S.risks.find(r=>r.id===S.editingId.replace('risk_',''));
+    const old=r.status;r.status=S.selRagb;
+    addLog(S.user,'status','changed risk status',r.name,old,S.selRagb,'⚠');
+    renderRisks();toast(`Risk updated to ${rl(S.selRagb)}`,'success');
   } else {
-    const old=STATE.overallStatus[dim];
-    STATE.overallStatus[dim]=STATE.selectedRagb;
-    const subj=`${dim.charAt(0).toUpperCase()+dim.slice(1)}${comment?' — '+comment:''}`;
-    addLog(STATE.currentUser,'status','changed status',subj,old,STATE.selectedRagb,'🔄');
-    renderOverview();
-    toast(`${dim} status updated to ${ragLabel(STATE.selectedRagb)}`,'success');
+    const old=S.overallStatus[dim];S.overallStatus[dim]=S.selRagb;
+    addLog(S.user,'status','changed status',`${dim.charAt(0).toUpperCase()+dim.slice(1)}${comment?' — '+comment:''}`,old,S.selRagb,'🔄');
+    const ap=document.querySelector('.pane.active');if(ap)renderPane(ap.id.replace('pane-',''));
+    toast(`${dim} → ${rl(S.selRagb)}`,'success');
   }
   closeModal('modal-status');
 }
 
-/* ══════════════════════════════════════════════
-   TASK MODAL
-══════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════
+   MODALS: TASK EDIT
+═══════════════════════════════════════════════ */
 function openTaskEdit(id){
-  if(!ROLES[STATE.currentRole].canEditTasks){ toast('No edit permission for your role','warn'); return; }
-  const t=STATE.tasks.find(t=>t.id===id);
-  STATE.editingTaskId=id;
+  if(!ROLES[S.role].canTasks){toast('No edit permission','warn');return;}
+  const t=S.tasks.find(t=>t.id===id);S.editingId=id;
   document.getElementById('task-modal-title').textContent='Edit Task';
-  document.getElementById('task-edit-name').value=t.name;
-  document.getElementById('task-edit-assignee').value=t.assignee;
-  document.getElementById('task-edit-date').value=t.date;
-  document.getElementById('task-edit-notes').value=t.notes;
-  selectTaskRagb(t.status, null);
-  openModal('modal-task');
+  document.getElementById('te-name').value=t.name;
+  document.getElementById('te-assignee').value=t.assignee;
+  document.getElementById('te-date').value=t.date;
+  document.getElementById('te-notes').value=t.notes;
+  selTaskRagb(t.status,null);openModal('modal-task');
 }
-function selectTaskRagb(v, el, isMilestone=false){
-  STATE.selectedTaskRagb=v;
+function openMsEdit(id){
+  if(S.role!=='pm'){toast('Only PM can edit milestones','warn');return;}
+  const m=S.milestones.find(m=>m.id===id);S.editingId='ms_'+id;
+  document.getElementById('task-modal-title').textContent='Update Milestone: '+m.name;
+  document.getElementById('te-name').value=m.name;
+  document.getElementById('te-date').value=m.date;
+  document.getElementById('te-notes').value='';
+  document.getElementById('te-assignee').value='Ryan Wong (PM)';
+  selTaskRagb(m.status,null);openModal('modal-task');
+}
+function selTaskRagb(v,el){
+  S.selTaskRagb=v;
   document.querySelectorAll('#task-ragb-picker .rp-opt').forEach(o=>o.classList.remove('sel'));
-  if(el){ el.classList.add('sel'); }
-  else {
-    const opt=document.querySelector(`#task-ragb-picker .rp-opt.${v}`);
-    if(opt) opt.classList.add('sel');
-  }
+  if(el)el.classList.add('sel');
+  else{const op=document.querySelector(`#task-ragb-picker .rp-opt.${v}`);if(op)op.classList.add('sel');}
 }
-function saveTaskEdit(){
-  if(STATE.editingTaskId && STATE.editingTaskId.startsWith('ms_')){
-    const mId=STATE.editingTaskId.replace('ms_','');
-    const m=STATE.milestones.find(m=>m.id===mId);
-    const old=m.status;
-    m.status=STATE.selectedTaskRagb;
-    m.date=document.getElementById('task-edit-date').value||m.date;
-    addLog(STATE.currentUser,'status','updated milestone status',m.name,old,STATE.selectedTaskRagb,'⬟');
-    renderMilestones();
-    toast('Milestone updated','success');
+function saveTask(){
+  if(S.editingId&&S.editingId.startsWith('ms_')){
+    const m=S.milestones.find(m=>m.id===S.editingId.replace('ms_',''));
+    const old=m.status;m.status=S.selTaskRagb;m.date=document.getElementById('te-date').value||m.date;
+    addLog(S.user,'status','updated milestone',m.name,old,S.selTaskRagb,'⬟');
+    renderMilestones();toast('Milestone updated','success');
   } else {
-    const t=STATE.tasks.find(t=>t.id===STATE.editingTaskId);
-    if(!t){ closeModal('modal-task'); return; }
+    const t=S.tasks.find(t=>t.id===S.editingId);if(!t){closeModal('modal-task');return;}
     const old=t.status;
-    const oldName=t.name;
-    t.name=document.getElementById('task-edit-name').value||t.name;
-    t.assignee=document.getElementById('task-edit-assignee').value;
-    t.date=document.getElementById('task-edit-date').value;
-    t.notes=document.getElementById('task-edit-notes').value;
-    t.status=STATE.selectedTaskRagb;
-    if(old!==t.status) addLog(STATE.currentUser,'task','changed task status',t.name,old,t.status,'🔄');
-    else addLog(STATE.currentUser,'task','updated task',t.name,null,null,'✏');
-    renderTasks();
-    toast('Task saved','success');
+    t.name=document.getElementById('te-name').value||t.name;
+    t.assignee=document.getElementById('te-assignee').value;
+    t.date=document.getElementById('te-date').value;
+    t.notes=document.getElementById('te-notes').value;
+    t.status=S.selTaskRagb;
+    if(old!==t.status)addLog(S.user,'task','changed task status',t.name,old,t.status,'🔄');
+    else addLog(S.user,'task','updated task',t.name,null,null,'✏');
+    renderTasks();toast('Task saved','success');
   }
   closeModal('modal-task');
 }
-function openAddTaskModal(){
-  document.getElementById('new-task-name').value='';
-  document.getElementById('new-task-date').value='';
+function openAddTask(){
+  document.getElementById('nt-name').value='';document.getElementById('nt-date').value='';
   openModal('modal-add-task');
 }
-function addNewTask(){
-  const name=document.getElementById('new-task-name').value.trim();
-  if(!name){ toast('Task name is required','error'); return; }
-  const phase=parseInt(document.getElementById('new-task-phase').value);
-  const type=document.getElementById('new-task-type').value;
-  const assignee=document.getElementById('new-task-assignee').value;
-  const date=document.getElementById('new-task-date').value||'TBD';
-  const id='t'+Date.now();
-  STATE.tasks.push({ id, phase, type, name, status:'U', assignee, date, done:false, notes:'' });
-  addLog(STATE.currentUser,'task','added task',name,null,null,'➕');
-  renderTasks();
-  closeModal('modal-add-task');
-  toast(`Task "${name}" added`,'success');
+function addTask(){
+  const name=document.getElementById('nt-name').value.trim();
+  if(!name){toast('Name required','error');return;}
+  const phase=parseInt(document.getElementById('nt-phase').value);
+  const type=document.getElementById('nt-type').value;
+  const assignee=document.getElementById('nt-assignee').value;
+  const date=document.getElementById('nt-date').value||'TBD';
+  S.tasks.push({id:'t'+Date.now(),phase,type,name,status:'U',assignee,date,done:false,notes:''});
+  addLog(S.user,'task','added task',name,null,null,'➕');
+  renderTasks();closeModal('modal-add-task');toast(`"${name}" added`,'success');
 }
 
-/* ══════════════════════════════════════════════
-   SIGN-OFF
-══════════════════════════════════════════════ */
-function triggerSignoff(cpId){
-  const cp=STATE.checkpoints.find(c=>c.id===cpId);
-  const signer=cp.signers.find(s=>STATE.users[s.userId]?.name===STATE.currentUser);
-  if(!signer){ toast('You are not a signatory on this checkpoint','warn'); return; }
-  if(signer.signed){ toast('Already signed','info'); return; }
-  STATE.pendingSignoffId=cpId;
-  document.getElementById('signoff-modal-title').textContent='Sign Off: '+cp.name;
-  document.getElementById('signoff-modal-desc').textContent=cp.description+'\n\nBy signing, you confirm you have reviewed this checkpoint and approve progression.';
-  document.getElementById('signoff-comment').value='';
+/* ═══════════════════════════════════════════════
+   MODALS: SIGN-OFF
+═══════════════════════════════════════════════ */
+function triggerSo(cpId){
+  const cp=S.checkpoints.find(c=>c.id===cpId);
+  const signer=cp.signers.find(s=>S.users[s.uid]?.name===S.user);
+  if(!signer){toast('You are not a signatory','warn');return;}
+  if(signer.signed){toast('Already signed','info');return;}
+  S.pendingSoId=cpId;
+  document.getElementById('so-modal-title').textContent='Sign Off: '+cp.name;
+  document.getElementById('so-modal-desc').textContent=cp.description+'\n\nBy signing you confirm review and approve progression.';
+  document.getElementById('so-comment').value='';
   openModal('modal-signoff');
 }
 function confirmSignoff(){
-  const cpId=STATE.pendingSignoffId;
-  const cp=STATE.checkpoints.find(c=>c.id===cpId);
-  const signer=cp.signers.find(s=>STATE.users[s.userId]?.name===STATE.currentUser);
-  signer.signed=true;
-  signer.time=now();
-  // update cp status
-  const total=cp.signers.length;
-  const done=cp.signers.filter(s=>s.signed).length;
-  if(done===total) cp.status='G';
-  else if(done>0) cp.status='A';
-  addLog(STATE.currentUser,'signoff','signed off on',cp.name,null,null,'✍');
-  closeModal('modal-signoff');
-  renderCheckpoints();
-  renderSignoffs();
-  updateBadges();
+  const cp=S.checkpoints.find(c=>c.id===S.pendingSoId);
+  const signer=cp.signers.find(s=>S.users[s.uid]?.name===S.user);
+  signer.signed=true;signer.time=now();
+  const tot=cp.signers.length,done=cp.signers.filter(s=>s.signed).length;
+  if(done===tot)cp.status='G';else if(done>0)cp.status='A';
+  addLog(S.user,'signoff','signed off on',cp.name,null,null,'✍');
+  closeModal('modal-signoff');renderCheckpoints();renderSignoffs();updateBadges();
   toast(`Signed off on "${cp.name}"`,'success');
 }
 
-/* ══════════════════════════════════════════════
-   MODAL HELPERS
-══════════════════════════════════════════════ */
-function openModal(id){ document.getElementById(id).classList.add('open'); }
-function closeModal(id){ document.getElementById(id).classList.remove('open'); }
-// Close on overlay click
-document.querySelectorAll('.modal-overlay').forEach(ov=>{
-  ov.addEventListener('click',e=>{ if(e.target===ov) ov.classList.remove('open'); });
-});
-
-/* ══════════════════════════════════════════════
-   LIVE CLOCK
-══════════════════════════════════════════════ */
-function updateClock(){
-  document.getElementById('live-clock').textContent=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+/* ═══════════════════════════════════════════════
+   MODALS: METRICS
+═══════════════════════════════════════════════ */
+function openUpdateMetric(id){
+  const sel=document.getElementById('metric-sel');
+  sel.innerHTML=S.successMetrics.map(m=>`<option value="${m.id}">${m.name}</option>`).join('');
+  if(id)sel.value=id;
+  prefillMetric(sel.value);
+  document.getElementById('metric-comment').value='';
+  openModal('modal-metric');
 }
-updateClock();
-setInterval(updateClock,1000);
+function prefillMetric(id){
+  const m=S.successMetrics.find(m=>m.id===id);
+  if(m)document.getElementById('metric-val').value=m.current==='—'?'':m.current;
+}
+function saveMetric(){
+  const id=document.getElementById('metric-sel').value;
+  const val=document.getElementById('metric-val').value.trim();
+  const comment=document.getElementById('metric-comment').value;
+  const m=S.successMetrics.find(m=>m.id===id);
+  if(!m||!val){toast('Enter a value','warn');return;}
+  const old=m.current;m.current=val;
+  const numMatch=val.match(/[\d.]+/);
+  if(numMatch)m.currentRaw=parseFloat(numMatch[0]);
+  addLog(S.user,'status','updated metric',`${m.name} → ${val}${comment?' ('+comment+')':''}`,old,val,'🎯');
+  renderSuccess();closeModal('modal-metric');toast(`Metric updated: ${m.name} = ${val}`,'success');
+}
 
-/* ══════════════════════════════════════════════
-   INIT
-══════════════════════════════════════════════ */
-function init(){
-  renderUserPill();
-  updateBadges();
-  renderOverview();
-  // Highlight active filter button
-  document.querySelectorAll('#log-filter-bar .btn').forEach(b=>{
-    b.style.cssText='';
+/* ═══════════════════════════════════════════════
+   MODAL HELPERS
+═══════════════════════════════════════════════ */
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-ov').forEach(ov=>ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('open');}));
+
+/* ═══════════════════════════════════════════════
+   TIMEZONE + CLOCK
+═══════════════════════════════════════════════ */
+const TZ_LABELS={
+  'local':'Local',
+  'America/New_York':'EST',
+  'America/Los_Angeles':'PST',
+  'Europe/London':'GMT',
+  'Europe/Paris':'CET',
+  'Asia/Singapore':'SGT',
+  'Asia/Tokyo':'JST',
+  'Australia/Sydney':'AEDT'
+};
+
+function setTz(tz){S.tz=tz;tick();}
+
+function tick(){
+  const el=document.getElementById('clock');
+  if(!el)return;
+  const lbl=TZ_LABELS[S.tz]||'';
+  try{
+    const opts={hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false};
+    let str;
+    if(S.tz==='local'){
+      str=new Date().toLocaleTimeString('en-GB',opts);
+    } else {
+      str=new Date().toLocaleTimeString('en-GB',{...opts,timeZone:S.tz});
+    }
+    el.textContent=lbl+' '+str;
+  } catch(e){
+    el.textContent=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  }
+}
+
+function now(){
+  try{
+    if(S.tz==='local') return new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    return new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:S.tz})+' '+TZ_LABELS[S.tz];
+  } catch(e){
+    return new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   PSU EDITOR (inline-editable project status)
+═══════════════════════════════════════════════ */
+let psuEditing=false;
+
+function renderPsuView(){
+  const d=S.psuData;
+  document.getElementById('home-psupdate').innerHTML=`
+    <div style="font-size:10px;color:var(--muted);font-family:var(--font-m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Progress This Period</div>
+    <ul style="padding-left:16px;line-height:1.9;margin-bottom:8px;">${d.progress.map(b=>`<li>${b}</li>`).join('')}</ul>
+    <div style="font-size:10px;color:var(--muted);font-family:var(--font-m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Upcoming / Next Steps</div>
+    <ul style="padding-left:16px;line-height:1.9;margin-bottom:8px;">${d.next.map(b=>`<li>${b}</li>`).join('')}</ul>
+    <div style="font-size:10px;color:var(--muted);font-family:var(--font-m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Status Commentary</div>
+    <div style="color:var(--amber);font-size:11px;padding:6px 10px;background:var(--amber-dim);border-left:2px solid var(--amber);border-radius:0 4px 4px 0;">${d.reason}</div>`;
+}
+
+function renderPsuEditor(){
+  const d=S.psuData;
+  ['progress','next'].forEach(grp=>{
+    const container=document.getElementById('psu-bullets-'+grp);
+    if(!container)return;
+    const arr=grp==='progress'?d.progress:d.next;
+    container.innerHTML=arr.map((b,i)=>`
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
+        <span style="color:var(--muted);font-size:12px;flex-shrink:0;">•</span>
+        <input class="fi" style="margin-bottom:0;flex:1;" value="${b.replace(/"/g,'&quot;')}"
+          oninput="updatePsuBullet('${grp}',${i},this.value)">
+        <button class="btn sm ghost" onclick="removePsuBullet('${grp}',${i})" style="flex-shrink:0;padding:3px 7px;color:var(--red);">✕</button>
+      </div>`).join('');
   });
+  document.getElementById('psu-reason').value=d.reason;
+}
+
+function togglePsuEdit(){
+  if(!ROLES[S.role].canStatus){toast('Only PM can edit status update','warn');return;}
+  psuEditing=true;
+  document.getElementById('home-psupdate').style.display='none';
+  document.getElementById('psu-editor').style.display='block';
+  document.getElementById('psu-edit-btn').style.display='none';
+  document.getElementById('psu-save-btn').style.display='';
+  document.getElementById('psu-cancel-btn').style.display='';
+  renderPsuEditor();
+}
+
+function cancelPsuEdit(){
+  psuEditing=false;
+  document.getElementById('home-psupdate').style.display='';
+  document.getElementById('psu-editor').style.display='none';
+  document.getElementById('psu-edit-btn').style.display=ROLES[S.role].canStatus?'':'none';
+  document.getElementById('psu-save-btn').style.display='none';
+  document.getElementById('psu-cancel-btn').style.display='none';
+}
+
+function savePsuEdit(){
+  S.psuData.reason=document.getElementById('psu-reason').value;
+  addLog(S.user,'status','updated project status narrative','Project Status Update',null,null,'📋');
+  cancelPsuEdit();
+  renderPsuView();
+  toast('Status update saved','success');
+}
+
+function updatePsuBullet(grp,i,val){
+  const arr=grp==='progress'?S.psuData.progress:S.psuData.next;
+  arr[i]=val;
+}
+
+function addPsuBullet(grp){
+  const arr=grp==='progress'?S.psuData.progress:S.psuData.next;
+  arr.push('New item — click to edit');
+  renderPsuEditor();
+}
+
+function removePsuBullet(grp,i){
+  const arr=grp==='progress'?S.psuData.progress:S.psuData.next;
+  arr.splice(i,1);
+  renderPsuEditor();
+}
+
+function init(){
+  renderUserPill();updateBadges();renderHome();
+  tick();setInterval(tick,1000);
 }
 init();
 </script>
